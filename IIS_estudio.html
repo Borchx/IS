@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>IIS — Guía de estudio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f11;
+  --surface: #16181c;
+  --surface2: #1e2026;
+  --border: #2a2d35;
+  --accent: #c8f04a;
+  --accent2: #4af0c8;
+  --accent3: #f04a8c;
+  --text: #e8e9eb;
+  --muted: #6b7080;
+  --purple: #a78bfa;
+  --amber: #fbbf24;
+  --coral: #fb7185;
+  --teal: #34d399;
+  --blue: #60a5fa;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(14,15,17,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1rem;
+  display: flex; align-items: center; gap: .5rem;
+  height: 52px; overflow-x: auto; white-space: nowrap;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 600; font-size: 15px;
+  color: var(--accent);
+  margin-right: .75rem; flex-shrink: 0;
+}
+.nav-btn {
+  flex-shrink: 0;
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); border-radius: 20px;
+  padding: 5px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: all .2s;
+}
+.nav-btn.active, .nav-btn:hover {
+  border-color: var(--accent); color: var(--accent);
+  background: rgba(200,240,74,.07);
+}
+
+/* ── PÁGINAS ── */
+.page { display: none; padding: 1.25rem 1rem 5rem; max-width: 680px; margin: 0 auto; }
+.page.active { display: block; animation: fadeUp .3s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── TÍTULOS ── */
+.page-title {
+  font-family: 'Fraunces', serif;
+  font-size: 28px; font-weight: 600; line-height: 1.15;
+  margin-bottom: .25rem;
+}
+.page-sub { font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.1rem 1.25rem;
+  margin-bottom: .875rem;
+}
+.card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 16px; font-weight: 600;
+  margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-green { background: var(--accent); }
+.dot-blue  { background: var(--blue); }
+.dot-purple { background: var(--purple); }
+.dot-amber { background: var(--amber); }
+.dot-coral { background: var(--coral); }
+.dot-teal  { background: var(--teal); }
+
+.card p, .card li { font-size: 13.5px; line-height: 1.7; color: #c5c8d0; }
+.card ul { padding-left: 1.1rem; }
+.card li { margin-bottom: .2rem; }
+
+/* ── TAGS ── */
+.tag {
+  display: inline-block; font-size: 11px; font-weight: 500;
+  padding: 2px 10px; border-radius: 20px; margin: 2px;
+}
+.tag-hot { background: rgba(251,65,132,.15); color: var(--coral); border: 1px solid rgba(251,65,132,.3); }
+.tag-med { background: rgba(251,191,36,.12); color: var(--amber); border: 1px solid rgba(251,191,36,.25); }
+.tag-ok  { background: rgba(52,211,153,.12); color: var(--teal); border: 1px solid rgba(52,211,153,.25); }
+
+/* ── CODE BLOCKS ── */
+.code {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px; line-height: 1.75;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: .875rem 1rem;
+  margin: .75rem 0; overflow-x: auto;
+  color: #b8fca8; white-space: pre;
+}
+.code .cm { color: var(--muted); font-style: italic; }
+.code .ck { color: var(--amber); }
+.code .cv { color: var(--blue); }
+.code .cn { color: var(--coral); }
+.code .cs { color: var(--accent2); }
+
+/* ── TABLA ── */
+.tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: .75rem 0; }
+.tbl th { text-align: left; color: var(--muted); font-weight: 500; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .05em;
+  padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.tbl td { padding: 8px 8px; border-bottom: 1px solid rgba(42,45,53,.6); vertical-align: top; }
+.tbl tr:last-child td { border-bottom: none; }
+.stars { color: var(--amber); }
+
+/* ── ACCORDION ── */
+.acc-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: .625rem; overflow: hidden; }
+.acc-head {
+  padding: .9rem 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface); transition: background .15s;
+}
+.acc-head:hover { background: var(--surface2); }
+.acc-head-left { display: flex; align-items: center; gap: .6rem; }
+.acc-label { font-size: 14px; font-weight: 500; }
+.acc-chev { color: var(--muted); font-size: 12px; transition: transform .2s; }
+.acc-chev.open { transform: rotate(180deg); }
+.acc-body { display: none; padding: 1rem 1.1rem; border-top: 1px solid var(--border); background: var(--surface2); }
+.acc-body.open { display: block; }
+
+/* ── DIAGRAMA SVG ── */
+.diagram-wrap {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: .75rem; margin: .75rem 0;
+  overflow-x: auto;
+}
+.diagram-wrap svg { min-width: 300px; width: 100%; height: auto; }
+
+/* ── HIGHLIGHT BOX ── */
+.hbox {
+  border-radius: 8px; padding: .75rem 1rem;
+  margin: .75rem 0; font-size: 13px; line-height: 1.6;
+}
+.hbox-green { background: rgba(200,240,74,.07); border-left: 3px solid var(--accent); color: #d0e8a0; }
+.hbox-blue  { background: rgba(96,165,250,.07); border-left: 3px solid var(--blue);  color: #a0c4f8; }
+.hbox-amber { background: rgba(251,191,36,.07); border-left: 3px solid var(--amber); color: #f5d98a; }
+.hbox-coral { background: rgba(251,65,132,.07); border-left: 3px solid var(--coral); color: #f8a0b8; }
+
+/* ── GRID 2 cols ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; margin: .75rem 0; }
+.mini-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: .75rem;
+}
+.mini-card h4 { font-size: 13px; font-weight: 500; margin-bottom: .3rem; color: var(--text); }
+.mini-card p  { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+/* ── BADGE RELACIÓN ── */
+.rel { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: .5rem; }
+.rel-sym {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 5px; padding: 2px 7px; white-space: nowrap; flex-shrink: 0;
+  color: var(--accent2); margin-top: 1px;
+}
+.rel-desc { font-size: 13px; line-height: 1.5; color: #c5c8d0; }
+.rel-desc strong { color: var(--text); font-weight: 500; }
+
+/* ── STEPS ── */
+.steps { counter-reset: step; }
+.step { display: flex; gap: .75rem; margin-bottom: .75rem; align-items: flex-start; }
+.step-n {
+  counter-increment: step;
+  min-width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(200,240,74,.12); border: 1px solid var(--accent);
+  color: var(--accent); font-size: 12px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-n::before { content: counter(step); }
+.step-txt { font-size: 13.5px; line-height: 1.6; color: #c5c8d0; padding-top: 2px; }
+
+/* ── QUIZ ── */
+.quiz-q { font-size: 14px; font-weight: 500; margin-bottom: .75rem; line-height: 1.5; }
+.quiz-opts { display: flex; flex-direction: column; gap: .4rem; margin-bottom: .75rem; }
+.quiz-opt {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: .65rem .9rem;
+  font-size: 13px; cursor: pointer; transition: all .15s;
+  text-align: left; color: var(--text); font-family: 'DM Sans', sans-serif;
+}
+.quiz-opt:hover:not(:disabled) { border-color: var(--accent); background: rgba(200,240,74,.06); }
+.quiz-opt.correct { border-color: var(--accent); background: rgba(200,240,74,.1); color: var(--accent); }
+.quiz-opt.wrong   { border-color: var(--coral);  background: rgba(251,65,132,.08); color: var(--coral); }
+.quiz-opt:disabled { cursor: default; }
+.quiz-feedback { font-size: 13px; line-height: 1.6; padding: .75rem 1rem; border-radius: 8px; display: none; }
+.quiz-feedback.show { display: block; }
+.quiz-feedback.ok  { background: rgba(200,240,74,.08); color: #c8f04a; border: 1px solid rgba(200,240,74,.2); }
+.quiz-feedback.ko  { background: rgba(251,65,132,.08); color: #fb7185; border: 1px solid rgba(251,65,132,.2); }
+.quiz-next { margin-top: .75rem; background: none; border: 1px solid var(--border);
+  color: var(--muted); border-radius: 8px; padding: .6rem 1.2rem;
+  font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; display: none; }
+.quiz-next.show { display: inline-block; }
+.quiz-next:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* ── PROGRESS ── */
+.progress-bar {
+  height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 1rem;
+}
+.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .3s; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(14,15,17,.95); backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-around;
+  padding: .5rem 0 calc(.5rem + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+.bnav-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 10px; font-family: 'DM Sans', sans-serif;
+  padding: .3rem .5rem; transition: color .2s; min-width: 56px;
+}
+.bnav-btn svg { width: 20px; height: 20px; }
+.bnav-btn.active { color: var(--accent); }
+
+/* ── FORMULA/RELATION TABLE ── */
+.rel-table { width: 100%; font-size: 12.5px; }
+.rel-row { display: flex; align-items: flex-start; gap: .6rem; padding: .55rem 0; border-bottom: 1px solid rgba(42,45,53,.5); }
+.rel-row:last-child { border-bottom: none; }
+.rel-mono { font-family: 'DM Mono', monospace; color: var(--accent2); min-width: 100px; flex-shrink: 0; font-size: 12px; padding-top: 1px; }
+.rel-exp { color: #c5c8d0; line-height: 1.5; }
+
+/* scroll helper */
+.scroll-x { overflow-x: auto; }
+
+/* section divider */
+.divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="nav">
+  <span class="nav-logo">IIS ·</span>
+  <button class="nav-btn active" onclick="goto('home')">Inicio</button>
+  <button class="nav-btn" onclick="goto('teoria')">Teoría</button>
+  <button class="nav-btn" onclick="goto('uml')">UML</button>
+  <button class="nav-btn" onclick="goto('er')">E-R</button>
+  <button class="nav-btn" onclick="goto('dfd')">DFD</button>
+  <button class="nav-btn" onclick="goto('examenes')">Exámenes</button>
+  <button class="nav-btn" onclick="goto('quiz')">Test</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HOME
+════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <p class="page-sub" style="margin-top:1rem">Introducción a la Ingeniería del Software · 2º GII</p>
+  <h1 class="page-title">Guía para el<br><em style="color:var(--accent);font-style:normal">jueves</em> ✓</h1>
+  <p class="page-sub">Teoría + ejercicios resueltos de exámenes reales 2012–2015</p>
+
+  <div class="card" style="border-color:rgba(200,240,74,.3)">
+    <div class="card-title"><span class="dot dot-green"></span>Lo más importante</div>
+    <table class="tbl">
+      <tr><th>Tema</th><th>Peso</th><th>Frecuencia</th></tr>
+      <tr><td>Diagrama clases UML</td><td>5 pts</td><td><span class="stars">★★★★★</span></td></tr>
+      <tr><td>Modelo E-R + tablas</td><td>5 pts</td><td><span class="stars">★★★★★</span></td></tr>
+      <tr><td>DFD de contexto</td><td>5 pts</td><td><span class="stars">★★★★</span></td></tr>
+      <tr><td>Ciclos de vida</td><td>2.5 pts</td><td><span class="stars">★★★★</span></td></tr>
+      <tr><td>Acoplamiento/cohesión</td><td>2.5 pts</td><td><span class="stars">★★★</span></td></tr>
+      <tr><td>Pruebas software</td><td>2.5 pts</td><td><span class="stars">★★★</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-amber"></span>Estructura del examen</div>
+    <p>Todas las preguntas son <strong>eliminatorias</strong> (nota mínima en cada una).</p>
+    <div class="grid2" style="margin-top:.75rem">
+      <div class="mini-card">
+        <h4>2 × Teóricas</h4>
+        <p>2,5 pts cada una. Mínimo 1 punto. Cortas y conceptuales.</p>
+      </div>
+      <div class="mini-card">
+        <h4>1 × Práctica</h4>
+        <p>5 pts. Mínimo 2 puntos. Diagrama UML, E-R o DFD.</p>
+      </div>
+    </div>
+    <div class="hbox hbox-amber" style="margin-top:.5rem">
+      💡 Se permite el libro de texto pero NO apuntes ni fotocopias.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-teal"></span>Plan para el jueves</div>
+    <div class="steps">
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Hoy:</strong> Repasa ciclos de vida + acoplamiento/cohesión (pestaña Teoría)</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Mañana mañana:</strong> Practica E-R con tablas (pestaña E-R)</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Mañana tarde:</strong> Practica diagramas de clases UML (pestaña UML)</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Miércoles:</strong> DFD + simula un examen con los ejercicios reales (pestaña Exámenes)</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Jueves antes:</strong> Repaso rápido con el Test (pestaña Test)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-coral"></span>Mitos del software (todos FALSOS)</div>
+    <ul>
+      <li>El hardware es más importante → <strong style="color:var(--coral)">Falso</strong></li>
+      <li>El software es fácil de desarrollar → <strong style="color:var(--coral)">Falso</strong></li>
+      <li>Software = solo programas ejecutables → <strong style="color:var(--coral)">Falso</strong></li>
+      <li>Desarrollar = solo programar → <strong style="color:var(--coral)">Falso</strong></li>
+      <li>Es normal que el software tenga errores → <strong style="color:var(--coral)">Falso</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TEORÍA
+════════════════════════════════════════════ -->
+<div class="page" id="page-teoria">
+  <h1 class="page-title">Teoría</h1>
+  <p class="page-sub">Conceptos clave para las preguntas cortas (2,5 pts)</p>
+
+  <!-- CICLOS DE VIDA -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-green"></span>
+        <span class="acc-label">Ciclos de vida del software</span>
+        <span class="tag tag-hot">Muy preguntado</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="grid2">
+        <div class="mini-card">
+          <h4 style="color:var(--accent)">Cascada</h4>
+          <p>Fases secuenciales. Debes terminar cada fase antes de empezar la siguiente. Documentos entre fases.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--blue)">Ciclo en V</h4>
+          <p>Como cascada pero jerarquizado. Izquierda: descomposición. Derecha: integración.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--amber)">Prototipo rápido</h4>
+          <p>"Usar y tirar". Solo para ganar experiencia en análisis/diseño.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--amber)">Prototipo evolutivo</h4>
+          <p>Iterativo sobre cascada. Cada iteración da una versión más completa.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--purple)">Espiral</h4>
+          <p>4 cuadrantes: Planificación → Riesgo → Ingeniería → Evaluación. Guiado por riesgo.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--teal)">XP (Extreme Programming)</h4>
+          <p>4 valores: Sencillez, Comunicación, Retroalimentación, Valentía. Ciclos cortos.</p>
+        </div>
+      </div>
+      <div class="hbox hbox-blue" style="margin-top:.5rem">
+        <strong>Cascada vs V:</strong> el modelo en V añade jerarquía y diferencia verificación (¿cumple especificación?) de validación (¿cumple necesidades del usuario?).
+      </div>
+    </div>
+  </div>
+
+  <!-- ACOPLAMIENTO -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-amber"></span>
+        <span class="acc-label">Acoplamiento y cohesión</span>
+        <span class="tag tag-hot">Pregunta frecuente</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:.75rem">Objetivo: acoplamiento <strong style="color:var(--accent)">débil</strong> + cohesión <strong style="color:var(--accent)">alta</strong></p>
+      <div class="code"><span class="ck">ACOPLAMIENTO</span> <span class="cm">(de peor a mejor)</span>
+FUERTE  Por Contenido → por Común → Externo
+MODERADO  Por Control → por Etiqueta
+DÉBIL   De Datos → Sin acoplamiento  <span class="cm">← objetivo</span></div>
+      <div class="code"><span class="ck">COHESIÓN</span> <span class="cm">(de peor a mejor)</span>
+BAJA    Coincidental → Lógica → Temporal
+MEDIA   De Comunicación → Secuencial
+ALTA    Funcional → Abstraccional  <span class="cm">← objetivo</span></div>
+      <div class="hbox hbox-green">
+        Un módulo bueno hace <strong>una sola cosa bien definida</strong> (alta cohesión) y depende lo mínimo posible de otros módulos (acoplamiento débil).
+      </div>
+    </div>
+  </div>
+
+  <!-- ABSTRACCIÓN/HERENCIA -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-purple"></span>
+        <span class="acc-label">Abstracción, herencia, genericidad</span>
+        <span class="tag tag-med">Pregunta 2013</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="mini-card" style="margin-bottom:.5rem">
+        <h4 style="color:var(--purple)">Abstracción</h4>
+        <p>Identificar elementos significativos ocultando los detalles irrelevantes. Tipos: funcional (funciones), tipo abstracto de datos (TAD), máquina abstracta.</p>
+      </div>
+      <div class="mini-card" style="margin-bottom:.5rem">
+        <h4 style="color:var(--teal)">Herencia</h4>
+        <p>Los hijos heredan estructura y operaciones del padre y pueden ampliarlas. Permite reutilizar software. Ejemplo: Vehículo → Coche → Coche eléctrico.</p>
+      </div>
+      <div class="mini-card" style="margin-bottom:.5rem">
+        <h4 style="color:var(--amber)">Genericidad</h4>
+        <p>Diseñar un elemento genérico válido para varios tipos. En C++: plantillas (templates). Ejemplo: Lista&lt;T&gt; funciona para cualquier tipo T.</p>
+      </div>
+      <div class="hbox hbox-coral">
+        <strong>Diferencia clave Abstracción vs Herencia:</strong> La abstracción define QUÉ hace un módulo ocultando el CÓMO. La herencia permite reutilizar e extender lo ya definido.
+      </div>
+    </div>
+  </div>
+
+  <!-- PRUEBAS -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-coral"></span>
+        <span class="acc-label">Pruebas de software</span>
+        <span class="tag tag-med">Examen junio 2014</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="grid2">
+        <div class="mini-card">
+          <h4 style="color:var(--blue)">Caja negra</h4>
+          <p>Ignora estructura interna. Solo comprueba entrada-salida. Puede usarla el cliente. Métodos: clases de equivalencia, valores límite.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--amber)">Caja transparente</h4>
+          <p>Conoce estructura interna. Cubre todos los caminos. Métodos: cubrimiento lógico, pruebas de bucles.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--teal)">Integración Big Bang</h4>
+          <p>Todo de golpe. Solo válido para sistemas pequeños.</p>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--teal)">Descendente / Ascendente</h4>
+          <p>Descendente: parte del módulo principal + sustitutos. Ascendente: parte de módulos hoja + gestores.</p>
+        </div>
+      </div>
+      <div class="hbox hbox-amber">
+        Una prueba tiene <strong>éxito</strong> si descubre un error. Si no aparecen errores, NO se garantiza la calidad: pueden existir errores que las pruebas no han cubierto.
+      </div>
+    </div>
+  </div>
+
+  <!-- CALIDAD -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-blue"></span>
+        <span class="acc-label">Calidad, SRD y documentos</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:13px;color:#c5c8d0;margin-bottom:.75rem">Factores de calidad McCall:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.75rem">
+        <span class="tag tag-ok">Corrección</span><span class="tag tag-ok">Fiabilidad</span><span class="tag tag-ok">Seguridad</span><span class="tag tag-ok">Mantenibilidad</span><span class="tag tag-ok">Flexibilidad</span><span class="tag tag-ok">Reusabilidad</span><span class="tag tag-ok">Transportabilidad</span><span class="tag tag-ok">Interoperabilidad</span><span class="tag tag-ok">Eficiencia</span>
+      </div>
+      <div class="divider"></div>
+      <p style="font-size:13px;color:#c5c8d0;margin-bottom:.5rem">Documentos del ciclo de vida:</p>
+      <div class="rel-table">
+        <div class="rel-row"><div class="rel-mono">SRD</div><div class="rel-exp">Documento de Requisitos. Producto del análisis. El QUÉ debe hacer el sistema.</div></div>
+        <div class="rel-row"><div class="rel-mono">SDD / ADD</div><div class="rel-exp">Documento de Diseño. El CÓMO lo hace. Arquitectónico + Detallado.</div></div>
+        <div class="rel-row"><div class="rel-mono">Código fuente</div><div class="rel-exp">Producto de la codificación. Comentado.</div></div>
+        <div class="rel-row"><div class="rel-mono">SQAP</div><div class="rel-exp">Plan de Garantía de Calidad. Cubre organización, ciclo de vida, revisiones, pruebas, mantenimiento.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANTENIMIENTO -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-teal"></span>
+        <span class="acc-label">Mantenimiento y tipos</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="grid2">
+        <div class="mini-card"><h4 style="color:var(--coral)">Correctivo</h4><p>Corrige errores no detectados durante el desarrollo.</p></div>
+        <div class="mini-card"><h4 style="color:var(--amber)">Adaptativo</h4><p>Adapta el software a cambios en el entorno hardware/software.</p></div>
+        <div class="mini-card"><h4 style="color:var(--teal)">Perfectivo</h4><p>Mejora el producto para mantener la competitividad.</p></div>
+        <div class="mini-card"><h4 style="color:var(--purple)">Reingeniería</h4><p>Obtiene documentación a partir del código existente para reorganizarlo.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UML
+════════════════════════════════════════════ -->
+<div class="page" id="page-uml">
+  <h1 class="page-title">UML</h1>
+  <p class="page-sub">Diagramas de clases, estados y casos de uso</p>
+
+  <!-- ESTRUCTURA CLASE -->
+  <div class="card">
+    <div class="card-title"><span class="dot dot-purple"></span>Estructura de una clase</div>
+    <div class="code"><span class="cn">┌─────────────────────┐</span>
+<span class="cn">│    NombreClase      │</span>  <span class="cm">← mayúscula, sustantivo</span>
+<span class="cn">├─────────────────────┤</span>
+<span class="cn">│ -atributo: tipo     │</span>  <span class="cm">← - privado</span>
+<span class="cn">│ +atributo: tipo     │</span>  <span class="cm">← + público</span>
+<span class="cn">│ #atributo: tipo     │</span>  <span class="cm">← # protegido</span>
+<span class="cn">├─────────────────────┤</span>
+<span class="cn">│ +operacion(): tipo  │</span>  <span class="cm">← métodos</span>
+<span class="cn">└─────────────────────┘</span></div>
+  </div>
+
+  <!-- RELACIONES -->
+  <div class="card">
+    <div class="card-title"><span class="dot dot-amber"></span>Las 5 relaciones esenciales</div>
+    <div class="rel-table">
+      <div class="rel-row">
+        <div class="rel-mono">——▷</div>
+        <div class="rel-exp"><strong>Herencia:</strong> "B es un tipo de A". Flecha hueca. Ej: Coche hereda de Vehículo.</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">◆———</div>
+        <div class="rel-exp"><strong>Composición:</strong> B no existe sin A. Rombo relleno en A. Ej: Edificio en Propiedad.</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">◇———</div>
+        <div class="rel-exp"><strong>Agregación:</strong> A agrupa B, pero B puede existir solo. Rombo vacío en A. Ej: Propiedad en Grupo.</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">———</div>
+        <div class="rel-exp"><strong>Asociación:</strong> A conoce o usa B. Línea continua con multiplicidad en ambos extremos.</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">- - -></div>
+        <div class="rel-exp"><strong>Dependencia:</strong> A usa B puntualmente. Línea discontinua con flecha.</div>
+      </div>
+    </div>
+    <div class="hbox hbox-blue">
+      <strong>Multiplicidades:</strong> 1 · 0..1 · 1..* · 0..* · N..M — ponlas SIEMPRE en los dos extremos de una asociación/composición/agregación.
+    </div>
+  </div>
+
+  <!-- MÉTODO EXAMEN -->
+  <div class="card">
+    <div class="card-title"><span class="dot dot-green"></span>Método para el examen (4 pasos)</div>
+    <div class="steps">
+      <div class="step"><div class="step-n"></div><div class="step-txt">Subraya <strong>sustantivos</strong> → candidatos a clase</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt">Busca <strong>"es un tipo de"</strong> → herencia (▷)</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt">Busca <strong>"tiene / contiene"</strong> → ¿puede existir sin el padre? No=◆, Sí=◇</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt">Pon <strong>multiplicidades</strong> en todos los extremos</div></div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO MONOPOLY -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-amber"></span>
+        <span class="acc-label">Ejercicio resuelto: Monopoly</span>
+        <span class="tag tag-hot">Examen sept. 2014</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:.75rem">40 casillas, 28 propiedades en grupos, hasta 6 jugadores, dinero, casas y hoteles.</p>
+      <div class="code"><span class="ck">Clases identificadas</span> <span class="cm">(sustantivos subrayados):</span>
+Juego, Tablero, Casilla, Jugador,
+Propiedad, Grupo, Edificio
+
+<span class="ck">Relaciones:</span>
+Juego ◆──1──▶ 1 Tablero       <span class="cm">(composición)</span>
+Juego ────1──▶ 2..6 Jugador   <span class="cm">(asociación)</span>
+Tablero ◆──1──▶ 40 Casilla    <span class="cm">(composición)</span>
+Casilla ──▷ Propiedad         <span class="cm">(herencia)</span>
+Propiedad ◆──1──▶ 0..4 Edificio <span class="cm">(composición)</span>
+Propiedad ◇──1..*──▶ 1 Grupo  <span class="cm">(agregación)</span>
+Jugador - - -> 0..* Propiedad <span class="cm">(dependencia: posee)</span></div>
+      <div class="hbox hbox-amber">
+        <strong>¿Por qué Casilla → Propiedad es herencia?</strong> El enunciado dice "las casillas pueden ser propiedades". Propiedad <em>es un tipo de</em> Casilla.
+      </div>
+      <div class="hbox hbox-coral">
+        <strong>¿Por qué Propiedad → Edificio es composición y no agregación?</strong> Los edificios no existen fuera de una propiedad. Si se borra la propiedad, desaparecen sus edificios.
+      </div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO PARTÍCULAS -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-purple"></span>
+        <span class="acc-label">Ejercicio resuelto: Partículas elementales</span>
+        <span class="tag tag-hot">Examen junio 2012</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:.75rem">Leptones (sin interacción fuerte, spin 1/2·h), Hadrones → Mesones (spin entero) y Bariones (spin semientero).</p>
+      <div class="code"><span class="ck">Clases y jerarquía:</span>
+
+Particula <span class="cm">(abstracta)</span>
+  -spin: double
+  +interaccionFuerte(): bool
+
+  ├── Lepton <span class="cm">(hereda de Particula)</span>
+  │     spin = 1/2·h, interacFuerte = false
+  │     Ej: electrón, neutrino
+  │
+  └── Hadron <span class="cm">(hereda de Particula)</span>
+        interacFuerte = true
+        Ej: protón, pión
+        │
+        ├── Meson <span class="cm">(hereda de Hadron)</span>
+        │     spin: entero {0,1,2,...}
+        │
+        └── Barion <span class="cm">(hereda de Hadron)</span>
+              spin: semientero {1/2,3/2,...}</div>
+      <div class="hbox hbox-blue">
+        <strong>Clave:</strong> el atributo <em>spin</em> va en Particula porque todas lo tienen. Lo que varía es el <em>valor permitido</em> en cada subclase, no el atributo.
+      </div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO DIVISAS -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-teal"></span>
+        <span class="acc-label">Ejercicio resuelto: App de divisas</span>
+        <span class="tag tag-hot">Examen junio 2014</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:.75rem">App que muestra tipos de cambio de 5 divisas vs una sexta. Usuarios gratis (con publicidad) y de pago.</p>
+      <div class="code"><span class="ck">Clases:</span>
+App, Usuario, UsuarioGratis, UsuarioPago,
+Divisa, BaseDeDivisas, Publicidad
+
+<span class="ck">Relaciones:</span>
+Usuario ──▷ UsuarioGratis     <span class="cm">(herencia)</span>
+Usuario ──▷ UsuarioPago       <span class="cm">(herencia)</span>
+App ◆──1──▶ 1 BaseDeDivisas   <span class="cm">(composición)</span>
+BaseDeDivisas ◆──▶ 80 Divisa  <span class="cm">(composición)</span>
+App ────▶ 1..* Usuario        <span class="cm">(asociación)</span>
+UsuarioGratis ◆──▶ Publicidad <span class="cm">(composición)</span>
+App ────selecciona──▶ 5 Divisa <span class="cm">(asociación)</span></div>
+    </div>
+  </div>
+
+  <!-- DIAGRAMA DE ESTADOS -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-coral"></span>
+        <span class="acc-label">Diagrama de estados UML</span>
+        <span class="tag tag-hot">Casi todos los exámenes</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="code"><span class="ck">Notación:</span>
+● ──▶  Estado inicial (círculo relleno)
+[Estado] ──evento──▶  Transición
+[Estado final]  Punto de terminación: ◉
+
+<span class="ck">Ejemplo: puerta de garaje</span>
+● ──▶ [Cerrada]
+[Cerrada] ──botón──▶ [Abriendo]
+[Abriendo] ──completada──▶ [Abierta]
+[Abierta] ──botón──▶ [Cerrando]
+[Cerrando] ──completada──▶ [Cerrada]
+[Abriendo|Cerrando] ──botón──▶ [Parada]
+[Parada] ──botón──▶ [continúa en sentido contrario]</div>
+      <div class="hbox hbox-green">
+        <strong>Truco:</strong> dibuja primero los estados (sustantivos de estado: Abierta, Cerrada…) y luego los eventos como flechas entre ellos.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     E-R
+════════════════════════════════════════════ -->
+<div class="page" id="page-er">
+  <h1 class="page-title">Modelo E-R</h1>
+  <p class="page-sub">Entidad-Relación + tablas relacionales</p>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-blue"></span>Símbolos del diagrama E-R</div>
+    <div class="code"><span class="cn">[ Entidad ]</span>     Rectángulo → clase de objeto
+<span class="cs">◇ Relación ◇</span>   Rombo → verbo que une entidades
+<span class="cv">(atributo)</span>      Elipse → propiedad de entidad/relación
+<span class="cm">Min:Max</span>         Cardinalidad en cada extremo</div>
+    <div class="hbox hbox-blue">
+      Cardinalidades más comunes: <strong>1:1</strong> · <strong>1:N</strong> · <strong>N:M</strong> (o 0:M, 1:N, 0:N...)
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-amber"></span>Traducción a tablas SQL</div>
+    <div class="rel-table">
+      <div class="rel-row">
+        <div class="rel-mono">1 : 1</div>
+        <div class="rel-exp">Se pueden <strong>fundir</strong> las dos entidades en una sola tabla.</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">1 : N</div>
+        <div class="rel-exp">La clave primaria del lado "1" va como <strong>clave foránea</strong> en la tabla del lado "N".</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">N : M</div>
+        <div class="rel-exp">Se crea una <strong>tabla intermedia</strong> con las claves primarias de ambas entidades.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-teal"></span>Formas normales</div>
+    <div class="rel-table">
+      <div class="rel-row">
+        <div class="rel-mono">1FN</div>
+        <div class="rel-exp">Cada columna tiene un <strong>valor único</strong> (no colecciones ni listas).</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">2FN</div>
+        <div class="rel-exp">En 1FN + todo atributo no clave depende de <strong>TODA</strong> la clave primaria.</div>
+      </div>
+      <div class="rel-row">
+        <div class="rel-mono">3FN</div>
+        <div class="rel-exp">En 2FN + cada columna no clave depende <strong>directamente</strong> de la clave primaria (no de otra no-clave).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DICCIONARIO -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-green"></span>
+        <span class="acc-label">Diccionario de datos</span>
+        <span class="tag tag-med">Pregunta frecuente</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="code"><span class="ck">Notación diccionario de datos:</span>
+A + B      Secuencia (A seguido de B)
+[A | B]    Selección (A o B)
+{A}N       Repetición N veces de A
+(A)        A es opcional
+/texto/    Comentario en lenguaje natural
+=          Separador nombre = descripción
+
+<span class="ck">Ejemplo — datos de un cliente:</span>
+Cliente = nombre + apellidos + (nif)
+        + [email | telefono]
+        + {direccion}1
+        + fechaAlta</div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO COMPRA -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-amber"></span>
+        <span class="acc-label">Ejercicio resuelto: Compra online</span>
+        <span class="tag tag-hot">Examen jun/sept 2015</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:.75rem">Sistema de ventas online: cliente registrado, formulario con datos cliente + pago + productos, guarda orden de compra.</p>
+      <div class="code"><span class="ck">Entidades:</span>
+Cliente, Producto, OrdenDeCompra, FormaDePago
+
+<span class="ck">Relaciones y cardinalidades:</span>
+Cliente  ──1:N──  OrdenDeCompra
+OrdenDeCompra  ──1:N──  LineaDeCompra
+Producto  ──1:N──  LineaDeCompra
+OrdenDeCompra  ──N:1──  FormaDePago
+
+<span class="ck">Tabla generada para relación N:M
+(Orden ↔ Producto via LineaDeCompra):</span>
+LineaDeCompra(<u>idOrden</u>FK, <u>idProducto</u>FK,
+              cantidad, precioUnitario)</div>
+      <div class="hbox hbox-green">
+        <strong>Diccionario de datos — OrdenDeCompra:</strong><br>
+        OrdenDeCompra = idOrden + idCliente + fechaCompra + listaProductos + formaPago<br>
+        listaProductos = {idProducto + cantidad}1..*
+      </div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO CLÍNICA DENTAL -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-coral"></span>
+        <span class="acc-label">Ejercicio resuelto: Clínica dental</span>
+        <span class="tag tag-hot">Examen sept. 2015</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:.75rem">Pacientes, proveedores, doctores, auxiliares, tratamientos y pagos.</p>
+      <div class="code"><span class="ck">Entidades principales:</span>
+Paciente, Doctor, Auxiliar, Proveedor,
+Tratamiento, Pago, Cita
+
+<span class="ck">Relaciones clave:</span>
+Paciente  ──1:N──  Cita
+Doctor    ──1:N──  Cita
+Cita      ──1:N──  Tratamiento
+Tratamiento ──N:M── Proveedor  <span class="cm">(materiales)</span>
+Paciente  ──1:N──  Pago
+
+<span class="ck">Tablas para relación N:M
+Tratamiento ↔ Proveedor:</span>
+Suministro(<u>idTratamiento</u>FK, <u>idProveedor</u>FK,
+           material, cantidad)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DFD
+════════════════════════════════════════════ -->
+<div class="page" id="page-dfd">
+  <h1 class="page-title">DFD</h1>
+  <p class="page-sub">Diagramas de flujo de datos</p>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-blue"></span>Símbolos del DFD</div>
+    <div class="code"><span class="cs">→ flecha</span>         Flujo de datos (con nombre encima)
+<span class="ck">( burbuja )</span>      Proceso/transformación de datos
+<span class="cn">[ Entidad ]</span>      Entidad externa (produce o consume)
+<span class="cv">═══════════</span>      Almacén de datos</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot dot-amber"></span>Jerarquía de niveles</div>
+    <div class="steps">
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Nivel 0 — Diagrama de contexto:</strong> el sistema completo como UNA sola burbuja con todas las entidades externas y flujos de entrada/salida.</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Nivel 1 — DFD 0:</strong> explota la burbuja del nivel 0 en subprocesos. Los flujos deben coincidir exactamente con los del nivel 0.</div></div>
+      <div class="step"><div class="step-n"></div><div class="step-txt"><strong>Niveles 2, 3…:</strong> cada burbuja puede explotarse. Numeración: DFD 1.1, 1.2, 2.1…</div></div>
+    </div>
+    <div class="hbox hbox-coral">
+      <strong>Regla de balanceo:</strong> al explotar un proceso, los flujos que entran/salen del DFD resultante DEBEN ser exactamente los mismos que tenía el proceso antes de explotar.
+    </div>
+  </div>
+
+  <!-- EJERCICIO ATERRIZAJE -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-teal"></span>
+        <span class="acc-label">Ejercicio resuelto: Control aterrizaje</span>
+        <span class="tag tag-hot">Examen jun. 2012</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:.75rem">Sistema de asignación automática de orden de aterrizaje. Entradas: radar, plan de vuelos, avisos emergencia, parte meteorológico. Salida: señal radio al avión. Modo manual con controlador.</p>
+      <div class="code"><span class="ck">NIVEL 0 — Diagrama de contexto:</span>
+
+Entidades externas:
+  [Radar] ──distancia──▶ ( Sistema ) ──señal radio──▶ [Avión]
+  [PlanVuelos] ──hora llegada──▶ ( Sistema )
+  [Piloto] ──aviso emergencia──▶ ( Sistema )
+  [Meteorología] ──parte──▶ ( Sistema )
+  [Controlador] ──contraseña + orden──▶ ( Sistema )
+                         ◀──info pantalla── ( Sistema )
+
+<span class="ck">NIVEL 1 — subprocesos:</span>
+
+( Calcular prioridad ) ← distancia, hora, emergencia
+( Gestionar manual ) ← contraseña, orden controlador
+( Emitir señal ) ← orden calculada
+═ Historial vuelos ═ ← guarda intentos</div>
+    </div>
+  </div>
+
+  <!-- EJERCICIO CONTROL ACCESO -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-purple"></span>
+        <span class="acc-label">Ejercicio resuelto: Control de acceso con tarjeta</span>
+        <span class="tag tag-med">Ejemplo del libro</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="code"><span class="ck">NIVEL 0:</span>
+[Lector] ──DatosTarjeta──▶ (Control acceso) ──Mensajes──▶ [Pantalla]
+[Teclado] ──Clave──▶ (Control acceso) ──Órdenes──▶ [Puerta]
+
+<span class="ck">NIVEL 1 — burbujas:</span>
+( Comprobar tarjeta ) ← DatosTarjeta
+( Comprobar clave ) ← Clave, TarjetaCorrecta
+( Visualizar mensajes ) ← mensajes de los anteriores
+( Grabar acceso ) ← resultado intento
+═ InformaciónDeAccesos ═</div>
+    </div>
+  </div>
+
+  <!-- PSEUDOCÓDIGO -->
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-green"></span>
+        <span class="acc-label">Pseudocódigo (DTE + descripción funcional)</span>
+        <span class="tag tag-med">Examen jun. 2015</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:.75rem">Módulo de acceso con usuario y contraseña:</p>
+      <div class="code">INICIO
+  MOSTRAR "Introduce usuario y contraseña"
+  LEER usuario, contraseña
+
+  SI usuario_válido(usuario) ENTONCES
+    SI contraseña_correcta(usuario, contraseña) ENTONCES
+      MOSTRAR "Acceso concedido"
+      ABRIR_SESION(usuario)
+    SI-NO
+      intentos ← intentos + 1
+      SI intentos >= 3 ENTONCES
+        BLOQUEAR_CUENTA(usuario)
+      FIN-SI
+      MOSTRAR "Contraseña incorrecta"
+    FIN-SI
+  SI-NO
+    MOSTRAR "Usuario no encontrado"
+  FIN-SI
+
+  SI peticion_recordar_contraseña ENTONCES
+    ENVIAR_EMAIL(usuario, contraseña_temporal)
+  FIN-SI
+FIN</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     EXÁMENES
+════════════════════════════════════════════ -->
+<div class="page" id="page-examenes">
+  <h1 class="page-title">Exámenes</h1>
+  <p class="page-sub">Ejercicios reales resueltos 2012–2015</p>
+
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-coral"></span>
+        <span class="acc-label">Junio 2012 — 1ª semana</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Preguntas: Ciclo en espiral + DFD Space Invaders / Diseño gestión impuestos (modelo objetos)</p>
+      <div class="hbox hbox-blue"><strong>Q1: Ciclo en espiral</strong><br>4 cuadrantes en ejes cartesianos: Planificación (arriba izq) · Análisis de riesgo (arriba der) · Ingeniería (abajo der) · Evaluación (abajo izq). Cada vuelta es un ciclo que produce una versión más completa.</div>
+      <div class="hbox hbox-amber" style="margin-top:.5rem"><strong>Q2: DFD Space Invaders</strong><br>Entidades: [Teclado] · [Pantalla]. Flujos de entrada: PulsaP, PulsaO, PulsaSpace. Procesos: (Mover guardián) · (Mover enemigos) · (Detectar colisión) · (Actualizar pantalla). Almacén: ═ EstadoJuego ═</div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-purple"></span>
+        <span class="acc-label">Junio 2013 — 2ª semana</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Preguntas: Abstracción con ejemplo + diagrama E-R dado → describir sistema / App hotelera (modelo objetos)</p>
+      <div class="hbox hbox-blue"><strong>Q1: Abstracción</strong><br>Abstracción = identificar elementos significativos ocultando detalles irrelevantes. Tipos: funcional (suma(a,b)), TAD (Pila con push/pop), máquina abstracta. Ejemplo: una Pila oculta cómo almacena los datos internamente.</div>
+      <div class="hbox hbox-green" style="margin-top:.5rem"><strong>App hotelera — clases clave:</strong><br>Usuario ──▷ Cliente / Administrador<br>Cliente: nombre, apellidos, nif, domicilio, teléfono<br>Administrador: nombre, apellidos, nif, antigüedad, categoría<br>Administrador ──1:N──▶ Hotel</div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-amber"></span>
+        <span class="acc-label">Sept. 2013</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Preguntas: Herencia vs abstracción + diagrama estados teléfono / Ajedrez (modelo objetos)</p>
+      <div class="hbox hbox-amber"><strong>Q2: Diagrama estados teléfono básico</strong><br>● → [Reposo] ──descuelga──▶ [Tono marcación] ──marca──▶ [Llamando] ──contesta──▶ [En llamada] ──cuelga──▶ [Reposo]<br>También: [Llamando] ──ocupado/no contesta──▶ [Reposo]</div>
+      <div class="hbox hbox-purple" style="margin-top:.5rem;background:rgba(167,139,250,.07);border-left:3px solid var(--purple);color:#c4b5fd"><strong>Ajedrez — clases clave:</strong><br>Tablero ◆──1──▶ 64 Casilla<br>Tablero ◆──▶ 32 Ficha<br>Ficha ──▷ Rey · Reina · Torre · Alfil · Caballo · Peón<br>Jugada ◆──▶ 2..* Movimiento<br>JugadaMaestra ──▷ Jugada</div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-teal"></span>
+        <span class="acc-label">Junio 2014 — 1ª semana</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Preguntas: Tipos pruebas software + requisitos funcionales desde DTE / App divisas (clases UML)</p>
+      <div class="hbox hbox-coral"><strong>Q1: Tipos de pruebas</strong><br>• Unitarias (caja negra / caja transparente)<br>• Integración (Big Bang / Descendente / Ascendente)<br>• Validación (conformidad con requisitos del cliente)<br>• Sistema (recuperación, seguridad, resistencia, rendimiento, despliegue)</div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-green"></span>
+        <span class="acc-label">Sept. 2014</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Preguntas: 5 criterios elección lenguaje + diagrama secuencia UML / Monopoly (clases UML)</p>
+      <div class="hbox hbox-green"><strong>Q1: Criterios elección lenguaje</strong><br>1. Imposición del cliente<br>2. Tipo de aplicación (gestión=COBOL, científico=Fortran, OO=Java/C++)<br>3. Disponibilidad y entorno (compiladores existentes)<br>4. Experiencia previa del equipo<br>5. Reusabilidad y transportabilidad</div>
+    </div>
+  </div>
+
+  <div class="acc-item">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-head-left">
+        <span class="dot dot-blue"></span>
+        <span class="acc-label">Jun/Sept. 2015</span>
+      </div>
+      <span class="acc-chev">▼</span>
+    </div>
+    <div class="acc-body">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Junio: Diagrama casos de uso autobús + estados garaje + clínica dental (E-R). Septiembre: mitos software + diagrama objetos partículas + clínica dental.</p>
+      <div class="hbox hbox-blue"><strong>Casos de uso: Autobús urbano</strong><br>Actores: Conductor, Pasajero, Sistema de pago, Central<br>Casos de uso: Arrancar · Parar · Abrir puertas · Cobrar billete · Emitir tarjeta · Informar incidencia · Cambiar ruta</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     QUIZ
+════════════════════════════════════════════ -->
+<div class="page" id="page-quiz">
+  <h1 class="page-title">Test rápido</h1>
+  <p class="page-sub">Preguntas tipo examen para repasar</p>
+
+  <div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:0%"></div></div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:1rem" id="quiz-counter">Pregunta 1 de 12</p>
+
+  <div class="card" id="quiz-card">
+    <div class="quiz-q" id="quiz-question"></div>
+    <div class="quiz-opts" id="quiz-opts"></div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>
+    <button class="quiz-next" id="quiz-next" onclick="nextQ()">Siguiente →</button>
+  </div>
+
+  <div id="quiz-result" style="display:none">
+    <div class="card" style="border-color:rgba(200,240,74,.3);text-align:center;padding:2rem">
+      <div style="font-family:'Fraunces',serif;font-size:48px;color:var(--accent)" id="result-score"></div>
+      <div style="font-size:14px;color:var(--muted);margin-top:.5rem">respuestas correctas</div>
+      <div id="result-msg" style="font-size:13px;margin-top:1rem;color:#c5c8d0"></div>
+      <button onclick="restartQuiz()" style="margin-top:1.5rem;background:none;border:1px solid var(--accent);color:var(--accent);border-radius:8px;padding:.7rem 1.5rem;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif">Repetir test</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bnav-btn active" id="bnav-home" onclick="goto('home')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+    Inicio
+  </button>
+  <button class="bnav-btn" id="bnav-teoria" onclick="goto('teoria')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+    Teoría
+  </button>
+  <button class="bnav-btn" id="bnav-uml" onclick="goto('uml')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+    UML
+  </button>
+  <button class="bnav-btn" id="bnav-examenes" onclick="goto('examenes')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    Exámenes
+  </button>
+  <button class="bnav-btn" id="bnav-quiz" onclick="goto('quiz')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+    Test
+  </button>
+</nav>
+
+<script>
+// ── NAVEGACIÓN ──
+const pages = ['home','teoria','uml','er','dfd','examenes','quiz'];
+function goto(id) {
+  pages.forEach(p => {
+    document.getElementById('page-'+p).classList.toggle('active', p===id);
+    const nb = document.getElementById('bnav-'+p);
+    if(nb) nb.classList.toggle('active', p===id);
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.toggle('active', pages[i]===id);
+  });
+  window.scrollTo(0,0);
+  if(id==='quiz' && !quizStarted) initQuiz();
+}
+
+// ── ACCORDION ──
+function toggleAcc(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.acc-chev');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+
+// ── QUIZ ──
+const questions = [
+  { q:"¿Qué modelo de ciclo de vida introduce el análisis de riesgo como elemento fundamental?",
+    opts:["Cascada","Ciclo en V","Modelo en espiral","Prototipo evolutivo"], ans:2,
+    exp:"El modelo en espiral se considera un refinamiento del modelo evolutivo que incorpora el análisis de riesgo en cada ciclo (cuadrante de análisis de riesgo)." },
+  { q:"En un diagrama UML, el símbolo ◆─── indica:",
+    opts:["Asociación simple","Agregación (vidas independientes)","Composición (mismo ciclo de vida)","Herencia"], ans:2,
+    exp:"El rombo relleno (◆) indica composición: la parte no puede existir sin el todo. Rombo vacío (◇) = agregación, donde las partes pueden existir de forma independiente." },
+  { q:"¿Cuál es el objetivo del balanceo en los DFD?",
+    opts:["Que todos los procesos tengan el mismo número de flujos","Que los flujos al explotar un proceso coincidan con los del nivel anterior","Que el número de burbujas sea igual en cada nivel","Que no haya almacenes de datos en el nivel 0"], ans:1,
+    exp:"Al explotar (refinar) un proceso, los flujos de entrada y salida del DFD resultante deben ser exactamente los mismos que tenía el proceso antes de explotar. Esto garantiza la consistencia entre niveles." },
+  { q:"Una tabla está en 3ª Forma Normal (3FN) si:",
+    opts:["Cada columna tiene un valor único","Está en 2FN y cada atributo no clave depende directamente de la clave primaria","Está en 1FN y tiene clave primaria","No tiene claves foráneas"], ans:1,
+    exp:"3FN: en 2FN + ningún atributo no clave depende de otro atributo no clave (solo de la clave primaria directamente). Esto elimina las dependencias transitivas." },
+  { q:"En la escala de cohesión, ¿cuál es el nivel más alto (mejor)?",
+    opts:["Cohesión lógica","Cohesión temporal","Cohesión funcional","Cohesión abstraccional"], ans:3,
+    exp:"La escala de cohesión de mejor a peor es: Abstraccional > Funcional > Secuencial > Comunicación > Temporal > Lógica > Coincidental. La abstraccional (TAD u objetos) es la más alta." },
+  { q:"¿Qué tipo de prueba puede aplicar el cliente sin conocer la estructura interna del programa?",
+    opts:["Caja transparente","Caja blanca","Caja negra","Prueba de integración descendente"], ans:2,
+    exp:"Las pruebas de caja negra ignoran completamente la estructura interna. Solo verifican la especificación entrada-salida. El cliente puede aplicarlas sin conocer el código." },
+  { q:"En la traducción de un modelo E-R a tablas, una relación N:M se convierte en:",
+    opts:["Una clave foránea en la tabla del lado N","Fusión de las dos tablas en una","Una tabla intermedia con las claves primarias de ambas entidades","Nada, se elimina"], ans:2,
+    exp:"Las relaciones N:M requieren una tabla intermedia (tabla de unión) que contiene las claves primarias de ambas entidades relacionadas, más los atributos propios de la relación si los hay." },
+  { q:"¿Cuál de estos es un MITO del software (falso)?",
+    opts:["El análisis y diseño son fundamentales","El software incluye documentación y bases de datos","Es natural que el software contenga errores","Las pruebas no garantizan ausencia de errores"], ans:2,
+    exp:"'Es natural que el software contenga errores' es un mito. No es admisible que un producto software siempre contenga errores, aunque desgraciadamente ocurre con frecuencia." },
+  { q:"La verificación en el ciclo de vida en V comprueba que:",
+    opts:["El producto cumple las necesidades del usuario","El producto cumple con sus especificaciones técnicas","Las pruebas cubren todos los caminos del código","Los módulos no tienen acoplamiento fuerte"], ans:1,
+    exp:"Verificación = ¿construimos el producto correctamente? (cumple especificación). Validación = ¿construimos el producto correcto? (cumple necesidades del usuario). El modelo en V los diferencia claramente." },
+  { q:"¿Qué tipo de mantenimiento adapta el software a cambios en el entorno hardware/software?",
+    opts:["Correctivo","Adaptativo","Perfectivo","Preventivo"], ans:1,
+    exp:"Mantenimiento adaptativo: el entorno (SO, hardware, dependencias) evoluciona y hay que adaptar el software. Correctivo = corrige errores. Perfectivo = añade mejoras/funcionalidades." },
+  { q:"En acoplamiento, ¿cuál es el peor tipo (más fuerte)?",
+    opts:["Acoplamiento de datos","Acoplamiento externo","Acoplamiento por contenido","Acoplamiento por etiqueta"], ans:2,
+    exp:"El acoplamiento por contenido es el peor: un módulo puede cambiar los datos locales e incluso el código de otro módulo. Solo posible con ensamblador. Siempre debe evitarse." },
+  { q:"En UML, la relación «include» entre casos de uso significa:",
+    opts:["Un caso de uso extiende opcionalmente a otro","Un caso de uso siempre incluye la ejecución de otro","Un caso de uso hereda de otro","Un actor puede acceder a un caso de uso"], ans:1,
+    exp:"<<include>> significa que el caso de uso base siempre incluye (ejecuta) el caso de uso incluido. Es una dependencia obligatoria. <<extends>> es opcional: solo ocurre bajo ciertas condiciones." }
+];
+
+let qi=0, score=0, quizStarted=false;
+
+function initQuiz(){
+  quizStarted=true; qi=0; score=0;
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-card').style.display='block';
+  showQ();
+}
+
+function showQ(){
+  const total=questions.length;
+  document.getElementById('quiz-progress').style.width=((qi/total)*100)+'%';
+  document.getElementById('quiz-counter').textContent='Pregunta '+(qi+1)+' de '+total;
+  const q=questions[qi];
+  document.getElementById('quiz-question').textContent=q.q;
+  const opts=document.getElementById('quiz-opts');
+  opts.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-opt'; btn.textContent=o;
+    btn.onclick=()=>answer(i);
+    opts.appendChild(btn);
+  });
+  const fb=document.getElementById('quiz-feedback');
+  fb.className='quiz-feedback'; fb.textContent='';
+  document.getElementById('quiz-next').className='quiz-next';
+}
+
+function answer(i){
+  const q=questions[qi];
+  const btns=document.querySelectorAll('.quiz-opt');
+  btns.forEach(b=>b.disabled=true);
+  btns[q.ans].classList.add('correct');
+  const fb=document.getElementById('quiz-feedback');
+  if(i===q.ans){
+    score++;
+    fb.textContent='✓ Correcto. '+q.exp;
+    fb.className='quiz-feedback show ok';
+  } else {
+    btns[i].classList.add('wrong');
+    fb.textContent='✗ Incorrecto. '+q.exp;
+    fb.className='quiz-feedback show ko';
+  }
+  document.getElementById('quiz-next').className='quiz-next show';
+}
+
+function nextQ(){
+  qi++;
+  if(qi>=questions.length){
+    document.getElementById('quiz-card').style.display='none';
+    document.getElementById('quiz-result').style.display='block';
+    document.getElementById('result-score').textContent=score+'/'+questions.length;
+    const pct=score/questions.length;
+    const msg=pct>=0.9?'¡Excelente! Estás listo para el examen.':pct>=0.7?'Muy bien, repasa los fallos y estarás perfecto.':pct>=0.5?'Bien, pero necesitas repasar algunos conceptos más.':'Dedica tiempo a los temas teóricos y vuelve a intentarlo.';
+    document.getElementById('result-msg').textContent=msg;
+    document.getElementById('quiz-progress').style.width='100%';
+  } else { showQ(); }
+}
+
+function restartQuiz(){ initQuiz(); }
+</script>
+</body>
+</html>
