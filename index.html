@@ -4,98 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>IIS — Guía de estudio</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0e0f11;--sur:#16181c;--sur2:#1e2026;--bor:#2a2d35;--acc:#c8f04a;--acc2:#4af0c8;--acc3:#f04a8c;--txt:#e8e9eb;--mut:#6b7080;--pur:#a78bfa;--amb:#fbbf24;--cor:#fb7185;--tea:#34d399;--blu:#60a5fa;}
+:root{--bg:#0e0f11;--sur:#16181c;--sur2:#1e2026;--bor:#2a2d35;--acc:#c8f04a;--acc2:#4af0c8;--txt:#e8e9eb;--mut:#6b7080;--pur:#a78bfa;--amb:#fbbf24;--cor:#fb7185;--tea:#34d399;--blu:#60a5fa;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
-.nav{position:sticky;top:0;z-index:100;background:rgba(14,15,17,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bor);padding:0 1rem;display:flex;align-items:center;gap:.4rem;height:52px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(14,15,17,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--bor);padding:0 .75rem;display:flex;align-items:center;gap:.35rem;height:50px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}
 .nav::-webkit-scrollbar{display:none;}
-.nav-logo{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--acc);margin-right:.5rem;flex-shrink:0;}
-.nb{flex-shrink:0;background:none;border:1px solid var(--bor);color:var(--mut);border-radius:20px;padding:5px 13px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;}
+.nlogo{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--acc);margin-right:.4rem;flex-shrink:0;}
+.nb{flex-shrink:0;background:none;border:1px solid var(--bor);color:var(--mut);border-radius:20px;padding:4px 11px;font-size:11.5px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;}
 .nb.active,.nb:hover{border-color:var(--acc);color:var(--acc);background:rgba(200,240,74,.07);}
-.page{display:none;padding:1.25rem 1rem 5rem;max-width:680px;margin:0 auto;}
-.page.active{display:block;animation:fu .3s ease;}
-@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.ptitle{font-family:'Fraunces',serif;font-size:26px;font-weight:600;line-height:1.15;margin-bottom:.2rem;}
-.psub{font-size:13px;color:var(--mut);margin-bottom:1.25rem;}
-.card{background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:1rem 1.15rem;margin-bottom:.875rem;}
-.ctitle{font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;}
-.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.page{display:none;padding:1.1rem .9rem 5rem;max-width:680px;margin:0 auto;}
+.page.active{display:block;animation:fu .25s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.pt{font-family:'Fraunces',serif;font-size:24px;font-weight:600;line-height:1.15;margin-bottom:.2rem;}
+.ps{font-size:12.5px;color:var(--mut);margin-bottom:1.1rem;}
+.card{background:var(--sur);border:1px solid var(--bor);border-radius:12px;padding:.95rem 1.1rem;margin-bottom:.8rem;}
+.ct{font-family:'Fraunces',serif;font-size:14.5px;font-weight:600;margin-bottom:.55rem;display:flex;align-items:center;gap:.45rem;}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .dg{background:var(--acc);}.db{background:var(--blu);}.dp{background:var(--pur);}.da{background:var(--amb);}.dc{background:var(--cor);}.dt{background:var(--tea);}
-.card p,.card li{font-size:13.5px;line-height:1.7;color:#c5c8d0;}
-.card ul{padding-left:1.1rem;}
-.tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;margin:2px;}
+.card p,.card li{font-size:13px;line-height:1.7;color:#c5c8d0;}
+.card ul{padding-left:1rem;}
+.tag{display:inline-block;font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:20px;margin:2px;}
 .th{background:rgba(251,65,132,.15);color:var(--cor);border:1px solid rgba(251,65,132,.3);}
 .tm{background:rgba(251,191,36,.12);color:var(--amb);border:1px solid rgba(251,191,36,.25);}
 .tok{background:rgba(52,211,153,.12);color:var(--tea);border:1px solid rgba(52,211,153,.25);}
-.code{font-family:'DM Mono',monospace;font-size:11.5px;line-height:1.75;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;padding:.8rem 1rem;margin:.65rem 0;overflow-x:auto;color:#b8fca8;white-space:pre;}
+.code{font-family:'DM Mono',monospace;font-size:11px;line-height:1.75;background:var(--sur2);border:1px solid var(--bor);border-radius:8px;padding:.75rem .9rem;margin:.6rem 0;overflow-x:auto;color:#b8fca8;white-space:pre;}
 .code .cm{color:var(--mut);font-style:italic;}.code .ck{color:var(--amb);}.code .cv{color:var(--blu);}.code .cn{color:var(--cor);}.code .cs{color:var(--acc2);}
-.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:.65rem 0;}
-.tbl th{text-align:left;color:var(--mut);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:6px 8px;border-bottom:1px solid var(--bor);}
-.tbl td{padding:7px 8px;border-bottom:1px solid rgba(42,45,53,.6);vertical-align:top;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin:.6rem 0;}
+.tbl th{text-align:left;color:var(--mut);font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:5px 7px;border-bottom:1px solid var(--bor);}
+.tbl td{padding:6px 7px;border-bottom:1px solid rgba(42,45,53,.5);vertical-align:top;}
 .tbl tr:last-child td{border-bottom:none;}
 .stars{color:var(--amb);}
-.ai{border:1px solid var(--bor);border-radius:10px;margin-bottom:.6rem;overflow:hidden;}
-.ah{padding:.85rem 1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--sur);transition:background .15s;}
+.ai{border:1px solid var(--bor);border-radius:10px;margin-bottom:.55rem;overflow:hidden;}
+.ah{padding:.8rem 1rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--sur);transition:background .15s;}
 .ah:hover{background:var(--sur2);}
-.ahl{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;}
-.al{font-size:13.5px;font-weight:500;}
-.ac{color:var(--mut);font-size:12px;transition:transform .2s;margin-left:.3rem;}
+.ahl{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.al{font-size:13px;font-weight:500;}
+.ac{color:var(--mut);font-size:11px;transition:transform .2s;}
 .ac.open{transform:rotate(180deg);}
-.ab{display:none;padding:.9rem 1.05rem;border-top:1px solid var(--bor);background:var(--sur2);}
+.ab{display:none;padding:.85rem 1rem;border-top:1px solid var(--bor);background:var(--sur2);}
 .ab.open{display:block;}
-.dw{background:var(--sur2);border:1px solid var(--bor);border-radius:10px;padding:.6rem;margin:.65rem 0;overflow-x:auto;}
-.dw svg{min-width:280px;width:100%;height:auto;display:block;}
-.hb{border-radius:8px;padding:.7rem .95rem;margin:.65rem 0;font-size:13px;line-height:1.6;}
+.dw{background:var(--sur2);border:1px solid var(--bor);border-radius:10px;padding:.55rem;margin:.6rem 0;overflow-x:auto;}
+.dw svg{min-width:260px;width:100%;height:auto;display:block;}
+.hb{border-radius:8px;padding:.65rem .9rem;margin:.6rem 0;font-size:12.5px;line-height:1.6;}
 .hbg{background:rgba(200,240,74,.07);border-left:3px solid var(--acc);color:#d0e8a0;}
 .hbb{background:rgba(96,165,250,.07);border-left:3px solid var(--blu);color:#a0c4f8;}
 .hba{background:rgba(251,191,36,.07);border-left:3px solid var(--amb);color:#f5d98a;}
 .hbc{background:rgba(251,65,132,.07);border-left:3px solid var(--cor);color:#f8a0b8;}
 .hbp{background:rgba(167,139,250,.07);border-left:3px solid var(--pur);color:#c4b5fd;}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin:.65rem 0;}
-.mc{background:var(--sur2);border:1px solid var(--bor);border-radius:8px;padding:.7rem;}
-.mc h4{font-size:12.5px;font-weight:500;margin-bottom:.25rem;color:var(--txt);}
-.mc p{font-size:11.5px;color:var(--mut);line-height:1.5;}
-.rr{display:flex;align-items:flex-start;gap:.55rem;padding:.5rem 0;border-bottom:1px solid rgba(42,45,53,.5);}
+.hbt{background:rgba(52,211,153,.07);border-left:3px solid var(--tea);color:#a0f0d0;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.6rem 0;}
+.mc{background:var(--sur2);border:1px solid var(--bor);border-radius:8px;padding:.65rem;}
+.mc h4{font-size:12px;font-weight:500;margin-bottom:.2rem;color:var(--txt);}
+.mc p{font-size:11px;color:var(--mut);line-height:1.5;}
+.rr{display:flex;align-items:flex-start;gap:.5rem;padding:.45rem 0;border-bottom:1px solid rgba(42,45,53,.5);}
 .rr:last-child{border-bottom:none;}
-.rm{font-family:'DM Mono',monospace;color:var(--acc2);min-width:90px;flex-shrink:0;font-size:12px;padding-top:1px;}
-.re{color:#c5c8d0;line-height:1.5;font-size:13px;}
+.rm{font-family:'DM Mono',monospace;color:var(--acc2);min-width:85px;flex-shrink:0;font-size:11px;padding-top:1px;}
+.re{color:#c5c8d0;line-height:1.5;font-size:12.5px;}
 .steps{counter-reset:step;}
-.step{display:flex;gap:.7rem;margin-bottom:.7rem;align-items:flex-start;}
-.sn{counter-increment:step;min-width:22px;height:22px;border-radius:50%;background:rgba(200,240,74,.12);border:1px solid var(--acc);color:var(--acc);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.sn{counter-increment:step;min-width:21px;height:21px;border-radius:50%;background:rgba(200,240,74,.12);border:1px solid var(--acc);color:var(--acc);font-size:10.5px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sn::before{content:counter(step);}
-.st{font-size:13px;line-height:1.6;color:#c5c8d0;padding-top:2px;}
-.div{height:1px;background:var(--bor);margin:1rem 0;}
-/* QUIZ */
-.qpb{height:3px;background:var(--bor);border-radius:2px;margin-bottom:.75rem;}
+.st{font-size:13px;line-height:1.6;color:#c5c8d0;padding-top:1px;}
+.truco{background:var(--sur2);border:1px solid rgba(200,240,74,.2);border-radius:10px;padding:.85rem 1rem;margin-bottom:.65rem;}
+.truco-t{font-size:13px;font-weight:500;color:var(--acc);margin-bottom:.45rem;}
+.truco p,.truco li{font-size:12.5px;color:#c5c8d0;line-height:1.65;}
+.truco ul{padding-left:1rem;}
+.qpb{height:3px;background:var(--bor);border-radius:2px;margin-bottom:.7rem;}
 .qpf{height:100%;background:var(--acc);border-radius:2px;transition:width .3s;}
-.qq{font-size:14px;font-weight:500;margin-bottom:.75rem;line-height:1.55;}
-.qos{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.75rem;}
-.qo{background:var(--sur2);border:1px solid var(--bor);border-radius:8px;padding:.6rem .85rem;font-size:13px;cursor:pointer;transition:all .15s;text-align:left;color:var(--txt);font-family:'DM Sans',sans-serif;line-height:1.5;}
+.qq{font-size:13.5px;font-weight:500;margin-bottom:.7rem;line-height:1.55;}
+.qos{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.7rem;}
+.qo{background:var(--sur2);border:1px solid var(--bor);border-radius:8px;padding:.55rem .8rem;font-size:12.5px;cursor:pointer;transition:all .15s;text-align:left;color:var(--txt);font-family:'DM Sans',sans-serif;line-height:1.5;}
 .qo:hover:not(:disabled){border-color:var(--acc);background:rgba(200,240,74,.06);}
 .qo.correct{border-color:var(--acc);background:rgba(200,240,74,.1);color:var(--acc);}
 .qo.wrong{border-color:var(--cor);background:rgba(251,65,132,.08);color:var(--cor);}
 .qo:disabled{cursor:default;}
-.qfb{font-size:13px;line-height:1.6;padding:.7rem .9rem;border-radius:8px;display:none;}
+.qfb{font-size:12.5px;line-height:1.6;padding:.65rem .85rem;border-radius:8px;display:none;}
 .qfb.show{display:block;}
 .qfb.ok{background:rgba(200,240,74,.08);color:var(--acc);border:1px solid rgba(200,240,74,.2);}
 .qfb.ko{background:rgba(251,65,132,.08);color:var(--cor);border:1px solid rgba(251,65,132,.2);}
-.qnx{margin-top:.75rem;background:none;border:1px solid var(--bor);color:var(--mut);border-radius:8px;padding:.55rem 1.1rem;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;}
+.qnx{margin-top:.7rem;background:none;border:1px solid var(--bor);color:var(--mut);border-radius:8px;padding:.5rem 1rem;font-size:12.5px;cursor:pointer;font-family:'DM Sans',sans-serif;display:none;}
 .qnx.show{display:inline-block;}
 .qnx:hover{border-color:var(--acc2);color:var(--acc2);}
-.qcat{font-size:11px;color:var(--mut);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em;}
-/* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(14,15,17,.95);backdrop-filter:blur(12px);border-top:1px solid var(--bor);display:flex;justify-content:space-around;padding:.5rem 0 calc(.5rem + env(safe-area-inset-bottom));z-index:100;}
-.bn{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--mut);font-size:10px;font-family:'DM Sans',sans-serif;padding:.3rem .4rem;transition:color .2s;min-width:52px;}
-.bn svg{width:20px;height:20px;}
+.qcat{font-size:10.5px;color:var(--mut);margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.06em;}
+.qmode{display:flex;gap:.4rem;margin-bottom:.85rem;flex-wrap:wrap;}
+.qmbtn{background:none;border:1px solid var(--bor);color:var(--mut);border-radius:8px;padding:.4rem .8rem;font-size:11.5px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.qmbtn.active{border-color:var(--acc);color:var(--acc);background:rgba(200,240,74,.07);}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(14,15,17,.96);backdrop-filter:blur(12px);border-top:1px solid var(--bor);display:flex;justify-content:space-around;padding:.45rem 0 calc(.45rem + env(safe-area-inset-bottom));z-index:100;}
+.bn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;color:var(--mut);font-size:9px;font-family:'DM Sans',sans-serif;padding:.25rem .3rem;transition:color .2s;min-width:46px;}
+.bn svg{width:19px;height:19px;}
 .bn.active{color:var(--acc);}
+.div{height:1px;background:var(--bor);margin:.9rem 0;}
 </style>
 </head>
 <body>
 <nav class="nav">
-  <span class="nav-logo">IIS ·</span>
+  <span class="nlogo">IIS ·</span>
   <button class="nb active" onclick="goto('home')">Inicio</button>
+  <button class="nb" onclick="goto('trucos')">Trucos</button>
   <button class="nb" onclick="goto('teoria')">Teoría</button>
   <button class="nb" onclick="goto('uml')">UML</button>
   <button class="nb" onclick="goto('er')">E-R</button>
@@ -103,707 +110,741 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font
   <button class="nb" onclick="goto('exam')">Exámenes</button>
   <button class="nb" onclick="goto('quiz')">Test</button>
 </nav>
-
-<!-- ══════════ HOME ══════════ -->
+<!-- HOME -->
 <div class="page active" id="page-home">
-  <p class="psub" style="margin-top:1rem">Introducción a la Ingeniería del Software · 2º GII</p>
-  <h1 class="ptitle">Guía para el<br><em style="color:var(--acc);font-style:normal">jueves</em> ✓</h1>
-  <p class="psub">Teoría + diagramas + ejercicios reales 2012–2015</p>
+  <p class="ps" style="margin-top:.9rem">Introducción a la Ingeniería del Software · 2º GII</p>
+  <h1 class="pt">Guía para el<br><em style="color:var(--acc);font-style:normal">jueves</em> ✓</h1>
+  <p class="ps">Teoría · Diagramas SVG · Trucos · 60+ preguntas test</p>
   <div class="card" style="border-color:rgba(200,240,74,.3)">
-    <div class="ctitle"><span class="dot dg"></span>Lo más importante</div>
+    <div class="ct"><span class="dot dg"></span>Lo que más cae (exámenes reales 2012–2015)</div>
     <table class="tbl">
-      <tr><th>Tema</th><th>Peso</th><th>Frecuencia</th></tr>
-      <tr><td>Diagrama clases UML</td><td>5 pts</td><td><span class="stars">★★★★★</span></td></tr>
-      <tr><td>Modelo E-R + tablas</td><td>5 pts</td><td><span class="stars">★★★★★</span></td></tr>
-      <tr><td>DFD de contexto</td><td>5 pts</td><td><span class="stars">★★★★</span></td></tr>
-      <tr><td>Ciclos de vida</td><td>2.5 pts</td><td><span class="stars">★★★★</span></td></tr>
-      <tr><td>Acoplamiento/cohesión</td><td>2.5 pts</td><td><span class="stars">★★★</span></td></tr>
-      <tr><td>Pruebas software</td><td>2.5 pts</td><td><span class="stars">★★★</span></td></tr>
+      <tr><th>Tema</th><th>Pts</th><th>Frecuencia</th></tr>
+      <tr><td>Diagrama clases UML</td><td>5</td><td><span class="stars">★★★★★</span></td></tr>
+      <tr><td>Modelo E-R + tablas</td><td>5</td><td><span class="stars">★★★★★</span></td></tr>
+      <tr><td>DFD de contexto</td><td>5</td><td><span class="stars">★★★★</span></td></tr>
+      <tr><td>Ciclos de vida</td><td>2.5</td><td><span class="stars">★★★★</span></td></tr>
+      <tr><td>Acoplamiento / cohesión</td><td>2.5</td><td><span class="stars">★★★★</span></td></tr>
+      <tr><td>Abstracción / herencia</td><td>2.5</td><td><span class="stars">★★★</span></td></tr>
+      <tr><td>Pruebas de software</td><td>2.5</td><td><span class="stars">★★★</span></td></tr>
+      <tr><td>Diagrama de estados UML</td><td>2.5</td><td><span class="stars">★★★</span></td></tr>
     </table>
   </div>
   <div class="card">
-    <div class="ctitle"><span class="dot da"></span>Estructura del examen</div>
-    <div class="g2" style="margin-top:.5rem">
-      <div class="mc"><h4>2 × Teóricas</h4><p>2,5 pts cada una. Mínimo 1 punto.</p></div>
-      <div class="mc"><h4>1 × Práctica</h4><p>5 pts. Mínimo 2 puntos. Diagrama UML, E-R o DFD.</p></div>
+    <div class="ct"><span class="dot da"></span>Estructura del examen</div>
+    <div class="g2" style="margin-top:.4rem">
+      <div class="mc"><h4>2 × Teóricas cortas</h4><p>2,5 pts. Mínimo 1 pto. Eliminatorias.</p></div>
+      <div class="mc"><h4>1 × Práctica</h4><p>5 pts. Mínimo 2 ptos. Eliminatoria.</p></div>
     </div>
-    <div class="hba" style="margin-top:.5rem">⚠️ Todas las preguntas son eliminatorias. Puedes usar el libro pero NO apuntes.</div>
+    <div class="hb hba" style="margin-top:.4rem">⚠️ Puedes usar el libro pero NO apuntes, fotocopias ni hojas adicionales. Máximo 3 hojas A4 timbradas.</div>
   </div>
   <div class="card">
-    <div class="ctitle"><span class="dot dt"></span>Plan de estudio</div>
+    <div class="ct"><span class="dot dt"></span>Plan de estudio</div>
     <div class="steps">
-      <div class="step"><div class="sn"></div><div class="st"><strong>Hoy:</strong> Ciclos de vida + acoplamiento/cohesión (pestaña Teoría)</div></div>
-      <div class="step"><div class="sn"></div><div class="st"><strong>Mañana mañana:</strong> E-R con tablas y diccionario de datos</div></div>
-      <div class="step"><div class="sn"></div><div class="st"><strong>Mañana tarde:</strong> Diagramas de clases UML con los ejercicios</div></div>
-      <div class="step"><div class="sn"></div><div class="st"><strong>Miércoles:</strong> DFD + simula un examen real (pestaña Exámenes)</div></div>
-      <div class="step"><div class="sn"></div><div class="st"><strong>Jueves antes:</strong> Repaso con el Test aleatorio</div></div>
+      <div class="step"><div class="sn"></div><div class="st"><strong>Hoy:</strong> Lee Trucos entera (10 min) + Ciclos de vida + Acoplamiento/cohesión</div></div>
+      <div class="step"><div class="sn"></div><div class="st"><strong>Mañana mañana:</strong> E-R con tablas — haz Compra online a mano sin mirar</div></div>
+      <div class="step"><div class="sn"></div><div class="st"><strong>Mañana tarde:</strong> UML clases — haz Monopoly, Ajedrez y Partículas a mano</div></div>
+      <div class="step"><div class="sn"></div><div class="st"><strong>Miércoles:</strong> DFD + diagrama estados + Test modo "Todo" hasta 12/15</div></div>
+      <div class="step"><div class="sn"></div><div class="st"><strong>Jueves antes:</strong> Repaso rápido con Test modo "Rápido" (5 preguntas)</div></div>
     </div>
   </div>
   <div class="card">
-    <div class="ctitle"><span class="dot dc"></span>Mitos del software — todos FALSOS</div>
+    <div class="ct"><span class="dot dc"></span>Mitos del software — todos FALSOS</div>
     <ul>
       <li>El hardware es más importante que el software</li>
       <li>El software es fácil de desarrollar</li>
       <li>Software = solo programas ejecutables</li>
       <li>Desarrollar software = solo programar</li>
-      <li>Es natural que el software contenga errores</li>
+      <li>Es natural que el software contenga errores ← <strong style="color:var(--cor)">el más trampa</strong></li>
     </ul>
   </div>
 </div>
 
-<!-- ══════════ TEORÍA ══════════ -->
+<!-- TRUCOS -->
+<div class="page" id="page-trucos">
+  <h1 class="pt">Trucos de examen</h1>
+  <p class="ps">Lo que marca la diferencia entre un 5 y un 8</p>
+  <div class="truco">
+    <div class="truco-t">🎯 Cómo atacar el ejercicio práctico (5 pts) en 2 minutos</div>
+    <div class="steps">
+      <div class="step"><div class="sn"></div><div class="st">Lee y <strong>subraya sustantivos</strong> → candidatos a clases o entidades</div></div>
+      <div class="step"><div class="sn"></div><div class="st">Busca <strong>"es un tipo de"</strong> → herencia ▷. Busca <strong>"tiene/contiene"</strong> → composición ◆ o agregación ◇</div></div>
+      <div class="step"><div class="sn"></div><div class="st">Para cada relación: <em>¿puede B existir sin A?</em> → No = ◆, Sí = ◇</div></div>
+      <div class="step"><div class="sn"></div><div class="st">Pon multiplicidades en los <strong>DOS extremos</strong> de cada relación</div></div>
+      <div class="step"><div class="sn"></div><div class="st">Al menos 2-3 atributos y 1-2 métodos por clase — el diagrama "desnudo" penaliza</div></div>
+    </div>
+  </div>
+  <div class="truco">
+    <div class="truco-t">🔑 Relaciones UML de un vistazo</div>
+    <table class="tbl">
+      <tr><th>Si el enunciado dice…</th><th>Relación</th></tr>
+      <tr><td>"B es un tipo de A"</td><td style="color:var(--pur)">Herencia ——▷</td></tr>
+      <tr><td>"A tiene B" y B no existe sin A</td><td style="color:var(--tea)">Composición ◆——</td></tr>
+      <tr><td>"A agrupa B" y B puede existir solo</td><td style="color:var(--amb)">Agregación ◇——</td></tr>
+      <tr><td>"A usa/conoce/posee B"</td><td style="color:var(--blu)">Asociación ——</td></tr>
+      <tr><td>"A usa B puntualmente"</td><td style="color:var(--cor)">Dependencia - - -></td></tr>
+    </table>
+    <div class="hb hbg" style="margin-top:.4rem">Truco de oro: si dudas entre ◆ y ◇, pregúntate "¿si borro A, desaparece B también?" → Sí = composición ◆</div>
+  </div>
+  <div class="truco">
+    <div class="truco-t">📊 Reglas E-R y DFD</div>
+    <ul>
+      <li><strong>E-R 1:1</strong> → fusionar las dos entidades en una tabla</li>
+      <li><strong>E-R 1:N</strong> → clave del "1" como foránea en el "N"</li>
+      <li><strong>E-R N:M</strong> → tabla intermedia siempre (con las PKs de ambas)</li>
+      <li><strong>DFD nivel 0</strong> → UNA sola burbuja = todo el sistema</li>
+      <li><strong>DFD balanceo</strong> → flujos al explotar = flujos del proceso original</li>
+      <li>Si el enunciado dice "registra/guarda/almacena" → necesitas un almacén ═══</li>
+    </ul>
+  </div>
+  <div class="truco">
+    <div class="truco-t">⚠️ Errores que más bajan nota</div>
+    <ul>
+      <li>Olvidar multiplicidades en los dos extremos de cada relación</li>
+      <li>Confundir composición ◆ con agregación ◇</li>
+      <li>No balancear los flujos al explotar una burbuja DFD</li>
+      <li>Olvidar la tabla intermedia en relaciones N:M del E-R</li>
+      <li>Poner detalles de diseño en el SRD (solo el QUÉ, nunca el CÓMO)</li>
+      <li>En diagrama de estados: olvidar el estado inicial ● y los eventos en las flechas</li>
+      <li>Diagramas de clase sin atributos ni métodos</li>
+    </ul>
+  </div>
+  <div class="truco">
+    <div class="truco-t">📝 Estructura perfecta para una pregunta teórica corta (2,5 pts)</div>
+    <div class="hb hbg">1. <strong>Definición</strong> — qué es en 1-2 frases</div>
+    <div class="hb hba" style="margin-top:.3rem">2. <strong>Característica clave</strong> — qué lo diferencia de conceptos similares</div>
+    <div class="hb hbt" style="margin-top:.3rem">3. <strong>Ejemplo concreto</strong> — siempre con ejemplo, sube mucho la nota</div>
+  </div>
+  <div class="truco">
+    <div class="truco-t">💡 Frases clave que salen en el examen</div>
+    <div class="code">ACOPLAMIENTO: objetivo = DÉBIL (intercambia solo lo necesario)
+COHESIÓN:     objetivo = ALTA (hace una sola cosa bien definida)
+CASCADA vs V: V añade jerarquía + verificación vs validación
+PROTOTIPOS:   rápido=usar y tirar / evolutivo=crece hasta el sistema
+PRUEBA ÉXITO: cuando DESCUBRE un error (no cuando no hay errores)
+SRD:          especifica el QUÉ (requisitos), nunca el CÓMO
+VERIFICACIÓN: ¿cumple especificación? / VALIDACIÓN: ¿cumple al usuario?
+1FN: valor único / 2FN: dep. toda clave / 3FN: sin dep. transitivas</div>
+  </div>
+</div>
+
+<!-- TEORÍA -->
 <div class="page" id="page-teoria">
-  <h1 class="ptitle">Teoría</h1>
-  <p class="psub">Conceptos clave para las preguntas cortas (2,5 pts)</p>
-
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dg"></span><span class="al">Ciclos de vida del software</span><span class="tag th">Muy preguntado</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="g2">
-        <div class="mc"><h4 style="color:var(--acc)">Cascada</h4><p>Fases secuenciales: Análisis→Diseño→Codificación→Integración→Mantenimiento. Terminas cada fase antes de empezar la siguiente.</p></div>
-        <div class="mc"><h4 style="color:var(--blu)">Ciclo en V</h4><p>Como cascada pero jerarquizado. Izquierda: descomposición. Derecha: integración. Diferencia verificación de validación.</p></div>
-        <div class="mc"><h4 style="color:var(--amb)">Prototipo rápido</h4><p>"Usar y tirar". Solo para ganar experiencia en análisis/diseño. Se desarrolla rápido.</p></div>
-        <div class="mc"><h4 style="color:var(--amb)">Prototipo evolutivo</h4><p>Iterativo sobre cascada. Cada iteración produce una versión más completa del sistema final.</p></div>
-        <div class="mc"><h4 style="color:var(--pur)">Espiral</h4><p>4 cuadrantes: Planificación → Análisis de riesgo → Ingeniería → Evaluación. Guiado por riesgo.</p></div>
-        <div class="mc"><h4 style="color:var(--tea)">XP</h4><p>4 valores: Sencillez, Comunicación, Retroalimentación, Valentía. Ciclos cortos, pruebas continuas.</p></div>
-      </div>
-      <div class="dw">
-        <svg viewBox="0 0 560 220" role="img"><title>Ciclo de vida en cascada</title>
-          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker></defs>
-          <rect x="10" y="20" width="90" height="36" rx="6" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-          <text x="55" y="38" text-anchor="middle" fill="#a78bfa" font-size="11" font-family="DM Sans,sans-serif" dominant-baseline="central">Análisis</text>
-          <rect x="120" y="56" width="90" height="36" rx="6" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
-          <text x="165" y="74" text-anchor="middle" fill="#34d399" font-size="11" font-family="DM Sans,sans-serif" dominant-baseline="central">Diseño</text>
-          <rect x="230" y="92" width="100" height="36" rx="6" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
-          <text x="280" y="110" text-anchor="middle" fill="#fbbf24" font-size="11" font-family="DM Sans,sans-serif" dominant-baseline="central">Codificación</text>
-          <rect x="340" y="128" width="90" height="36" rx="6" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
-          <text x="385" y="146" text-anchor="middle" fill="#60a5fa" font-size="11" font-family="DM Sans,sans-serif" dominant-baseline="central">Integración</text>
-          <rect x="450" y="164" width="100" height="36" rx="6" fill="#1e2026" stroke="#993C1D" stroke-width="1"/>
-          <text x="500" y="182" text-anchor="middle" fill="#fb7185" font-size="11" font-family="DM Sans,sans-serif" dominant-baseline="central">Mantenimiento</text>
-          <line x1="100" y1="38" x2="120" y2="38" stroke="#6b7080" stroke-width="1" marker-end="url(#arr)"/>
-          <line x1="210" y1="74" x2="230" y2="74" stroke="#6b7080" stroke-width="1" marker-end="url(#arr)"/>
-          <line x1="330" y1="110" x2="340" y2="110" stroke="#6b7080" stroke-width="1" marker-end="url(#arr)"/>
-          <line x1="430" y1="146" x2="450" y2="146" stroke="#6b7080" stroke-width="1" marker-end="url(#arr)"/>
-          <text x="55" y="72" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">SRD</text>
-          <text x="165" y="108" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">SDD</text>
-          <text x="280" y="144" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Código</text>
-          <text x="385" y="180" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Sistema</text>
-        </svg>
-      </div>
-      <div class="hbb"><strong>Cascada vs V:</strong> el modelo en V añade jerarquía y diferencia verificación (¿cumple especificación?) de validación (¿cumple necesidades del usuario?).</div>
+  <h1 class="pt">Teoría</h1>
+  <p class="ps">Conceptos para las preguntas cortas (2,5 pts cada una)</p>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dg"></span><span class="al">Ciclos de vida del software</span><span class="tag th">Muy preguntado</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="g2">
+      <div class="mc"><h4 style="color:var(--acc)">Cascada</h4><p>Fases secuenciales. Terminas cada fase antes de empezar la siguiente. Documentos como puntos de unión.</p></div>
+      <div class="mc"><h4 style="color:var(--blu)">Ciclo en V</h4><p>Como cascada + jerarquía. Izquierda: descomposición. Derecha: integración. Diferencia verificación de validación.</p></div>
+      <div class="mc"><h4 style="color:var(--amb)">Prototipo rápido</h4><p>"Usar y tirar". Gana experiencia en análisis/diseño. Se desecha.</p></div>
+      <div class="mc"><h4 style="color:var(--amb)">Prototipo evolutivo</h4><p>Iterativo sobre cascada. Cada iteración produce versión más completa.</p></div>
+      <div class="mc"><h4 style="color:var(--pur)">Espiral</h4><p>4 cuadrantes: Planificación → Riesgo → Ingeniería → Evaluación. Guiado por riesgo.</p></div>
+      <div class="mc"><h4 style="color:var(--tea)">XP</h4><p>Sencillez, Comunicación, Retroalimentación, Valentía. Ciclos cortos, pruebas continuas.</p></div>
     </div>
-  </div>
+    <div class="dw"><svg viewBox="0 0 500 85" role="img"><title>Cascada</title>
+      <defs><marker id="ar0" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker></defs>
+      <rect x="5" y="10" width="78" height="30" rx="5" fill="#1e2026" stroke="#534AB7" stroke-width="1"/><text x="44" y="25" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Análisis</text>
+      <rect x="103" y="30" width="78" height="30" rx="5" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/><text x="142" y="45" text-anchor="middle" fill="#34d399" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Diseño</text>
+      <rect x="201" y="50" width="88" height="30" rx="5" fill="#1e2026" stroke="#854F0B" stroke-width="1"/><text x="245" y="65" text-anchor="middle" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Codificación</text>
+      <rect x="309" y="30" width="88" height="30" rx="5" fill="#1e2026" stroke="#185FA5" stroke-width="1"/><text x="353" y="45" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Integración</text>
+      <rect x="417" y="10" width="78" height="30" rx="5" fill="#1e2026" stroke="#993C1D" stroke-width="1"/><text x="456" y="25" text-anchor="middle" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Mant.</text>
+      <line x1="83" y1="25" x2="103" y2="25" stroke="#6b7080" stroke-width="0.8" marker-end="url(#ar0)"/>
+      <line x1="181" y1="45" x2="201" y2="45" stroke="#6b7080" stroke-width="0.8" marker-end="url(#ar0)"/>
+      <line x1="289" y1="65" x2="309" y2="65" stroke="#6b7080" stroke-width="0.8" marker-end="url(#ar0)"/>
+      <line x1="397" y1="45" x2="417" y2="45" stroke="#6b7080" stroke-width="0.8" marker-end="url(#ar0)"/>
+      <text x="44" y="52" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">SRD</text>
+      <text x="142" y="72" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">SDD</text>
+      <text x="245" y="78" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Código</text>
+      <text x="353" y="72" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Sistema</text>
+    </svg></div>
+    <div class="hb hbb"><strong>Cascada vs V:</strong> el modelo en V añade jerarquía y diferencia verificación (¿cumple especificación?) de validación (¿cumple las necesidades del usuario?).</div>
+  </div></div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Acoplamiento y cohesión</span><span class="tag th">Muy preguntado</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <p style="font-size:13px;color:var(--mut);margin-bottom:.65rem">Objetivo: acoplamiento <strong style="color:var(--acc)">débil</strong> + cohesión <strong style="color:var(--acc)">alta</strong></p>
-      <div class="dw">
-        <svg viewBox="0 0 540 180" role="img"><title>Escalas de acoplamiento y cohesión</title>
-          <rect x="10" y="10" width="240" height="160" rx="8" fill="#1e2026" stroke="#2a2d35" stroke-width="1"/>
-          <text x="130" y="28" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="500" font-family="DM Sans,sans-serif">ACOPLAMIENTO</text>
-          <text x="20" y="50" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">FUERTE ↑</text>
-          <text x="20" y="67" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">         Por Contenido</text>
-          <text x="20" y="82" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">         Por Común</text>
-          <text x="20" y="97" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">         Externo</text>
-          <text x="20" y="112" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif">MODERADO</text>
-          <text x="20" y="127" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif">         Por Control</text>
-          <text x="20" y="142" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif">         Por Etiqueta</text>
-          <text x="20" y="157" fill="#c8f04a" font-size="10" font-family="DM Sans,sans-serif">DÉBIL ↓  De Datos ← mejor</text>
-          <rect x="290" y="10" width="240" height="160" rx="8" fill="#1e2026" stroke="#2a2d35" stroke-width="1"/>
-          <text x="410" y="28" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="500" font-family="DM Sans,sans-serif">COHESIÓN</text>
-          <text x="300" y="50" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">BAJA ↓</text>
-          <text x="300" y="67" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">       Coincidental</text>
-          <text x="300" y="82" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">       Lógica</text>
-          <text x="300" y="97" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif">       Temporal</text>
-          <text x="300" y="112" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif">MEDIA</text>
-          <text x="300" y="127" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif">       Comunicación</text>
-          <text x="300" y="142" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif">       Secuencial</text>
-          <text x="300" y="157" fill="#c8f04a" font-size="10" font-family="DM Sans,sans-serif">ALTA ↑ Abstraccional ← mejor</text>
-        </svg>
-      </div>
-      <div class="hbg">Un módulo bueno hace <strong>una sola cosa bien definida</strong> (cohesión alta) y depende lo mínimo de otros módulos (acoplamiento débil).</div>
-    </div>
-  </div>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Acoplamiento y cohesión</span><span class="tag th">Muy preguntado</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="dw"><svg viewBox="0 0 500 155" role="img"><title>Escalas acoplamiento y cohesión</title>
+      <rect x="5" y="5" width="228" height="145" rx="7" fill="#1e2026" stroke="#2a2d35" stroke-width="1"/>
+      <text x="119" y="20" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif">ACOPLAMIENTO</text>
+      <text x="14" y="36" fill="#fb7185" font-size="9.5" font-family="DM Sans,sans-serif">FUERTE ↑  Por Contenido ← peor</text>
+      <text x="14" y="51" fill="#fb7185" font-size="9.5" font-family="DM Sans,sans-serif">          Por Común</text>
+      <text x="14" y="66" fill="#fb7185" font-size="9.5" font-family="DM Sans,sans-serif">          Externo</text>
+      <text x="14" y="83" fill="#fbbf24" font-size="9.5" font-family="DM Sans,sans-serif">MODERADO  Por Control</text>
+      <text x="14" y="98" fill="#fbbf24" font-size="9.5" font-family="DM Sans,sans-serif">          Por Etiqueta</text>
+      <text x="14" y="115" fill="#c8f04a" font-size="9.5" font-family="DM Sans,sans-serif">DÉBIL ↓   De Datos</text>
+      <text x="14" y="130" fill="#c8f04a" font-size="9.5" font-family="DM Sans,sans-serif">          Sin acoplamiento ← mejor</text>
+      <rect x="267" y="5" width="228" height="145" rx="7" fill="#1e2026" stroke="#2a2d35" stroke-width="1"/>
+      <text x="381" y="20" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif">COHESIÓN</text>
+      <text x="276" y="36" fill="#fb7185" font-size="9.5" font-family="DM Sans,sans-serif">BAJA ↓    Coincidental ← peor</text>
+      <text x="276" y="51" fill="#fb7185" font-size="9.5" font-family="DM Sans,sans-serif">          Lógica</text>
+      <text x="276" y="66" fill="#fb7185" font-size="9.5" font-family="DM Sans,sans-serif">          Temporal</text>
+      <text x="276" y="83" fill="#fbbf24" font-size="9.5" font-family="DM Sans,sans-serif">MEDIA     Comunicación</text>
+      <text x="276" y="98" fill="#fbbf24" font-size="9.5" font-family="DM Sans,sans-serif">          Secuencial</text>
+      <text x="276" y="115" fill="#c8f04a" font-size="9.5" font-family="DM Sans,sans-serif">ALTA ↑    Funcional</text>
+      <text x="276" y="130" fill="#c8f04a" font-size="9.5" font-family="DM Sans,sans-serif">          Abstraccional ← mejor</text>
+    </svg></div>
+    <div class="hb hbg">Objetivo siempre: acoplamiento <strong>débil</strong> + cohesión <strong>alta</strong>. Un módulo bueno hace una sola cosa y depende lo mínimo de otros.</div>
+  </div></div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Abstracción, herencia y genericidad</span><span class="tag tm">Examen 2013</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="mc" style="margin-bottom:.5rem"><h4 style="color:var(--pur)">Abstracción</h4><p>Identificar elementos significativos ocultando detalles irrelevantes. Tipos: funcional (funciones), TAD (tipo abstracto de datos), máquina abstracta.</p></div>
-      <div class="mc" style="margin-bottom:.5rem"><h4 style="color:var(--tea)">Herencia</h4><p>Los hijos heredan estructura y operaciones del padre. Permiten reutilizar y extender. Ej: Vehículo → Coche → Coche eléctrico.</p></div>
-      <div class="mc" style="margin-bottom:.5rem"><h4 style="color:var(--amb)">Genericidad</h4><p>Elemento genérico válido para varios tipos. En C++: templates. Ej: Lista&lt;T&gt; sirve para Lista&lt;int&gt;, Lista&lt;String&gt;, etc.</p></div>
-      <div class="hbc"><strong>Diferencia clave:</strong> abstracción define QUÉ hace un módulo ocultando el CÓMO. Herencia permite reutilizar y extender lo ya definido.</div>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Abstracción, herencia y genericidad</span><span class="tag tm">Exámenes 2013</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="g2">
+      <div class="mc"><h4 style="color:var(--pur)">Abstracción</h4><p>Ocultar detalles irrelevantes. Tipos: funcional (funciones), TAD (tipo abstracto de datos), máquina abstracta.</p></div>
+      <div class="mc"><h4 style="color:var(--tea)">Herencia</h4><p>Hijos heredan estructura y operaciones del padre. Reutiliza y extiende. Ej: Vehículo→Coche→Coche eléctrico.</p></div>
+      <div class="mc"><h4 style="color:var(--amb)">Genericidad</h4><p>Elemento genérico para varios tipos. C++: templates. Ej: Lista&lt;T&gt; sirve para int, String, etc.</p></div>
+      <div class="mc"><h4 style="color:var(--blu)">Polimorfismo</h4><p>Mismo elemento adquiere varias formas. Incluye sobrecarga, herencia y genericidad.</p></div>
     </div>
-  </div>
+    <div class="hb hbc"><strong>Diferencia clave:</strong> abstracción = ocultar el CÓMO mostrando solo el QUÉ. Herencia = reutilizar y extender lo ya definido por el padre.</div>
+  </div></div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dc"></span><span class="al">Pruebas de software</span><span class="tag tm">Examen jun 2014</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="g2">
-        <div class="mc"><h4 style="color:var(--blu)">Caja negra</h4><p>Ignora estructura interna. Solo verifica entrada-salida. La puede aplicar el cliente. Métodos: clases de equivalencia, valores límite.</p></div>
-        <div class="mc"><h4 style="color:var(--amb)">Caja transparente</h4><p>Conoce la estructura interna. Cubre todos los caminos del código. Métodos: cubrimiento lógico, pruebas de bucles.</p></div>
-        <div class="mc"><h4 style="color:var(--tea)">Big Bang</h4><p>Integra todo de golpe. Solo válido para sistemas pequeños.</p></div>
-        <div class="mc"><h4 style="color:var(--tea)">Descendente</h4><p>Parte del módulo principal + sustitutos. Ve las posibilidades desde el principio.</p></div>
-        <div class="mc"><h4 style="color:var(--tea)">Ascendente</h4><p>Parte de módulos hoja + gestores. Facilita trabajo paralelo.</p></div>
-        <div class="mc"><h4 style="color:var(--cor)">Validación</h4><p>Prueba que el sistema cumple los requisitos del cliente. Puede revelar mensajes ininteligibles, UI mal diseñada, etc.</p></div>
-      </div>
-      <div class="hba">Una prueba tiene <strong>éxito</strong> si descubre un error. Si no aparecen errores, NO se garantiza la calidad.</div>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dc"></span><span class="al">Pruebas de software</span><span class="tag tm">Examen jun. 2014</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="g2">
+      <div class="mc"><h4 style="color:var(--blu)">Caja negra</h4><p>Ignora estructura interna. Solo verifica entrada-salida. Puede usarla el cliente. Métodos: clases equivalencia, valores límite.</p></div>
+      <div class="mc"><h4 style="color:var(--amb)">Caja transparente</h4><p>Conoce estructura interna. Cubre todos los caminos. Métodos: cubrimiento lógico, pruebas de bucles.</p></div>
+      <div class="mc"><h4 style="color:var(--tea)">Big Bang</h4><p>Integra todo de golpe. Solo sistemas pequeños. Sin sustitutos ni gestores.</p></div>
+      <div class="mc"><h4 style="color:var(--tea)">Descendente</h4><p>Parte del módulo principal + sustitutos (stubs). Ve posibilidades globales desde el principio.</p></div>
+      <div class="mc"><h4 style="color:var(--tea)">Ascendente</h4><p>Parte de módulos hoja + gestores (drivers). Facilita trabajo en paralelo.</p></div>
+      <div class="mc"><h4 style="color:var(--cor)">Validación / Sistema</h4><p>Validación: requisitos cliente. Sistema: recuperación, seguridad, resistencia, rendimiento.</p></div>
     </div>
-  </div>
+    <div class="hb hba">Una prueba tiene <strong>éxito</strong> cuando descubre un error. Si no aparecen errores, NO se garantiza la calidad.</div>
+  </div></div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot db"></span><span class="al">Documentos del ciclo de vida</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="rr"><div class="rm">SRD</div><div class="re">Documento de Requisitos de Software. Producto del análisis. Especifica el QUÉ debe hacer el sistema.</div></div>
-      <div class="rr"><div class="rm">SDD / ADD</div><div class="re">Documento de Diseño. El CÓMO lo hace. Arquitectónico (ADD) + Detallado (DDD).</div></div>
-      <div class="rr"><div class="rm">Código fuente</div><div class="re">Producto de la codificación. Debidamente comentado.</div></div>
-      <div class="rr"><div class="rm">SQAP</div><div class="re">Plan de Garantía de Calidad. Cubre organización, ciclo de vida, revisiones, pruebas y mantenimiento.</div></div>
-      <div class="rr"><div class="rm">CMMI</div><div class="re">5 niveles: 0 Inexistente → 1 Inicial → 2 Repetible → 3 Definido → 4 Gestionado → 5 Optimizado.</div></div>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot db"></span><span class="al">Documentos y calidad del software</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="rr"><div class="rm">SRD</div><div class="re">Documento de Requisitos. Producto del análisis. Especifica el QUÉ, nunca el CÓMO.</div></div>
+    <div class="rr"><div class="rm">ADD / DDD</div><div class="re">Documentos de Diseño. El CÓMO. Arquitectónico (visión global) + Detallado (nivel módulo).</div></div>
+    <div class="rr"><div class="rm">SQAP</div><div class="re">Plan de Garantía de Calidad. Cubre: organización, ciclo de vida, documentos, revisiones, pruebas y mantenimiento.</div></div>
+    <div class="rr"><div class="rm">CMMI</div><div class="re">0=Inexistente · 1=Inicial · 2=Repetible · 3=Definido · 4=Gestionado · 5=Optimizado</div></div>
+    <p style="font-size:11.5px;color:var(--mut);margin-top:.6rem;margin-bottom:.3rem">Factores calidad McCall:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:3px"><span class="tag tok">Corrección</span><span class="tag tok">Fiabilidad</span><span class="tag tok">Seguridad</span><span class="tag tok">Mantenibilidad</span><span class="tag tok">Flexibilidad</span><span class="tag tok">Reusabilidad</span><span class="tag tok">Transportabilidad</span><span class="tag tok">Interoperabilidad</span><span class="tag tok">Eficiencia</span></div>
+  </div></div>
+
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dt"></span><span class="al">Tipos de mantenimiento</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="g2">
+      <div class="mc"><h4 style="color:var(--cor)">Correctivo</h4><p>Corrige errores no detectados en el desarrollo inicial.</p></div>
+      <div class="mc"><h4 style="color:var(--amb)">Adaptativo</h4><p>Adapta el software a cambios en el entorno hardware/software.</p></div>
+      <div class="mc"><h4 style="color:var(--tea)">Perfectivo</h4><p>Añade mejoras para mantener la competitividad en el mercado.</p></div>
+      <div class="mc"><h4 style="color:var(--pur)">Reingeniería</h4><p>Obtiene documentación de diseño a partir del código existente.</p></div>
     </div>
-  </div>
+  </div></div>
 </div>
 
-<!-- ══════════ UML ══════════ -->
+<!-- UML -->
 <div class="page" id="page-uml">
-  <h1 class="ptitle">UML</h1>
-  <p class="psub">Diagramas de clases, estados y casos de uso</p>
-
+  <h1 class="pt">UML — Diagramas</h1>
+  <p class="ps">Clases · Estados · Casos de uso · Secuencia</p>
   <div class="card">
-    <div class="ctitle"><span class="dot dp"></span>Estructura de una clase</div>
-    <div class="dw">
-      <svg viewBox="0 0 320 130" role="img"><title>Estructura clase UML</title>
-        <rect x="60" y="10" width="200" height="110" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-        <line x1="60" y1="36" x2="260" y2="36" stroke="#534AB7" stroke-width="1"/>
-        <line x1="60" y1="62" x2="260" y2="62" stroke="#534AB7" stroke-width="1"/>
-        <text x="160" y="27" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">NombreClase</text>
-        <text x="70" y="50" fill="#60a5fa" font-size="10" font-family="DM Mono,monospace" dominant-baseline="central">-atributo: tipo</text>
-        <text x="70" y="75" fill="#34d399" font-size="10" font-family="DM Mono,monospace" dominant-baseline="central">+operacion(): tipo</text>
-        <text x="70" y="90" fill="#34d399" font-size="10" font-family="DM Mono,monospace" dominant-baseline="central">#protegido: tipo</text>
-        <text x="70" y="110" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">- privado  + público  # protegido</text>
-      </svg>
-    </div>
+    <div class="ct"><span class="dot da"></span>Relaciones UML con sus símbolos</div>
+    <div class="dw"><svg viewBox="0 0 500 185" role="img"><title>Relaciones UML</title>
+      <defs>
+        <marker id="ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#60a5fa" stroke-width="1.5"/></marker>
+        <marker id="ih1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2L10 6L2 10Z" fill="none" stroke="#a78bfa" stroke-width="1.5"/></marker>
+        <marker id="db1" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="9" markerHeight="7" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="#34d399" stroke="#34d399"/></marker>
+        <marker id="dw1" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="9" markerHeight="7" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="none" stroke="#fbbf24" stroke-width="1.2"/></marker>
+        <marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#fb7185" stroke-width="1.5"/></marker>
+      </defs>
+      <text x="8" y="14" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Herencia ——▷  ("B es un tipo de A")</text>
+      <rect x="8" y="20" width="60" height="24" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/><text x="38" y="32" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Padre</text>
+      <rect x="118" y="20" width="60" height="24" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/><text x="148" y="32" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Hijo</text>
+      <line x1="118" y1="32" x2="68" y2="32" stroke="#a78bfa" stroke-width="1" marker-end="url(#ih1)"/>
+      <text x="8" y="65" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Composición ◆  (B no existe sin A)</text>
+      <rect x="8" y="71" width="60" height="24" rx="4" fill="#1e2026" stroke="#34d399" stroke-width="1"/><text x="38" y="83" text-anchor="middle" fill="#34d399" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Todo</text>
+      <rect x="118" y="71" width="60" height="24" rx="4" fill="#1e2026" stroke="#34d399" stroke-width="1"/><text x="148" y="83" text-anchor="middle" fill="#34d399" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Parte</text>
+      <line x1="68" y1="83" x2="118" y2="83" stroke="#34d399" stroke-width="1" marker-start="url(#db1)" marker-end="url(#ar1)"/>
+      <text x="82" y="66" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1 ──── 0..*</text>
+      <text x="8" y="118" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Agregación ◇  (B puede existir sin A)</text>
+      <rect x="8" y="124" width="60" height="24" rx="4" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="38" y="136" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Grupo</text>
+      <rect x="118" y="124" width="60" height="24" rx="4" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="148" y="136" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Elemento</text>
+      <line x1="68" y1="136" x2="118" y2="136" stroke="#fbbf24" stroke-width="1" marker-start="url(#dw1)" marker-end="url(#ar1)"/>
+      <text x="82" y="119" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1 ──── 1..*</text>
+      <text x="258" y="14" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Asociación  (con multiplicidad)</text>
+      <rect x="258" y="20" width="60" height="24" rx="4" fill="#1e2026" stroke="#60a5fa" stroke-width="1"/><text x="288" y="32" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseA</text>
+      <rect x="378" y="20" width="60" height="24" rx="4" fill="#1e2026" stroke="#60a5fa" stroke-width="1"/><text x="408" y="32" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseB</text>
+      <line x1="318" y1="32" x2="378" y2="32" stroke="#60a5fa" stroke-width="1" marker-end="url(#ar1)"/>
+      <text x="340" y="46" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1 ──── 0..*</text>
+      <text x="258" y="68" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Dependencia - - ->  (usa puntualmente)</text>
+      <rect x="258" y="74" width="60" height="24" rx="4" fill="#1e2026" stroke="#fb7185" stroke-width="1"/><text x="288" y="86" text-anchor="middle" fill="#fb7185" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseA</text>
+      <rect x="378" y="74" width="60" height="24" rx="4" fill="#1e2026" stroke="#fb7185" stroke-width="1"/><text x="408" y="86" text-anchor="middle" fill="#fb7185" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseB</text>
+      <line x1="318" y1="86" x2="378" y2="86" stroke="#fb7185" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#ar2)"/>
+      <rect x="252" y="115" width="240" height="65" rx="6" fill="#1e2026" stroke="#2a2d35" stroke-width="1"/>
+      <text x="262" y="131" fill="#c8f04a" font-size="9.5" font-family="DM Mono,monospace">Multiplicidades:</text>
+      <text x="262" y="147" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace">1  0..1  1..*  0..*  N..M</text>
+      <text x="262" y="163" fill="#6b7080" font-size="8.5" font-family="DM Sans,sans-serif">exacto·opcional·≥1·cualquiera·rango</text>
+    </svg></div>
+    <div class="hb hbg">Pon la multiplicidad en los DOS extremos siempre. Es uno de los errores que más bajan nota.</div>
   </div>
 
-  <div class="card">
-    <div class="ctitle"><span class="dot da"></span>Las 5 relaciones con sus símbolos</div>
-    <div class="dw">
-      <svg viewBox="0 0 540 200" role="img"><title>Relaciones UML</title>
-        <defs>
-          <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#60a5fa" stroke-width="1.5"/></marker>
-          <marker id="a2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M2 2L10 6L2 10Z" fill="none" stroke="#a78bfa" stroke-width="1.5"/></marker>
-          <marker id="db" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="10" markerHeight="8" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="#34d399" stroke="#34d399"/></marker>
-          <marker id="dw" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="10" markerHeight="8" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="none" stroke="#fbbf24" stroke-width="1.2"/></marker>
-          <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#fb7185" stroke-width="1.5"/></marker>
-        </defs>
-        <text x="10" y="20" fill="#6b7080" font-size="10" font-family="DM Sans,sans-serif">Herencia</text>
-        <rect x="10" y="28" width="70" height="28" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-        <text x="45" y="42" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Padre</text>
-        <rect x="150" y="28" width="70" height="28" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-        <text x="185" y="42" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Hijo</text>
-        <line x1="150" y1="42" x2="80" y2="42" stroke="#a78bfa" stroke-width="1" marker-end="url(#a2)"/>
-        <text x="115" y="38" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">hereda</text>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Caso resuelto: Monopoly</span><span class="tag th">Examen sept. 2014</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <p style="font-size:12px;color:var(--mut);margin-bottom:.6rem">40 casillas, 28 propiedades en grupos, hasta 6 jugadores, casas y hoteles.</p>
+    <div class="dw"><svg viewBox="0 0 500 400" role="img"><title>UML Monopoly</title>
+      <defs>
+        <marker id="arM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker>
+        <marker id="ihM" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2L10 6L2 10Z" fill="none" stroke="#a78bfa" stroke-width="1.5"/></marker>
+        <marker id="dbM" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="9" markerHeight="7" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="#34d399" stroke="#34d399"/></marker>
+        <marker id="dwM" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="9" markerHeight="7" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="none" stroke="#fbbf24" stroke-width="1.2"/></marker>
+        <marker id="arD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#fb7185" stroke-width="1.5"/></marker>
+      </defs>
+      <rect x="170" y="8" width="160" height="65" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
+      <line x1="170" y1="26" x2="330" y2="26" stroke="#534AB7" stroke-width="0.7"/>
+      <line x1="170" y1="44" x2="330" y2="44" stroke="#534AB7" stroke-width="0.7"/>
+      <text x="250" y="19" text-anchor="middle" fill="#a78bfa" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Juego</text>
+      <text x="178" y="35" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-turnoActual: int</text>
+      <text x="178" y="53" fill="#34d399" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">+iniciar()</text>
+      <text x="178" y="65" fill="#34d399" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">+siguienteTurno()</text>
+      <rect x="30" y="135" width="155" height="54" rx="4" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
+      <line x1="30" y1="153" x2="185" y2="153" stroke="#0F6E56" stroke-width="0.7"/>
+      <line x1="30" y1="169" x2="185" y2="169" stroke="#0F6E56" stroke-width="0.7"/>
+      <text x="107" y="146" text-anchor="middle" fill="#34d399" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Tablero</text>
+      <text x="38" y="161" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-numCasillas:int=40</text>
+      <text x="38" y="178" fill="#34d399" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">+getCasilla(n:int)</text>
+      <rect x="315" y="135" width="162" height="68" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
+      <line x1="315" y1="153" x2="477" y2="153" stroke="#185FA5" stroke-width="0.7"/>
+      <line x1="315" y1="169" x2="477" y2="169" stroke="#185FA5" stroke-width="0.7"/>
+      <text x="396" y="146" text-anchor="middle" fill="#60a5fa" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Jugador</text>
+      <text x="323" y="161" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-nombre:String</text>
+      <text x="323" y="177" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-dinero:double</text>
+      <text x="323" y="195" fill="#34d399" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">+mover(dados:int)</text>
+      <rect x="30" y="265" width="155" height="52" rx="4" fill="#1e2026" stroke="#5F5E5A" stroke-width="1"/>
+      <line x1="30" y1="283" x2="185" y2="283" stroke="#5F5E5A" stroke-width="0.7"/>
+      <line x1="30" y1="299" x2="185" y2="299" stroke="#5F5E5A" stroke-width="0.7"/>
+      <text x="107" y="276" text-anchor="middle" fill="#b4b2a9" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Casilla</text>
+      <text x="38" y="291" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-numero:int</text>
+      <text x="38" y="309" fill="#34d399" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">+caerEn(j:Jugador)</text>
+      <rect x="8" y="360" width="165" height="35" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
+      <line x1="8" y1="378" x2="173" y2="378" stroke="#854F0B" stroke-width="0.7"/>
+      <text x="90" y="371" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Propiedad</text>
+      <text x="16" y="389" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-precio:double  -alquiler:double</text>
+      <rect x="290" y="360" width="165" height="35" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
+      <line x1="290" y1="378" x2="455" y2="378" stroke="#854F0B" stroke-width="0.7"/>
+      <text x="372" y="371" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Grupo</text>
+      <text x="298" y="389" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-color:String</text>
+      <line x1="170" y1="50" x2="107" y2="135" stroke="#34d399" stroke-width="0.8" marker-start="url(#dbM)" marker-end="url(#arM)"/>
+      <text x="118" y="88" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">1◆─1</text>
+      <line x1="330" y1="40" x2="396" y2="135" stroke="#60a5fa" stroke-width="0.8" marker-end="url(#arM)"/>
+      <text x="365" y="85" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">1──2..6</text>
+      <line x1="107" y1="189" x2="107" y2="265" stroke="#34d399" stroke-width="0.8" marker-start="url(#dbM)" marker-end="url(#arM)"/>
+      <text x="112" y="230" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">1◆─40</text>
+      <line x1="90" y1="317" x2="90" y2="360" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihM)"/>
+      <text x="95" y="342" fill="#a78bfa" font-size="7.5" font-family="DM Sans,sans-serif">hereda</text>
+      <line x1="173" y1="378" x2="290" y2="378" stroke="#fbbf24" stroke-width="0.8" marker-start="url(#dwM)" marker-end="url(#arM)"/>
+      <text x="220" y="371" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">1..*◇─1</text>
+      <path d="M396 203 L396 345 L173 345 L173 360" fill="none" stroke="#fb7185" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arM)"/>
+      <text x="275" y="339" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">posee 0..*</text>
+    </svg></div>
+    <div class="hb hba"><strong>Claves:</strong> Casilla→Propiedad es herencia ("Propiedad ES UN TIPO DE Casilla"). Tablero→Casilla es composición (casillas no existen sin el tablero). Propiedad→Grupo es agregación (la propiedad puede existir aunque el grupo no esté completo).</div>
+  </div></div>
 
-        <text x="10" y="80" fill="#6b7080" font-size="10" font-family="DM Sans,sans-serif">Composición ◆</text>
-        <rect x="10" y="88" width="70" height="28" rx="4" fill="#1e2026" stroke="#34d399" stroke-width="1"/>
-        <text x="45" y="102" text-anchor="middle" fill="#34d399" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Todo</text>
-        <rect x="150" y="88" width="70" height="28" rx="4" fill="#1e2026" stroke="#34d399" stroke-width="1"/>
-        <text x="185" y="102" text-anchor="middle" fill="#34d399" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Parte</text>
-        <line x1="80" y1="102" x2="150" y2="102" stroke="#34d399" stroke-width="1" marker-start="url(#db)" marker-end="url(#a1)"/>
-        <text x="115" y="86" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">1  ◆────  0..*</text>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Caso resuelto: Partículas elementales</span><span class="tag th">Examen jun. 2012</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="dw"><svg viewBox="0 0 480 280" role="img"><title>UML Partículas</title>
+      <defs><marker id="ihP" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2L10 6L2 10Z" fill="none" stroke="#a78bfa" stroke-width="1.5"/></marker></defs>
+      <rect x="140" y="8" width="200" height="58" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
+      <line x1="140" y1="26" x2="340" y2="26" stroke="#534AB7" stroke-width="0.7"/>
+      <line x1="140" y1="44" x2="340" y2="44" stroke="#534AB7" stroke-width="0.7"/>
+      <text x="240" y="19" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">«abstract» Particula</text>
+      <text x="148" y="35" fill="#60a5fa" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">-spin: double</text>
+      <text x="148" y="53" fill="#34d399" font-size="8.5" font-family="DM Mono,monospace" dominant-baseline="central">+interaccionFuerte():bool</text>
+      <line x1="240" y1="66" x2="240" y2="96" stroke="#a78bfa" stroke-width="0.8"/>
+      <line x1="80" y1="96" x2="400" y2="96" stroke="#a78bfa" stroke-width="0.8"/>
+      <line x1="80" y1="96" x2="80" y2="116" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihP)"/>
+      <line x1="400" y1="96" x2="400" y2="116" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihP)"/>
+      <rect x="12" y="116" width="138" height="60" rx="4" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
+      <line x1="12" y1="134" x2="150" y2="134" stroke="#0F6E56" stroke-width="0.7"/>
+      <text x="81" y="127" text-anchor="middle" fill="#34d399" font-size="10" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Lepton</text>
+      <text x="20" y="145" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">spin = 1/2·h</text>
+      <text x="20" y="158" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">interacFuerte=false</text>
+      <text x="20" y="169" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">Ej: electrón, neutrino</text>
+      <rect x="330" y="116" width="142" height="60" rx="4" fill="#1e2026" stroke="#993C1D" stroke-width="1"/>
+      <line x1="330" y1="134" x2="472" y2="134" stroke="#993C1D" stroke-width="0.7"/>
+      <text x="401" y="127" text-anchor="middle" fill="#fb7185" font-size="10" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Hadron</text>
+      <text x="338" y="145" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">interacFuerte=true</text>
+      <text x="338" y="158" fill="#34d399" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">+subcategoria()</text>
+      <text x="338" y="169" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">Ej: protón, pión</text>
+      <line x1="401" y1="176" x2="401" y2="208" stroke="#a78bfa" stroke-width="0.8"/>
+      <line x1="295" y1="208" x2="455" y2="208" stroke="#a78bfa" stroke-width="0.8"/>
+      <line x1="295" y1="208" x2="295" y2="228" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihP)"/>
+      <line x1="455" y1="208" x2="455" y2="228" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihP)"/>
+      <rect x="218" y="228" width="155" height="48" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
+      <line x1="218" y1="246" x2="373" y2="246" stroke="#854F0B" stroke-width="0.7"/>
+      <text x="295" y="239" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Meson</text>
+      <text x="226" y="257" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">spin:entero{0,1,2...}</text>
+      <text x="226" y="269" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">Ej: pión</text>
+      <rect x="388" y="228" width="155" height="48" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
+      <line x1="388" y1="246" x2="543" y2="246" stroke="#854F0B" stroke-width="0.7"/>
+      <text x="466" y="239" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Barion</text>
+      <text x="396" y="257" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">spin:semient{1/2...}</text>
+      <text x="396" y="269" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">Ej: protón</text>
+    </svg></div>
+    <div class="hb hbg">Clave: spin va en Partícula porque todas lo tienen. Lo que varía es el valor permitido en cada subclase.</div>
+  </div></div>
 
-        <text x="10" y="140" fill="#6b7080" font-size="10" font-family="DM Sans,sans-serif">Agregación ◇</text>
-        <rect x="10" y="148" width="70" height="28" rx="4" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-        <text x="45" y="162" text-anchor="middle" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Grupo</text>
-        <rect x="150" y="148" width="70" height="28" rx="4" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-        <text x="185" y="162" text-anchor="middle" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Elemento</text>
-        <line x1="80" y1="162" x2="150" y2="162" stroke="#fbbf24" stroke-width="1" marker-start="url(#dw)" marker-end="url(#a1)"/>
-        <text x="115" y="146" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">1  ◇────  1..*</text>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Caso resuelto: Ajedrez</span><span class="tag th">Examen sept. 2013</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="dw"><svg viewBox="0 0 500 290" role="img"><title>UML Ajedrez</title>
+      <defs>
+        <marker id="arA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker>
+        <marker id="ihA" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M2 2L10 6L2 10Z" fill="none" stroke="#a78bfa" stroke-width="1.5"/></marker>
+        <marker id="dbA" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="9" markerHeight="7" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="#34d399" stroke="#34d399"/></marker>
+      </defs>
+      <rect x="8" y="8" width="130" height="52" rx="4" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
+      <line x1="8" y1="26" x2="138" y2="26" stroke="#0F6E56" stroke-width="0.7"/>
+      <line x1="8" y1="42" x2="138" y2="42" stroke="#0F6E56" stroke-width="0.7"/>
+      <text x="73" y="19" text-anchor="middle" fill="#34d399" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Tablero</text>
+      <text x="16" y="34" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">-filas:int=8</text>
+      <text x="16" y="50" fill="#34d399" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">+getCasilla(f,c)</text>
+      <rect x="160" y="8" width="120" height="40" rx="4" fill="#1e2026" stroke="#5F5E5A" stroke-width="1"/>
+      <line x1="160" y1="26" x2="280" y2="26" stroke="#5F5E5A" stroke-width="0.7"/>
+      <text x="220" y="19" text-anchor="middle" fill="#b4b2a9" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Casilla</text>
+      <text x="168" y="34" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">-fila:int -col:int</text>
+      <line x1="138" y1="22" x2="160" y2="22" stroke="#34d399" stroke-width="0.8" marker-start="url(#dbA)" marker-end="url(#arA)"/>
+      <text x="146" y="16" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">64◆</text>
+      <rect x="8" y="120" width="130" height="52" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
+      <line x1="8" y1="138" x2="138" y2="138" stroke="#854F0B" stroke-width="0.7"/>
+      <line x1="8" y1="154" x2="138" y2="154" stroke="#854F0B" stroke-width="0.7"/>
+      <text x="73" y="131" text-anchor="middle" fill="#fbbf24" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Ficha</text>
+      <text x="16" y="146" fill="#60a5fa" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">-color:{negro,blanco}</text>
+      <text x="16" y="162" fill="#34d399" font-size="8" font-family="DM Mono,monospace" dominant-baseline="central">+mover():bool</text>
+      <line x1="73" y1="60" x2="73" y2="120" stroke="#34d399" stroke-width="0.8" marker-start="url(#dbA)" marker-end="url(#arA)"/>
+      <text x="78" y="92" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">32◆</text>
+      <line x1="138" y1="148" x2="168" y2="148" stroke="#a78bfa" stroke-width="0.8"/>
+      <line x1="168" y1="148" x2="168" y2="200" stroke="#a78bfa" stroke-width="0.8"/>
+      <line x1="168" y1="200" x2="490" y2="200" stroke="#a78bfa" stroke-width="0.8"/>
+      <line x1="205" y1="200" x2="205" y2="216" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihA)"/>
+      <line x1="263" y1="200" x2="263" y2="216" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihA)"/>
+      <line x1="321" y1="200" x2="321" y2="216" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihA)"/>
+      <line x1="379" y1="200" x2="379" y2="216" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihA)"/>
+      <line x1="437" y1="200" x2="437" y2="216" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihA)"/>
+      <rect x="174" y="216" width="62" height="24" rx="3" fill="#1e2026" stroke="#534AB7" stroke-width="0.8"/><text x="205" y="228" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Rey</text>
+      <rect x="232" y="216" width="62" height="24" rx="3" fill="#1e2026" stroke="#534AB7" stroke-width="0.8"/><text x="263" y="228" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Reina</text>
+      <rect x="290" y="216" width="62" height="24" rx="3" fill="#1e2026" stroke="#534AB7" stroke-width="0.8"/><text x="321" y="228" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Torre</text>
+      <rect x="348" y="216" width="62" height="24" rx="3" fill="#1e2026" stroke="#534AB7" stroke-width="0.8"/><text x="379" y="228" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Alfil</text>
+      <rect x="406" y="216" width="62" height="24" rx="3" fill="#1e2026" stroke="#534AB7" stroke-width="0.8"/><text x="437" y="228" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Peón</text>
+      <rect x="8" y="258" width="130" height="26" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
+      <line x1="8" y1="274" x2="138" y2="274" stroke="#185FA5" stroke-width="0.7"/>
+      <text x="73" y="267" text-anchor="middle" fill="#60a5fa" font-size="10.5" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Jugada</text>
+      <rect x="160" y="258" width="148" height="26" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
+      <text x="234" y="271" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">JugadaMaestra</text>
+      <line x1="160" y1="271" x2="138" y2="271" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ihA)"/>
+      <text x="145" y="264" fill="#6b7080" font-size="7.5" font-family="DM Sans,sans-serif">hereda</text>
+    </svg></div>
+    <div class="hb hbp">Tablero◆──64──▶Casilla y Tablero◆──32──▶Ficha (composición: no existen sin el tablero). Ficha▷{Rey,Reina,Torre,Alfil,Caballo,Peón}. JugadaMaestra hereda de Jugada y añade alternativas en cada movimiento.</div>
+  </div></div>
 
-        <text x="290" y="20" fill="#6b7080" font-size="10" font-family="DM Sans,sans-serif">Asociación</text>
-        <rect x="290" y="28" width="70" height="28" rx="4" fill="#1e2026" stroke="#60a5fa" stroke-width="1"/>
-        <text x="325" y="42" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseA</text>
-        <rect x="440" y="28" width="70" height="28" rx="4" fill="#1e2026" stroke="#60a5fa" stroke-width="1"/>
-        <text x="475" y="42" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseB</text>
-        <line x1="360" y1="42" x2="440" y2="42" stroke="#60a5fa" stroke-width="1" marker-end="url(#a1)"/>
-        <text x="400" y="38" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">1──────0..*</text>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dc"></span><span class="al">Caso resuelto: Puerta de garaje (estados)</span><span class="tag th">Examen sept. 2015</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="dw"><svg viewBox="0 0 460 175" role="img"><title>Estados puerta garaje</title>
+      <defs><marker id="arE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker></defs>
+      <circle cx="18" cy="88" r="7" fill="#c8f04a"/>
+      <line x1="25" y1="88" x2="44" y2="88" stroke="#6b7080" stroke-width="1" marker-end="url(#arE)"/>
+      <rect x="44" y="74" width="75" height="28" rx="14" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
+      <text x="81" y="88" text-anchor="middle" fill="#a78bfa" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Cerrada</text>
+      <rect x="185" y="20" width="75" height="28" rx="14" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
+      <text x="222" y="34" text-anchor="middle" fill="#34d399" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Abriendo</text>
+      <rect x="335" y="74" width="75" height="28" rx="14" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
+      <text x="372" y="88" text-anchor="middle" fill="#a78bfa" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Abierta</text>
+      <rect x="185" y="138" width="75" height="28" rx="14" fill="#1e2026" stroke="#993C1D" stroke-width="1"/>
+      <text x="222" y="152" text-anchor="middle" fill="#fb7185" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Cerrando</text>
+      <rect x="185" y="74" width="75" height="28" rx="14" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
+      <text x="222" y="88" text-anchor="middle" fill="#fbbf24" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Parada</text>
+      <path d="M119 82 Q152 54 185 40" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arE)"/>
+      <text x="143" y="55" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">botón</text>
+      <path d="M260 34 Q300 44 335 82" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arE)"/>
+      <text x="300" y="50" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">completa</text>
+      <path d="M335 96 Q300 132 260 146" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arE)"/>
+      <text x="293" y="130" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">botón</text>
+      <path d="M185 150 Q148 140 119 100" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arE)"/>
+      <text x="130" y="138" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">completa</text>
+      <line x1="222" y1="48" x2="222" y2="74" stroke="#fbbf24" stroke-width="0.8" marker-end="url(#arE)"/>
+      <text x="226" y="64" fill="#fbbf24" font-size="7.5" font-family="DM Sans,sans-serif">botón</text>
+      <line x1="222" y1="138" x2="222" y2="102" stroke="#fbbf24" stroke-width="0.8" marker-end="url(#arE)"/>
+      <text x="226" y="122" fill="#fbbf24" font-size="7.5" font-family="DM Sans,sans-serif">botón</text>
+    </svg></div>
+    <div class="hb hbg">Truco: dibuja primero los estados (sustantivos) y luego conecta con flechas etiquetadas con el evento que provoca el cambio. Siempre incluye el estado inicial ●.</div>
+  </div></div>
 
-        <text x="290" y="80" fill="#6b7080" font-size="10" font-family="DM Sans,sans-serif">Dependencia (usa puntualmente)</text>
-        <rect x="290" y="88" width="70" height="28" rx="4" fill="#1e2026" stroke="#fb7185" stroke-width="1"/>
-        <text x="325" y="102" text-anchor="middle" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseA</text>
-        <rect x="440" y="88" width="70" height="28" rx="4" fill="#1e2026" stroke="#fb7185" stroke-width="1"/>
-        <text x="475" y="102" text-anchor="middle" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">ClaseB</text>
-        <line x1="360" y1="102" x2="440" y2="102" stroke="#fb7185" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#a3)"/>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dt"></span><span class="al">App de divisas (clases UML)</span><span class="tag th">Examen jun. 2014</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="code">Clases: App, Usuario, UsuarioGratis, UsuarioPago,
+        Divisa, BaseDeDivisas, Publicidad
 
-        <text x="290" y="140" fill="#6b7080" font-size="10" font-family="DM Sans,sans-serif">Multiplicidades</text>
-        <rect x="290" y="148" width="230" height="45" rx="6" fill="#1e2026" stroke="#2a2d35" stroke-width="1"/>
-        <text x="300" y="163" fill="#c8f04a" font-size="10" font-family="DM Mono,monospace">1    0..1    1..*    0..*    N..M</text>
-        <text x="300" y="182" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">exacto · opcional · al menos 1 · cero o más · rango</text>
-      </svg>
-    </div>
-    <div class="hbb"><strong>Truco composición vs agregación:</strong> si B no puede existir sin A → composición ◆. Si B puede existir independientemente → agregación ◇.</div>
-  </div>
-
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Ejercicio: Monopoly</span><span class="tag th">Examen sept. 2014</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <p style="font-size:12.5px;color:var(--mut);margin-bottom:.65rem">40 casillas, 28 propiedades en grupos, hasta 6 jugadores, dinero, casas y hoteles.</p>
-      <div class="dw">
-        <svg viewBox="0 0 540 460" role="img"><title>Diagrama clases Monopoly</title>
-          <defs>
-            <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker>
-            <marker id="inh" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M2 2L10 6L2 10Z" fill="none" stroke="#a78bfa" stroke-width="1.5"/></marker>
-            <marker id="dib" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="10" markerHeight="8" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="#34d399" stroke="#34d399"/></marker>
-            <marker id="diw" viewBox="0 0 14 10" refX="0" refY="5" markerWidth="10" markerHeight="8" orient="auto"><path d="M7 1L13 5L7 9L1 5Z" fill="none" stroke="#fbbf24" stroke-width="1.2"/></marker>
-          </defs>
-          <!-- Juego -->
-          <rect x="185" y="10" width="160" height="75" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-          <line x1="185" y1="30" x2="345" y2="30" stroke="#534AB7" stroke-width="0.7"/>
-          <line x1="185" y1="48" x2="345" y2="48" stroke="#534AB7" stroke-width="0.7"/>
-          <text x="265" y="23" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Juego</text>
-          <text x="192" y="39" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-turnoActual: int</text>
-          <text x="192" y="57" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+iniciar()</text>
-          <text x="192" y="71" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+siguienteTurno()</text>
-          <!-- Tablero -->
-          <rect x="60" y="145" width="160" height="60" rx="4" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
-          <line x1="60" y1="165" x2="220" y2="165" stroke="#0F6E56" stroke-width="0.7"/>
-          <line x1="60" y1="183" x2="220" y2="183" stroke="#0F6E56" stroke-width="0.7"/>
-          <text x="140" y="158" text-anchor="middle" fill="#34d399" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Tablero</text>
-          <text x="68" y="174" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-numCasillas:int=40</text>
-          <text x="68" y="191" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+getCasilla(n:int)</text>
-          <!-- Jugador -->
-          <rect x="320" y="145" width="165" height="80" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
-          <line x1="320" y1="165" x2="485" y2="165" stroke="#185FA5" stroke-width="0.7"/>
-          <line x1="320" y1="183" x2="485" y2="183" stroke="#185FA5" stroke-width="0.7"/>
-          <text x="402" y="158" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Jugador</text>
-          <text x="328" y="174" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-nombre:String</text>
-          <text x="328" y="191" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-dinero:double</text>
-          <text x="328" y="207" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+mover(dados:int)</text>
-          <!-- Casilla -->
-          <rect x="60" y="285" width="160" height="58" rx="4" fill="#1e2026" stroke="#5F5E5A" stroke-width="1"/>
-          <line x1="60" y1="305" x2="220" y2="305" stroke="#5F5E5A" stroke-width="0.7"/>
-          <line x1="60" y1="323" x2="220" y2="323" stroke="#5F5E5A" stroke-width="0.7"/>
-          <text x="140" y="298" text-anchor="middle" fill="#b4b2a9" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Casilla</text>
-          <text x="68" y="314" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-numero:int</text>
-          <text x="68" y="333" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+caerEn(j:Jugador)</text>
-          <!-- Propiedad -->
-          <rect x="30" y="400" width="170" height="52" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
-          <line x1="30" y1="420" x2="200" y2="420" stroke="#854F0B" stroke-width="0.7"/>
-          <line x1="30" y1="436" x2="200" y2="436" stroke="#854F0B" stroke-width="0.7"/>
-          <text x="115" y="413" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Propiedad</text>
-          <text x="38" y="428" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-precio:double</text>
-          <text x="38" y="444" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+comprar(j:Jugador)</text>
-          <!-- Grupo -->
-          <rect x="280" y="400" width="155" height="52" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
-          <line x1="280" y1="420" x2="435" y2="420" stroke="#854F0B" stroke-width="0.7"/>
-          <line x1="280" y1="436" x2="435" y2="436" stroke="#854F0B" stroke-width="0.7"/>
-          <text x="357" y="413" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Grupo</text>
-          <text x="288" y="428" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-color:String</text>
-          <text x="288" y="444" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+grupoCompleto():bool</text>
-          <!-- ── RELACIONES ── -->
-          <!-- Juego ◆ Tablero 1:1 -->
-          <line x1="185" y1="60" x2="140" y2="145" stroke="#34d399" stroke-width="0.8" marker-start="url(#dib)" marker-end="url(#arw)"/>
-          <text x="148" y="100" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
-          <text x="162" y="138" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
-          <!-- Juego ─ Jugador 1:2..6 -->
-          <line x1="345" y1="50" x2="402" y2="145" stroke="#60a5fa" stroke-width="0.8" marker-end="url(#arw)"/>
-          <text x="370" y="100" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
-          <text x="388" y="138" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">2..6</text>
-          <!-- Tablero ◆ Casilla 1:40 -->
-          <line x1="140" y1="205" x2="140" y2="285" stroke="#34d399" stroke-width="0.8" marker-start="url(#dib)" marker-end="url(#arw)"/>
-          <text x="148" y="248" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">40</text>
-          <text x="125" y="275" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
-          <!-- Casilla ▷ Propiedad herencia -->
-          <line x1="115" y1="343" x2="115" y2="400" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#inh)"/>
-          <text x="120" y="375" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">hereda</text>
-          <!-- Propiedad ◇ Grupo 1..*:1 -->
-          <line x1="200" y1="426" x2="280" y2="426" stroke="#fbbf24" stroke-width="0.8" marker-start="url(#diw)" marker-end="url(#arw)"/>
-          <text x="224" y="420" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1..*</text>
-          <text x="256" y="420" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
-          <!-- Jugador - - -> Propiedad posee -->
-          <path d="M402 225 L402 380 L200 380 L200 400" fill="none" stroke="#fb7185" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#arw)"/>
-          <text x="310" y="374" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">posee  0..*</text>
-        </svg>
-      </div>
-      <div class="hba"><strong>Clave:</strong> Casilla → Propiedad es herencia porque "Propiedad es un tipo de Casilla". Propiedad → Edificio sería composición (los edificios no existen sin la propiedad).</div>
-    </div>
-  </div>
-
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Ejercicio: Partículas elementales</span><span class="tag th">Examen jun. 2012</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <p style="font-size:12.5px;color:var(--mut);margin-bottom:.65rem">Leptones (spin 1/2·h, sin interacción fuerte), Hadrones → Mesones (spin entero) y Bariones (spin semientero).</p>
-      <div class="dw">
-        <svg viewBox="0 0 500 340" role="img"><title>Diagrama partículas elementales</title>
-          <defs><marker id="ih2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M2 2L10 6L2 10Z" fill="none" stroke="#a78bfa" stroke-width="1.5"/></marker></defs>
-          <!-- Partícula abstract -->
-          <rect x="155" y="10" width="190" height="68" rx="4" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-          <line x1="155" y1="30" x2="345" y2="30" stroke="#534AB7" stroke-width="0.7"/>
-          <line x1="155" y1="48" x2="345" y2="48" stroke="#534AB7" stroke-width="0.7"/>
-          <text x="250" y="23" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">«abstract» Particula</text>
-          <text x="163" y="39" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">-spin: double</text>
-          <text x="163" y="58" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+interaccionFuerte():bool</text>
-          <!-- Línea bifurcación nivel 1 -->
-          <line x1="250" y1="78" x2="250" y2="110" stroke="#a78bfa" stroke-width="0.8"/>
-          <line x1="90" y1="110" x2="410" y2="110" stroke="#a78bfa" stroke-width="0.8"/>
-          <line x1="90" y1="110" x2="90" y2="138" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ih2)"/>
-          <line x1="410" y1="110" x2="410" y2="138" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ih2)"/>
-          <!-- Leptón -->
-          <rect x="20" y="138" width="145" height="72" rx="4" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
-          <line x1="20" y1="158" x2="165" y2="158" stroke="#0F6E56" stroke-width="0.7"/>
-          <line x1="20" y1="176" x2="165" y2="176" stroke="#0F6E56" stroke-width="0.7"/>
-          <text x="92" y="151" text-anchor="middle" fill="#34d399" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Lepton</text>
-          <text x="28" y="167" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">spin=1/2·h</text>
-          <text x="28" y="185" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">interacFuerte=false</text>
-          <text x="28" y="201" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Ej: electrón, neutrino</text>
-          <!-- Hadrón -->
-          <rect x="340" y="138" width="145" height="72" rx="4" fill="#1e2026" stroke="#993C1D" stroke-width="1"/>
-          <line x1="340" y1="158" x2="485" y2="158" stroke="#993C1D" stroke-width="0.7"/>
-          <line x1="340" y1="176" x2="485" y2="176" stroke="#993C1D" stroke-width="0.7"/>
-          <text x="412" y="151" text-anchor="middle" fill="#fb7185" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Hadron</text>
-          <text x="348" y="167" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">interacFuerte=true</text>
-          <text x="348" y="185" fill="#34d399" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">+subcategoria()</text>
-          <text x="348" y="201" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Ej: protón, pión</text>
-          <!-- Bifurcación nivel 2 desde Hadrón -->
-          <line x1="412" y1="210" x2="412" y2="250" stroke="#a78bfa" stroke-width="0.8"/>
-          <line x1="295" y1="250" x2="490" y2="250" stroke="#a78bfa" stroke-width="0.8"/>
-          <line x1="295" y1="250" x2="295" y2="278" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ih2)"/>
-          <line x1="490" y1="250" x2="490" y2="278" stroke="#a78bfa" stroke-width="0.8" marker-end="url(#ih2)"/>
-          <!-- Mesón -->
-          <rect x="215" y="278" width="160" height="56" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
-          <line x1="215" y1="298" x2="375" y2="298" stroke="#854F0B" stroke-width="0.7"/>
-          <text x="295" y="291" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Meson</text>
-          <text x="223" y="310" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">spin:entero{0,1,2...}</text>
-          <text x="223" y="326" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Ej: pión</text>
-          <!-- Barión -->
-          <rect x="413" y="278" width="170" height="56" rx="4" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
-          <line x1="413" y1="298" x2="583" y2="298" stroke="#854F0B" stroke-width="0.7"/>
-          <text x="497" y="291" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="500" font-family="DM Sans,sans-serif" dominant-baseline="central">Barion</text>
-          <text x="421" y="310" fill="#60a5fa" font-size="9" font-family="DM Mono,monospace" dominant-baseline="central">spin:semient{1/2...}</text>
-          <text x="421" y="326" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Ej: protón</text>
-        </svg>
-      </div>
-      <div class="hbg"><strong>Clave:</strong> el atributo <em>spin</em> va en Partícula porque todas lo tienen. Cada subclase restringe su valor permitido.</div>
-    </div>
-  </div>
-
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dc"></span><span class="al">Diagrama de estados: puerta de garaje</span><span class="tag th">Examen sept. 2015</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="dw">
-        <svg viewBox="0 0 480 200" role="img"><title>Diagrama estados puerta garaje</title>
-          <defs><marker id="sa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker></defs>
-          <!-- Estado inicial -->
-          <circle cx="20" cy="100" r="8" fill="#c8f04a"/>
-          <line x1="28" y1="100" x2="50" y2="100" stroke="#6b7080" stroke-width="1" marker-end="url(#sa)"/>
-          <!-- Cerrada -->
-          <rect x="50" y="82" width="80" height="36" rx="18" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-          <text x="90" y="100" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Cerrada</text>
-          <!-- Abriendo -->
-          <rect x="190" y="30" width="80" height="36" rx="18" fill="#1e2026" stroke="#0F6E56" stroke-width="1"/>
-          <text x="230" y="48" text-anchor="middle" fill="#34d399" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Abriendo</text>
-          <!-- Abierta -->
-          <rect x="340" y="82" width="80" height="36" rx="18" fill="#1e2026" stroke="#534AB7" stroke-width="1"/>
-          <text x="380" y="100" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Abierta</text>
-          <!-- Cerrando -->
-          <rect x="190" y="140" width="80" height="36" rx="18" fill="#1e2026" stroke="#993C1D" stroke-width="1"/>
-          <text x="230" y="158" text-anchor="middle" fill="#fb7185" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Cerrando</text>
-          <!-- Parada -->
-          <rect x="190" y="84" width="80" height="36" rx="18" fill="#1e2026" stroke="#854F0B" stroke-width="1"/>
-          <text x="230" y="102" text-anchor="middle" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Parada</text>
-          <!-- Flechas -->
-          <path d="M130 90 Q160 60 190 52" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#sa)"/>
-          <text x="148" y="64" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">botón</text>
-          <path d="M270 48 Q310 50 340 90" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#sa)"/>
-          <text x="308" y="62" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">completa</text>
-          <path d="M340 110 Q310 138 270 152" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#sa)"/>
-          <text x="296" y="144" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">botón</text>
-          <path d="M190 158 Q160 148 130 108" fill="none" stroke="#6b7080" stroke-width="0.8" marker-end="url(#sa)"/>
-          <text x="138" y="142" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">completa</text>
-          <path d="M230 66 L230 84" fill="none" stroke="#fbbf24" stroke-width="0.8" marker-end="url(#sa)"/>
-          <text x="234" y="78" fill="#fbbf24" font-size="8" font-family="DM Sans,sans-serif">botón</text>
-          <path d="M230 158 L230 120" fill="none" stroke="#fbbf24" stroke-width="0.8" marker-end="url(#sa)"/>
-          <text x="234" y="142" fill="#fbbf24" font-size="8" font-family="DM Sans,sans-serif">botón</text>
-        </svg>
-      </div>
-      <div class="hbg"><strong>Truco:</strong> dibuja primero los estados (sustantivos: Abierta, Cerrada…) y luego conecta con flechas etiquetadas con el evento que provoca el cambio.</div>
-    </div>
-  </div>
+Relaciones:
+Usuario ──▷ UsuarioGratis        (herencia)
+Usuario ──▷ UsuarioPago          (herencia)
+App ◆──1──▶ 1 BaseDeDivisas      (composición)
+BaseDeDivisas ◆──▶ 80 Divisa     (composición)
+App ────▶ 1..* Usuario           (asociación)
+UsuarioGratis ──▶ Publicidad     (dependencia)
+App ──selecciona──▶ 5 Divisa     (asociación)</div>
+    <div class="hb hbt">Herencia porque los dos tipos de usuario comparten base (nombre, email, login) pero tienen comportamiento diferente: uno ve publicidad, el otro no.</div>
+  </div></div>
 </div>
 
-<!-- ══════════ E-R ══════════ -->
+<!-- E-R -->
 <div class="page" id="page-er">
-  <h1 class="ptitle">Modelo E-R</h1>
-  <p class="psub">Entidad-Relación + tablas relacionales</p>
-
+  <h1 class="pt">Modelo E-R</h1>
+  <p class="ps">Entidad-Relación + tablas relacionales + diccionario</p>
   <div class="card">
-    <div class="ctitle"><span class="dot db"></span>Símbolos del diagrama E-R</div>
-    <div class="dw">
-      <svg viewBox="0 0 500 100" role="img"><title>Símbolos E-R</title>
-        <rect x="20" y="30" width="90" height="40" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
-        <text x="65" y="50" text-anchor="middle" fill="#60a5fa" font-size="11" font-family="DM Sans,sans-serif" dominant-baseline="central">Entidad</text>
-        <text x="65" y="82" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Rectángulo</text>
-        <path d="M170 50 L200 25 L230 50 L200 75Z" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-        <text x="200" y="50" text-anchor="middle" fill="#fbbf24" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Relación</text>
-        <text x="200" y="88" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Rombo</text>
-        <ellipse cx="310" cy="50" rx="45" ry="22" fill="#1e2026" stroke="#34d399" stroke-width="1"/>
-        <text x="310" y="50" text-anchor="middle" fill="#34d399" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">atributo</text>
-        <text x="310" y="82" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Elipse</text>
-        <text x="400" y="38" text-anchor="middle" fill="#6b7080" font-size="9" font-family="DM Sans,sans-serif">Cardinalidad</text>
-        <text x="400" y="52" text-anchor="middle" fill="#c8f04a" font-size="11" font-family="DM Mono,monospace">Min:Max</text>
-        <text x="400" y="70" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">0:1 · 1:N · 0:M</text>
-      </svg>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="ctitle"><span class="dot da"></span>Traducción a tablas SQL</div>
-    <div class="rr"><div class="rm">1 : 1</div><div class="re">Se pueden <strong>fundir</strong> las dos entidades en una sola tabla.</div></div>
+    <div class="ct"><span class="dot db"></span>Símbolos y reglas de traducción</div>
+    <div class="dw"><svg viewBox="0 0 480 80" role="img"><title>Símbolos ER</title>
+      <rect x="8" y="22" width="85" height="35" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/><text x="50" y="39" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Entidad</text>
+      <text x="50" y="68" text-anchor="middle" fill="#6b7080" font-size="8.5" font-family="DM Sans,sans-serif">Rectángulo</text>
+      <path d="M153 39 L183 15 L213 39 L183 63Z" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
+      <text x="183" y="39" text-anchor="middle" fill="#fbbf24" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Rel.</text>
+      <text x="183" y="73" text-anchor="middle" fill="#6b7080" font-size="8.5" font-family="DM Sans,sans-serif">Rombo</text>
+      <ellipse cx="295" cy="39" rx="40" ry="20" fill="#1e2026" stroke="#34d399" stroke-width="1"/>
+      <text x="295" y="39" text-anchor="middle" fill="#34d399" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">atributo</text>
+      <text x="295" y="71" text-anchor="middle" fill="#6b7080" font-size="8.5" font-family="DM Sans,sans-serif">Elipse</text>
+      <ellipse cx="415" cy="39" rx="40" ry="20" fill="#1e2026" stroke="#34d399" stroke-width="1"/>
+      <line x1="382" y1="39" x2="448" y2="39" stroke="#34d399" stroke-width="1.5"/>
+      <text x="415" y="39" text-anchor="middle" fill="#34d399" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">clave</text>
+      <text x="415" y="71" text-anchor="middle" fill="#6b7080" font-size="8.5" font-family="DM Sans,sans-serif">Clave primaria</text>
+    </svg></div>
+    <div class="rr"><div class="rm">1 : 1</div><div class="re">Fundir las dos entidades en una tabla, o clave foránea en cualquier lado.</div></div>
     <div class="rr"><div class="rm">1 : N</div><div class="re">Clave primaria del "1" va como <strong>clave foránea</strong> en la tabla del "N".</div></div>
-    <div class="rr"><div class="rm">N : M</div><div class="re">Se crea una <strong>tabla intermedia</strong> con las PK de ambas entidades.</div></div>
-    <div class="hbg" style="margin-top:.6rem"><strong>Formas normales:</strong> 1FN = valor único por columna · 2FN = en 1FN + dependencia de TODA la clave · 3FN = en 2FN + sin dependencias transitivas entre no-claves.</div>
+    <div class="rr"><div class="rm">N : M</div><div class="re"><strong>Tabla intermedia</strong> siempre, con las PKs de ambas entidades + atributos propios.</div></div>
+    <div class="hb hbg" style="margin-top:.5rem"><strong>Formas normales:</strong> 1FN=valor único por columna · 2FN=dep. de TODA la clave · 3FN=sin dep. transitivas entre no-claves</div>
   </div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Ejercicio: Compra online</span><span class="tag th">Examen jun/sept 2015</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="dw">
-        <svg viewBox="0 0 500 220" role="img"><title>Diagrama E-R Compra online</title>
-          <defs>
-            <marker id="era" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker>
-          </defs>
-          <!-- Cliente -->
-          <rect x="10" y="80" width="90" height="40" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
-          <text x="55" y="100" text-anchor="middle" fill="#60a5fa" font-size="11" font-family="DM Sans,sans-serif" dominant-baseline="central">Cliente</text>
-          <ellipse cx="30" cy="52" rx="28" ry="14" fill="#1e2026" stroke="#34d399" stroke-width="0.8"/>
-          <text x="30" y="52" text-anchor="middle" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif" dominant-baseline="central">nombre</text>
-          <line x1="30" y1="66" x2="35" y2="80" stroke="#6b7080" stroke-width="0.7"/>
-          <ellipse cx="78" cy="48" rx="30" ry="14" fill="#1e2026" stroke="#34d399" stroke-width="0.8"/>
-          <text x="78" y="48" text-anchor="middle" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif" dominant-baseline="central">email</text>
-          <line x1="75" y1="62" x2="70" y2="80" stroke="#6b7080" stroke-width="0.7"/>
-          <!-- Relacion realiza -->
-          <line x1="100" y1="100" x2="155" y2="100" stroke="#6b7080" stroke-width="0.8"/>
-          <text x="105" y="94" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
-          <path d="M155 80 L185 100 L155 120Z" fill="#1e2026" stroke="#fbbf24" stroke-width="0.8"/>
-          <text x="170" y="100" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">realiza</text>
-          <line x1="185" y1="100" x2="220" y2="100" stroke="#6b7080" stroke-width="0.8"/>
-          <text x="205" y="94" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">0:N</text>
-          <!-- OrdenDeCompra -->
-          <rect x="220" y="80" width="120" height="40" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
-          <text x="280" y="100" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">OrdenDeCompra</text>
-          <ellipse cx="280" cy="52" rx="32" ry="14" fill="#1e2026" stroke="#34d399" stroke-width="0.8"/>
-          <text x="280" y="52" text-anchor="middle" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif" dominant-baseline="central"><tspan font-style="italic">idOrden</tspan></text>
-          <line x1="280" y1="66" x2="280" y2="80" stroke="#6b7080" stroke-width="0.7"/>
-          <!-- Relacion contiene -->
-          <line x1="340" y1="100" x2="375" y2="100" stroke="#6b7080" stroke-width="0.8"/>
-          <text x="342" y="94" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
-          <path d="M375 80 L405 100 L375 120Z" fill="#1e2026" stroke="#fbbf24" stroke-width="0.8"/>
-          <text x="390" y="100" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">contiene</text>
-          <line x1="405" y1="100" x2="440" y2="100" stroke="#6b7080" stroke-width="0.8"/>
-          <text x="415" y="94" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">0:N</text>
-          <!-- Producto -->
-          <rect x="440" y="80" width="50" height="40" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
-          <text x="465" y="100" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Producto</text>
-          <!-- FormaPago abajo -->
-          <line x1="280" y1="120" x2="280" y2="150" stroke="#6b7080" stroke-width="0.8"/>
-          <text x="285" y="142" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">N:1</text>
-          <path d="M255 150 L280 170 L305 150Z" fill="#1e2026" stroke="#fbbf24" stroke-width="0.8"/>
-          <text x="280" y="160" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">usa</text>
-          <line x1="280" y1="170" x2="280" y2="188" stroke="#6b7080" stroke-width="0.8"/>
-          <rect x="225" y="188" width="110" height="30" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
-          <text x="280" y="203" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">FormaDePago</text>
-        </svg>
-      </div>
-      <div class="code"><span class="ck">Tablas resultantes:</span>
-Cliente(<u>idCliente</u>, nombre, email, ...)
-OrdenDeCompra(<u>idOrden</u>, idCliente<span class="cv">FK</span>, fecha, idPago<span class="cv">FK</span>)
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Caso resuelto: Compra online</span><span class="tag th">Examen jun/sept 2015</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="dw"><svg viewBox="0 0 480 185" role="img"><title>E-R Compra online</title>
+      <defs><marker id="arER" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker></defs>
+      <rect x="8" y="72" width="80" height="34" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/><text x="48" y="89" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Cliente</text>
+      <ellipse cx="26" cy="44" rx="26" ry="13" fill="#1e2026" stroke="#34d399" stroke-width="0.8"/><text x="26" y="44" text-anchor="middle" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif" dominant-baseline="central">nombre</text>
+      <line x1="26" y1="57" x2="30" y2="72" stroke="#6b7080" stroke-width="0.6"/>
+      <ellipse cx="70" cy="40" rx="26" ry="13" fill="#1e2026" stroke="#34d399" stroke-width="0.8"/><text x="70" y="40" text-anchor="middle" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif" dominant-baseline="central">email</text>
+      <line x1="66" y1="53" x2="62" y2="72" stroke="#6b7080" stroke-width="0.6"/>
+      <line x1="88" y1="89" x2="128" y2="89" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arER)"/>
+      <text x="96" y="82" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
+      <path d="M128 72 L156 89 L128 106Z" fill="#1e2026" stroke="#fbbf24" stroke-width="0.8"/>
+      <text x="143" y="89" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">realiza</text>
+      <line x1="156" y1="89" x2="186" y2="89" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arER)"/>
+      <text x="164" y="82" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">0:N</text>
+      <rect x="186" y="72" width="110" height="34" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
+      <ellipse cx="241" cy="44" rx="30" ry="13" fill="#1e2026" stroke="#34d399" stroke-width="0.8"/>
+      <line x1="241" y1="44" x2="241" y2="50" stroke="#34d399" stroke-width="1.5"/>
+      <text x="241" y="44" text-anchor="middle" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif" dominant-baseline="central">idOrden</text>
+      <line x1="241" y1="57" x2="241" y2="72" stroke="#6b7080" stroke-width="0.6"/>
+      <text x="241" y="89" text-anchor="middle" fill="#60a5fa" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">OrdenDeCompra</text>
+      <line x1="296" y1="89" x2="326" y2="89" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arER)"/>
+      <text x="302" y="82" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">1</text>
+      <path d="M326 72 L354 89 L326 106Z" fill="#1e2026" stroke="#fbbf24" stroke-width="0.8"/>
+      <text x="340" y="89" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">contiene</text>
+      <line x1="354" y1="89" x2="388" y2="89" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arER)"/>
+      <text x="358" y="82" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">0:N</text>
+      <rect x="388" y="72" width="80" height="34" rx="4" fill="#1e2026" stroke="#185FA5" stroke-width="1"/><text x="428" y="89" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Producto</text>
+      <line x1="241" y1="106" x2="241" y2="138" stroke="#6b7080" stroke-width="0.8"/>
+      <text x="246" y="130" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">N:1</text>
+      <path d="M216 138 L241 156 L266 138Z" fill="#1e2026" stroke="#fbbf24" stroke-width="0.8"/>
+      <text x="241" y="148" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">usa</text>
+      <line x1="241" y1="156" x2="241" y2="170" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arER)"/>
+      <rect x="183" y="170" width="116" height="14" rx="3" fill="#1e2026" stroke="#185FA5" stroke-width="1"/>
+      <text x="241" y="177" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">FormaDePago</text>
+    </svg></div>
+    <div class="code">Tablas:
+Cliente(<u>idCliente</u>, nombre, email)
+OrdenDeCompra(<u>idOrden</u>, idCliente FK, fecha, idPago FK)
 Producto(<u>idProducto</u>, nombre, precio)
 FormaDePago(<u>idPago</u>, tipo, datos)
-<span class="cm">Relación N:M → tabla intermedia:</span>
-LineaCompra(<u>idOrden</u><span class="cv">FK</span>, <u>idProducto</u><span class="cv">FK</span>, cantidad, precioUnit)</div>
-    </div>
-  </div>
+Relacion N:M → tabla intermedia:
+LineaCompra(<u>idOrden</u> FK, <u>idProducto</u> FK, cantidad, precioUnit)</div>
+  </div></div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot db"></span><span class="al">Diccionario de datos</span><span class="tag tm">Pregunta frecuente</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="code"><span class="ck">Operadores:</span>
-A + B     <span class="cm">Secuencia (A seguido de B)</span>
-[A | B]   <span class="cm">Selección (A o B)</span>
-{A}N      <span class="cm">Repetición N veces de A</span>
-(A)       <span class="cm">A es opcional</span>
-/texto/   <span class="cm">Comentario</span>
-=         <span class="cm">Separador nombre = definición</span>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dc"></span><span class="al">Caso resuelto: Clínica dental</span><span class="tag th">Examen sept. 2015</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="code">Entidades: Paciente, Doctor, Auxiliar, Proveedor,
+           Tratamiento, Cita, Pago
 
-<span class="ck">Ejemplo — datos de Orden de Compra:</span>
+Relaciones clave:
+Paciente ──1:N──  Cita
+Doctor   ──1:N──  Cita
+Cita     ──1:N──  Tratamiento
+Tratamiento ──N:M── Proveedor  (materiales)
+Paciente ──1:N──  Pago
+
+Tabla intermedia N:M:
+Suministro(idTratamiento FK, idProveedor FK,
+           material, cantidad)
+
+Tabla Cita:
+Cita(idCita, idPaciente FK, idDoctor FK,
+     fecha, hora, motivo)</div>
+  </div></div>
+
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dg"></span><span class="al">Diccionario de datos</span><span class="tag tm">Pregunta frecuente</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="code">Operadores:
+A + B      Secuencia (A seguido de B)
+[A | B]    Seleccion (A o B, no ambos)
+{A}N       Repeticion N veces de A
+{A}        Repeticion indeterminada
+(A)        A es opcional
+/texto/    Comentario en lenguaje natural
+=          nombre = definicion
+
+Ejemplo - Orden de Compra:
 OrdenDeCompra = idOrden + idCliente
-              + fechaCompra + formaPago
-              + listaProductos
-listaProductos = {idProducto + cantidad}1..*</div>
-    </div>
-  </div>
+              + fechaCompra
+              + [tarjeta | transf. | efectivo]
+              + lineasProducto
+lineasProducto = {idProducto + cantidad + precio}1..*</div>
+  </div></div>
 </div>
 
-<!-- ══════════ DFD ══════════ -->
+<!-- DFD -->
 <div class="page" id="page-dfd">
-  <h1 class="ptitle">DFD</h1>
-  <p class="psub">Diagramas de flujo de datos</p>
-
+  <h1 class="pt">DFD</h1>
+  <p class="ps">Diagramas de flujo de datos + pseudocódigo</p>
   <div class="card">
-    <div class="ctitle"><span class="dot db"></span>Símbolos del DFD</div>
-    <div class="dw">
-      <svg viewBox="0 0 500 90" role="img"><title>Símbolos DFD</title>
-        <defs><marker id="da" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#60a5fa" stroke-width="1.5"/></marker></defs>
-        <line x1="10" y1="30" x2="60" y2="30" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#da)"/>
-        <text x="35" y="22" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="DM Sans,sans-serif">datos</text>
-        <text x="35" y="50" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Flujo</text>
-        <ellipse cx="120" cy="30" rx="40" ry="20" fill="#1e2026" stroke="#a78bfa" stroke-width="1"/>
-        <text x="120" y="30" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Proceso</text>
-        <text x="120" y="60" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Burbuja</text>
-        <rect x="210" y="12" width="80" height="36" rx="0" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-        <text x="250" y="30" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Entidad ext.</text>
-        <text x="250" y="60" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Rectángulo</text>
-        <line x1="340" y1="20" x2="480" y2="20" stroke="#34d399" stroke-width="1.5"/>
-        <line x1="340" y1="40" x2="480" y2="40" stroke="#34d399" stroke-width="1.5"/>
-        <text x="410" y="30" text-anchor="middle" fill="#34d399" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Almacén datos</text>
-        <text x="410" y="60" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Líneas paralelas</text>
-      </svg>
-    </div>
-    <div class="hbc"><strong>Regla de balanceo:</strong> al explotar un proceso, los flujos de entrada/salida del DFD resultado deben coincidir exactamente con los flujos del proceso original.</div>
+    <div class="ct"><span class="dot db"></span>Símbolos DFD</div>
+    <div class="dw"><svg viewBox="0 0 460 75" role="img"><title>Símbolos DFD</title>
+      <defs><marker id="arDFD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#60a5fa" stroke-width="1.5"/></marker></defs>
+      <line x1="8" y1="26" x2="56" y2="26" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arDFD)"/>
+      <text x="32" y="18" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="DM Sans,sans-serif">datos</text>
+      <text x="32" y="45" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Flujo</text>
+      <ellipse cx="112" cy="26" rx="35" ry="18" fill="#1e2026" stroke="#a78bfa" stroke-width="1"/>
+      <text x="112" y="26" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Proceso</text>
+      <text x="112" y="55" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Burbuja</text>
+      <rect x="195" y="11" width="78" height="30" rx="0" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
+      <text x="234" y="26" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Entidad ext.</text>
+      <text x="234" y="55" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Rectangulo</text>
+      <line x1="320" y1="15" x2="452" y2="15" stroke="#34d399" stroke-width="1.5"/>
+      <line x1="320" y1="37" x2="452" y2="37" stroke="#34d399" stroke-width="1.5"/>
+      <text x="386" y="26" text-anchor="middle" fill="#34d399" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Almacen datos</text>
+      <text x="386" y="55" text-anchor="middle" fill="#6b7080" font-size="8" font-family="DM Sans,sans-serif">Lineas paralelas</text>
+    </svg></div>
+    <div class="hb hbc"><strong>Balanceo:</strong> al explotar un proceso, los flujos de entrada/salida del DFD resultante deben coincidir exactamente con los flujos originales de ese proceso.</div>
   </div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dt"></span><span class="al">Ejercicio: Control de aterrizaje</span><span class="tag th">Examen jun. 2012</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <p style="font-size:12.5px;color:var(--mut);margin-bottom:.65rem">Sistema de asignación automática de orden de aterrizaje. Modo manual con controlador aéreo.</p>
-      <div class="dw">
-        <svg viewBox="0 0 500 200" role="img"><title>DFD contexto control aterrizaje</title>
-          <defs><marker id="dfa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker></defs>
-          <!-- Sistema central -->
-          <ellipse cx="250" cy="100" rx="65" ry="40" fill="#1e2026" stroke="#a78bfa" stroke-width="1.5"/>
-          <text x="250" y="94" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="DM Sans,sans-serif" dominant-baseline="central">Sistema</text>
-          <text x="250" y="108" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Aterrizaje</text>
-          <!-- Entidades externas -->
-          <rect x="10" y="14" width="60" height="30" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-          <text x="40" y="29" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Radar</text>
-          <rect x="10" y="80" width="65" height="30" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-          <text x="43" y="95" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">PlanVuelos</text>
-          <rect x="10" y="146" width="60" height="30" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-          <text x="40" y="161" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Piloto</text>
-          <rect x="430" y="30" width="60" height="30" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-          <text x="460" y="45" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Avión</text>
-          <rect x="430" y="120" width="65" height="30" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-          <text x="462" y="135" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Controlador</text>
-          <rect x="180" y="168" width="70" height="28" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/>
-          <text x="215" y="182" text-anchor="middle" fill="#fbbf24" font-size="9" font-family="DM Sans,sans-serif" dominant-baseline="central">Meteorología</text>
-          <!-- Flujos -->
-          <line x1="70" y1="29" x2="185" y2="82" stroke="#6b7080" stroke-width="0.8" marker-end="url(#dfa)"/>
-          <text x="112" y="50" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif">distancia</text>
-          <line x1="75" y1="95" x2="185" y2="98" stroke="#6b7080" stroke-width="0.8" marker-end="url(#dfa)"/>
-          <text x="90" y="90" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif">hora llegada</text>
-          <line x1="70" y1="158" x2="188" y2="118" stroke="#6b7080" stroke-width="0.8" marker-end="url(#dfa)"/>
-          <text x="86" y="146" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif">emergencia</text>
-          <line x1="215" y1="168" x2="230" y2="140" stroke="#6b7080" stroke-width="0.8" marker-end="url(#dfa)"/>
-          <text x="196" y="158" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif">parte</text>
-          <line x1="315" y1="82" x2="430" y2="48" stroke="#6b7080" stroke-width="0.8" marker-end="url(#dfa)"/>
-          <text x="355" y="60" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif">señal radio</text>
-          <line x1="430" y1="132" x2="315" y2="115" stroke="#6b7080" stroke-width="0.8" marker-end="url(#dfa)"/>
-          <text x="340" y="118" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif">contraseña</text>
-          <line x1="315" y1="105" x2="430" y2="140" stroke="#6b7080" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#dfa)"/>
-          <text x="350" y="115" fill="#34d399" font-size="8" font-family="DM Sans,sans-serif">info pantalla</text>
-        </svg>
-      </div>
-      <div class="hbg"><strong>Nivel 0 completo.</strong> Una sola burbuja = el sistema entero. Después en nivel 1 la explota en: Calcular prioridad, Gestionar modo manual, Emitir señal, con un almacén Historial vuelos.</div>
-    </div>
-  </div>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dt"></span><span class="al">DFD: Control de aterrizaje (nivel 0)</span><span class="tag th">Examen jun. 2012</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="dw"><svg viewBox="0 0 460 175" role="img"><title>DFD aterrizaje nivel 0</title>
+      <defs><marker id="arDF" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6b7080" stroke-width="1.5"/></marker></defs>
+      <ellipse cx="225" cy="88" rx="58" ry="36" fill="#1e2026" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="225" y="82" text-anchor="middle" fill="#a78bfa" font-size="9.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Sistema</text>
+      <text x="225" y="96" text-anchor="middle" fill="#a78bfa" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Aterrizaje</text>
+      <rect x="6" y="8" width="55" height="24" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="33" y="20" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Radar</text>
+      <rect x="6" y="72" width="62" height="24" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="37" y="84" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">PlanVuelos</text>
+      <rect x="6" y="138" width="55" height="24" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="33" y="150" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Piloto</text>
+      <rect x="390" y="26" width="58" height="24" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="419" y="38" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Avion</text>
+      <rect x="390" y="112" width="65" height="24" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="422" y="124" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Controlador</text>
+      <rect x="163" y="152" width="65" height="20" rx="2" fill="#1e2026" stroke="#fbbf24" stroke-width="1"/><text x="195" y="162" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" dominant-baseline="central">Meteorologia</text>
+      <line x1="61" y1="20" x2="172" y2="70" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arDF)"/>
+      <text x="98" y="38" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">distancia</text>
+      <line x1="68" y1="84" x2="167" y2="86" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arDF)"/>
+      <text x="78" y="78" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">hora llegada</text>
+      <line x1="61" y1="144" x2="172" y2="108" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arDF)"/>
+      <text x="75" y="132" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">emergencia</text>
+      <line x1="195" y1="152" x2="210" y2="124" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arDF)"/>
+      <text x="176" y="142" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">parte</text>
+      <line x1="283" y1="70" x2="390" y2="40" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arDF)"/>
+      <text x="332" y="48" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">señal radio</text>
+      <line x1="390" y1="120" x2="283" y2="105" stroke="#6b7080" stroke-width="0.8" marker-end="url(#arDF)"/>
+      <text x="318" y="106" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">contraseña</text>
+      <line x1="283" y1="100" x2="390" y2="130" stroke="#6b7080" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#arDF)"/>
+      <text x="325" y="108" fill="#34d399" font-size="7.5" font-family="DM Sans,sans-serif">info</text>
+    </svg></div>
+    <div class="hb hbg">Nivel 0: UNA sola burbuja = todo el sistema. En nivel 1 explota en: (Calcular prioridad) + (Gestión manual) + (Emitir señal) + almacén ═HistorialVuelos═</div>
+  </div></div>
 
-  <div class="ai">
-    <div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Pseudocódigo: login con contraseña</span><span class="tag tm">Examen jun. 2015</span></div><span class="ac">▼</span></div>
-    <div class="ab">
-      <div class="code">INICIO
-  MOSTRAR "Introduce usuario y contraseña"
-  LEER usuario, contraseña
-  intentos ← 0
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Pseudocódigo: sistema de login</span><span class="tag tm">Examen jun. 2015</span></div><span class="ac">▼</span></div>
+  <div class="ab">
+    <div class="code">INICIO
+  MOSTRAR "Introduce usuario y contrasena"
+  LEER usuario, contrasena
+  intentos <- 0
 
   MIENTRAS intentos < 3 HACER
     SI usuario_valido(usuario) ENTONCES
-      SI contraseña_correcta(usuario, contraseña) ENTONCES
+      SI pass_correcta(usuario, contrasena) ENTONCES
         MOSTRAR "Acceso concedido"
         ABRIR_SESION(usuario)
-        FIN <span class="cm">(salir del bucle)</span>
+        intentos <- 3  (forzar salida del bucle)
       SI-NO
-        intentos ← intentos + 1
-        MOSTRAR "Contraseña incorrecta"
+        intentos <- intentos + 1
+        MOSTRAR "Contrasena incorrecta"
       FIN-SI
     SI-NO
       MOSTRAR "Usuario no encontrado"
-      intentos ← 3 <span class="cm">(forzar salida)</span>
+      intentos <- 3
     FIN-SI
   FIN-MIENTRAS
 
-  SI intentos >= 3 ENTONCES
+  SI intentos_fallados >= 3 ENTONCES
     BLOQUEAR_CUENTA(usuario)
   FIN-SI
 
-  <span class="cm">(posibilidad de recordar contraseña)</span>
-  SI peticion_recordar ENTONCES
-    ENVIAR_EMAIL(usuario, contraseña_nueva)
+  SI peticion_recordar_pass ENTONCES
+    ENVIAR_EMAIL(usuario, nueva_pass)
   FIN-SI
 FIN</div>
-    </div>
-  </div>
+  </div></div>
 </div>
 
-<!-- ══════════ EXÁMENES ══════════ -->
+<!-- EXÁMENES -->
 <div class="page" id="page-exam">
-  <h1 class="ptitle">Exámenes</h1>
-  <p class="psub">Preguntas y respuestas clave de cada convocatoria</p>
-
+  <h1 class="pt">Exámenes resueltos</h1>
+  <p class="ps">Preguntas y respuestas clave 2012–2015</p>
   <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dg"></span><span class="al">Junio 2012 — 1ª semana</span></div><span class="ac">▼</span></div>
   <div class="ab">
-    <div class="hbb"><strong>Q1: Ciclo en espiral</strong><br>4 cuadrantes en ejes cartesianos: Planificación (arriba izq) · Análisis de riesgo (arriba der) · Ingeniería (abajo der) · Evaluación (abajo izq). Cada vuelta produce una versión más completa. Guiado por riesgo, no por fases.</div>
-    <div class="hba" style="margin-top:.5rem"><strong>Q2 + Práctica: DFD Space Invaders</strong><br>Entidades: [Teclado][Pantalla]. Procesos: (Mover guardián)(Mover enemigos)(Detectar colisión)(Actualizar pantalla). Almacén: ═EstadoJuego═. Práctica: modelo objetos gestión impuestos → Empleado▷{Técnico, Gestor, Director}.</div>
+    <div class="hb hbb"><strong>Q1: Ciclo en espiral</strong> — 4 cuadrantes en ejes cartesianos: Planificación (arriba izq) · Análisis de riesgo (arriba der) · Ingeniería (abajo der) · Evaluación (abajo izq). Cada vuelta completa produce versión más completa. El radio creciente = coste acumulado. Refinamiento del modelo evolutivo guiado por el riesgo.</div>
+    <div class="hb hba" style="margin-top:.4rem"><strong>Q2: DFD Space Invaders</strong> — Entidades: [Teclado][Pantalla]. Procesos: (Mover guardián)(Mover enemigos)(Detectar colisión)(Actualizar pantalla). Almacén: ═EstadoJuego═. Flujos: PulsaP→derecha, PulsaO→izquierda, PulsaSpace→disparo.</div>
+    <div class="hb hbp" style="margin-top:.4rem"><strong>Práctica: Modelo objetos gestión impuestos</strong> — Empleado (abstracta)▷{TécnicoAdmin, PersonalCampo, Gestor}. Gestor▷{JefeObra, Director}. Todos: salarioFijo. PersonalCampo: dietas+incentivoProd. JefeObra: dietas+incentivoObra. Director: incentivoEmpresa. Solo Gestor NO cobra horas extra.</div>
   </div></div>
 
   <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dp"></span><span class="al">Junio 2013 — 2ª semana</span></div><span class="ac">▼</span></div>
   <div class="ab">
-    <div class="hbp"><strong>Q1: Abstracción</strong><br>Identificar elementos significativos ocultando detalles. Tipos: funcional (suma(a,b)), TAD (Pila con push/pop sin saber cómo almacena), máquina abstracta.</div>
-    <div class="hbg" style="margin-top:.5rem"><strong>Práctica: App hotelera</strong><br>Usuario▷{Cliente, Administrador}. Cliente: nombre, apellidos, nif, domicilio, teléfono. Admin: nombre, nif, antigüedad, categoría. Administrador──1:N──▶Hotel.</div>
+    <div class="hb hbp"><strong>Q1: Abstracción</strong> — Identificar elementos significativos ocultando los detalles de implementación. Ejemplo: clase Pila con push() y pop() → el usuario sabe QUÉ hace sin saber CÓMO almacena los datos internamente (array, lista enlazada...). Tipos: funcional (funciones), TAD (clase con estado oculto), máquina abstracta.</div>
+    <div class="hb hbg" style="margin-top:.4rem"><strong>Práctica: App hotelera</strong> — Usuario▷{Cliente, Administrador}. Cliente: nombre, apellidos, nif, domicilio, teléfono. Admin: nombre, nif, antigüedad, categoría. Admin──1:N──▶Hotel (puede administrar varios hoteles). La interfaz es web.</div>
   </div></div>
 
   <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Septiembre 2013</span></div><span class="ac">▼</span></div>
   <div class="ab">
-    <div class="hba"><strong>Q1: Herencia vs abstracción</strong><br>Abstracción = ocultar detalles de implementación (qué sin el cómo). Herencia = los hijos reutilizan y extienden lo del padre.</div>
-    <div class="hba" style="margin-top:.5rem"><strong>Q2: Estados teléfono básico</strong><br>● → [Reposo] ──descuelga──▶ [Tono] ──marca──▶ [Llamando] ──responde──▶ [En llamada] ──cuelga──▶ [Reposo]. También: [Llamando]──ocupado──▶[Reposo].</div>
-    <div class="hbp" style="margin-top:.5rem"><strong>Práctica: Ajedrez</strong><br>Tablero◆──1──▶64 Casilla. Tablero◆──▶32 Ficha. Ficha▷{Rey,Reina,Torre,Alfil,Caballo,Peón}. Jugada◆──▶2..*Movimiento. JugadaMaestra──▷Jugada.</div>
+    <div class="hb hba"><strong>Q1: Herencia vs abstracción</strong> — Abstracción: define QUÉ hace un módulo ocultando el CÓMO (interfaz pública sin revelar implementación). Herencia: los hijos reutilizan y extienden estructura y operaciones del padre. Diferencia clave: abstracción es sobre ocultación de detalles; herencia es sobre reutilización y extensión.</div>
+    <div class="hb hba" style="margin-top:.4rem"><strong>Q2: Estados teléfono</strong> — ●→[Reposo]→descuelga→[Tono marcación]→marca→[Llamando]→responde→[En llamada]→cuelga→[Reposo]. Además: [Llamando]→ocupado→[Reposo]. [En llamada]→llamada espera→[En espera]. [Reposo]→llega llamada→[Timbrando]→descuelga→[En llamada].</div>
+    <div class="hb hbp" style="margin-top:.4rem"><strong>Práctica: Ajedrez</strong> — Ver pestaña UML para el diagrama completo con todas las clases.</div>
   </div></div>
 
-  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dt"></span><span class="al">Junio 2014 — 1ª semana</span></div><span class="ac">▼</span></div>
+  <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dt"></span><span class="al">Junio 2014 — ambas semanas</span></div><span class="ac">▼</span></div>
   <div class="ab">
-    <div class="hbc"><strong>Q1: Tipos de pruebas</strong><br>Unitarias (caja negra / caja transparente) → Integración (Big Bang / Descendente / Ascendente) → Validación (requisitos del cliente) → Sistema (recuperación, seguridad, resistencia, rendimiento, despliegue).</div>
-    <div class="hbg" style="margin-top:.5rem"><strong>Práctica: App divisas (clases UML)</strong><br>Usuario▷{UsuarioGratis, UsuarioPago}. App◆──▶BaseDeDivisas◆──▶80 Divisa. App──▶1..*Usuario. UsuarioGratis◆──▶Publicidad. App──selecciona──▶5 Divisa.</div>
+    <div class="hb hbc"><strong>1ª sem — Q1: Tipos de pruebas</strong> — Unitarias (caja negra / caja transparente) → Integración (Big Bang / Descendente con stubs / Ascendente con drivers) → Validación (requisitos del cliente) → Sistema (recuperación, seguridad, resistencia, sensibilidad, rendimiento, despliegue).</div>
+    <div class="hb hba" style="margin-top:.4rem"><strong>1ª sem — Q2: Requisitos desde DTE</strong> — De un diagrama de estados se extraen los requisitos funcionales: cada estado = modo de operación, cada transición = condición/evento que el sistema debe detectar y manejar.</div>
+    <div class="hb hbg" style="margin-top:.4rem"><strong>2ª sem — Q1: Abstracción con ejemplo</strong> — TAD (Tipo Abstracto de Datos): agrupa datos + operaciones. Ej: Pila tiene push(elem), pop(), isEmpty(), size(). La representación interna (array o lista) está oculta al usuario.</div>
+    <div class="hb hbp" style="margin-top:.4rem"><strong>2ª sem — Práctica: App divisas</strong> — Ver pestaña UML. Clave: herencia para los dos tipos de usuario, composición para BaseDeDivisas, y la selección de 5 de las 80 divisas disponibles.</div>
   </div></div>
 
   <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot da"></span><span class="al">Septiembre 2014</span></div><span class="ac">▼</span></div>
   <div class="ab">
-    <div class="hbg"><strong>Q1: 5 criterios elección lenguaje</strong><br>1. Imposición del cliente · 2. Tipo de aplicación · 3. Disponibilidad de compiladores · 4. Experiencia previa del equipo · 5. Reusabilidad y transportabilidad.</div>
-    <div class="hbb" style="margin-top:.5rem"><strong>Q2: Diagrama de secuencia UML</strong><br>Eje vertical = tiempo. Eje horizontal = objetos. Líneas de vida = líneas discontinuas. Mensajes = flechas horizontales. Mensajes síncronos = caja de activación sobre la línea de vida.</div>
-    <div class="hba" style="margin-top:.5rem"><strong>Práctica: Monopoly</strong> — ver pestaña UML para diagrama completo.</div>
+    <div class="hb hbg"><strong>Q1: 5 criterios elección de lenguaje</strong> — 1. Imposición del cliente · 2. Tipo de aplicación (gestión=COBOL, científico=Fortran, sistemas=C/Ada, OO=Java/C++, IA=LISP/Prolog) · 3. Disponibilidad de compiladores en el entorno destino · 4. Experiencia previa del equipo · 5. Reusabilidad y transportabilidad del código.</div>
+    <div class="hb hbb" style="margin-top:.4rem"><strong>Q2: Diagrama de secuencia UML</strong> — Eje vertical=tiempo (fluye hacia abajo). Eje horizontal=instancias de objetos con líneas de vida discontinuas. Mensajes=flechas horizontales. Síncrono=flecha sólida+caja activación. Retorno=flecha discontinua.</div>
+    <div class="hb hba" style="margin-top:.4rem"><strong>Práctica: Monopoly</strong> — Ver pestaña UML para el diagrama completo.</div>
   </div></div>
 
   <div class="ai"><div class="ah" onclick="ta(this)"><div class="ahl"><span class="dot dc"></span><span class="al">Junio / Septiembre 2015</span></div><span class="ac">▼</span></div>
   <div class="ab">
-    <div class="hbc"><strong>Junio — Casos de uso: Autobús urbano</strong><br>Actores: Conductor, Pasajero, Sistema de pago, Central. Casos de uso: Arrancar · Parar · Abrir/Cerrar puertas · Cobrar billete · Emitir tarjeta · Informar incidencia.</div>
-    <div class="hba" style="margin-top:.5rem"><strong>Sept. — Mitos del software</strong><br>Todos son FALSOS. El más trampa: "Es natural que el software contenga errores" → Falso, no es admisible aunque ocurra frecuentemente.</div>
-    <div class="hbg" style="margin-top:.5rem"><strong>Sept. — Clínica dental (E-R)</strong><br>Entidades: Paciente, Doctor, Auxiliar, Proveedor, Tratamiento, Cita, Pago. Paciente──1:N──Cita. Doctor──1:N──Cita. Cita──1:N──Tratamiento. Tratamiento──N:M──Proveedor (tabla intermedia: Suministro).</div>
+    <div class="hb hbc"><strong>Junio Q1: Casos de uso autobús urbano</strong> — Actores: Conductor, Pasajero, Sistema de pago, Central de control. Casos de uso: Arrancar · Parar · Abrir puertas · Cerrar puertas · Validar billete · Emitir billete · Informar incidencia · Cambiar ruta. Relaciones: Validar billete &lt;&lt;include&gt;&gt; Comprobar saldo.</div>
+    <div class="hb hba" style="margin-top:.4rem"><strong>Junio Q2+Práctica: Puerta garaje + Clínica dental</strong> — Diagrama estados: ver pestaña UML. E-R clínica dental: ver pestaña E-R. La puerta interior no puede abrirse hasta que la exterior esté completamente abierta.</div>
+    <div class="hb hbg" style="margin-top:.4rem"><strong>Sept. Q1: Mitos del software</strong> — Todos FALSOS. El más trampa: "Es natural que el software contenga errores" → Falso, no es admisible aunque ocurra frecuentemente en la práctica.</div>
+    <div class="hb hbt" style="margin-top:.4rem"><strong>Sept. Práctica: Partículas elementales</strong> — Ver pestaña UML para el diagrama completo con la jerarquía de herencia.</div>
   </div></div>
 </div>
 
-<!-- ══════════ QUIZ ══════════ -->
+<!-- QUIZ -->
 <div class="page" id="page-quiz">
-  <h1 class="ptitle">Test aleatorio</h1>
-  <p class="psub">Preguntas mezcladas de toda la materia · 15 por sesión</p>
+  <h1 class="pt">Test aleatorio</h1>
+  <p class="ps">62 preguntas · se barajan cada vez · 15 por sesión</p>
+  <div class="qmode">
+    <button class="qmbtn active" onclick="setMode('all',this)">Todo</button>
+    <button class="qmbtn" onclick="setMode('uml',this)">UML</button>
+    <button class="qmbtn" onclick="setMode('er',this)">E-R/DFD</button>
+    <button class="qmbtn" onclick="setMode('teoria',this)">Teoría</button>
+    <button class="qmbtn" onclick="setMode('disenho',this)">Diseño</button>
+    <button class="qmbtn" onclick="setMode('pruebas',this)">Pruebas</button>
+  </div>
   <div class="qpb"><div class="qpf" id="qpf" style="width:0%"></div></div>
-  <p style="font-size:12px;color:var(--mut);margin-bottom:.875rem" id="qcnt">Pregunta 1 de 15</p>
+  <p style="font-size:11.5px;color:var(--mut);margin-bottom:.8rem" id="qcnt">Pregunta 1 de 15</p>
   <div class="card" id="qcard">
     <p class="qcat" id="qcat"></p>
     <div class="qq" id="qq"></div>
@@ -812,11 +853,11 @@ FIN</div>
     <button class="qnx" id="qnx" onclick="nextQ()">Siguiente →</button>
   </div>
   <div id="qres" style="display:none">
-    <div class="card" style="border-color:rgba(200,240,74,.3);text-align:center;padding:2rem">
-      <div style="font-family:'Fraunces',serif;font-size:52px;color:var(--acc)" id="rscore"></div>
-      <div style="font-size:13px;color:var(--mut);margin-top:.3rem">respuestas correctas de 15</div>
-      <div id="rmsg" style="font-size:13px;margin-top:1rem;color:#c5c8d0;line-height:1.6"></div>
-      <button onclick="startQuiz()" style="margin-top:1.5rem;background:none;border:1px solid var(--acc);color:var(--acc);border-radius:8px;padding:.7rem 1.5rem;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif">Nuevo test aleatorio</button>
+    <div class="card" style="border-color:rgba(200,240,74,.3);text-align:center;padding:1.75rem">
+      <div style="font-family:'Fraunces',serif;font-size:50px;color:var(--acc)" id="rscore"></div>
+      <div style="font-size:12.5px;color:var(--mut);margin-top:.25rem">respuestas correctas de 15</div>
+      <div id="rmsg" style="font-size:12.5px;margin-top:.9rem;color:#c5c8d0;line-height:1.6"></div>
+      <button onclick="startQuiz()" style="margin-top:1.25rem;background:none;border:1px solid var(--acc);color:var(--acc);border-radius:8px;padding:.6rem 1.3rem;font-size:12.5px;cursor:pointer;font-family:'DM Sans',sans-serif">Nuevo test aleatorio</button>
     </div>
   </div>
 </div>
@@ -827,9 +868,9 @@ FIN</div>
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
     Inicio
   </button>
-  <button class="bn" id="bnav-teoria" onclick="goto('teoria')">
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-    Teoría
+  <button class="bn" id="bnav-trucos" onclick="goto('trucos')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+    Trucos
   </button>
   <button class="bn" id="bnav-uml" onclick="goto('uml')">
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
@@ -846,77 +887,94 @@ FIN</div>
 </nav>
 
 <script>
-// ── NAV ──
-const pages=['home','teoria','uml','er','dfd','exam','quiz'];
+const PAGES=['home','trucos','teoria','uml','er','dfd','exam','quiz'];
 function goto(id){
-  pages.forEach(p=>{
+  PAGES.forEach(p=>{
     document.getElementById('page-'+p).classList.toggle('active',p===id);
     const b=document.getElementById('bnav-'+p);
     if(b)b.classList.toggle('active',p===id);
   });
-  document.querySelectorAll('.nb').forEach((b,i)=>b.classList.toggle('active',pages[i]===id));
+  document.querySelectorAll('.nb').forEach((b,i)=>b.classList.toggle('active',PAGES[i]===id));
   window.scrollTo(0,0);
   if(id==='quiz'&&!quizStarted)startQuiz();
 }
-function ta(h){
-  const b=h.nextElementSibling,c=h.querySelector('.ac'),o=b.classList.contains('open');
-  b.classList.toggle('open',!o);c.classList.toggle('open',!o);
-}
+function ta(h){const b=h.nextElementSibling,c=h.querySelector('.ac'),o=b.classList.contains('open');b.classList.toggle('open',!o);c.classList.toggle('open',!o);}
 
-// ── BANCO DE PREGUNTAS (35 preguntas) ──
 const BANK=[
-  {cat:'Ciclos de vida',q:'¿Qué modelo de ciclo de vida introduce el análisis de riesgo como elemento fundamental en cada iteración?',opts:['Cascada','Ciclo en V','Modelo en espiral','Prototipo evolutivo'],ans:2,exp:'El modelo en espiral incorpora el análisis de riesgo como un cuadrante propio. Cada ciclo pasa por: Planificación → Análisis de riesgo → Ingeniería → Evaluación.'},
-  {cat:'Ciclos de vida',q:'En el ciclo de vida en V, ¿qué diferencia a la verificación de la validación?',opts:['La verificación la hace el cliente y la validación el desarrollador','Verificación = ¿cumple especificación? Validación = ¿cumple necesidades del usuario?','Son sinónimos, significan lo mismo','La verificación ocurre al final del ciclo y la validación al principio'],ans:1,exp:'Verificación: comprobar que el producto cumple las especificaciones técnicas. Validación: comprobar que el producto satisface las necesidades reales del usuario identificadas en el análisis.'},
-  {cat:'Ciclos de vida',q:'¿Cuál es la diferencia principal entre un prototipo rápido y un prototipo evolutivo?',opts:['El rápido usa hardware más potente','El evolutivo se usa solo en análisis, el rápido en todas las fases','El rápido se desecha tras aprender de él; el evolutivo evoluciona hasta ser el sistema final','No hay diferencia práctica'],ans:2,exp:'Prototipo rápido (maqueta): se descarta, sirve solo para ganar experiencia en análisis/diseño. Prototipo evolutivo: se desarrolla sobre el mismo soporte que el sistema final y crece iterativamente hasta completarse.'},
-  {cat:'Ciclos de vida',q:'¿Cuáles son los 4 valores fundamentales de la Programación Extrema (XP)?',opts:['Análisis, Diseño, Codificación, Pruebas','Sencillez, Comunicación, Retroalimentación, Valentía','Planificación, Riesgo, Ingeniería, Evaluación','Rapidez, Calidad, Costo, Tiempo'],ans:1,exp:'XP se basa en: Sencillez (solo lo pedido), Comunicación (trabajo en equipo + cliente integrado), Retroalimentación (ciclos cortos, pruebas continuas) y Valentía (afrontar la recodificación sin miedo).'},
-  {cat:'Diseño modular',q:'¿Qué tipo de acoplamiento es el peor y debe evitarse siempre?',opts:['Acoplamiento de datos','Acoplamiento por etiqueta','Acoplamiento por contenido','Acoplamiento externo'],ans:2,exp:'El acoplamiento por contenido es el peor: un módulo puede modificar los datos internos e incluso el código de otro módulo. Solo es posible con ensamblador y debe evitarse siempre.'},
-  {cat:'Diseño modular',q:'Un módulo que agrupa elementos que no guardan ninguna relación entre sí tiene:',opts:['Cohesión abstraccional','Cohesión funcional','Cohesión coincidental','Cohesión temporal'],ans:2,exp:'La cohesión coincidental es la peor posible: los elementos del módulo no tienen ninguna relación entre ellos. Está en el extremo bajo de la escala de cohesión.'},
-  {cat:'Diseño modular',q:'¿Cuál es el nivel más alto de cohesión según la escala?',opts:['Cohesión funcional','Cohesión abstraccional','Cohesión secuencial','Cohesión de comunicación'],ans:1,exp:'La escala de cohesión de mayor a menor es: Abstraccional > Funcional > Secuencial > Comunicación > Temporal > Lógica > Coincidental. La abstraccional (TAD u objetos bien diseñados) es la más alta.'},
-  {cat:'Diseño modular',q:'¿Qué significa que dos módulos tienen acoplamiento débil?',opts:['Que no se llaman nunca','Que solo intercambian los datos estrictamente necesarios','Que comparten una zona común de datos','Que uno puede modificar el código del otro'],ans:1,exp:'El acoplamiento débil (acoplamiento de datos) ocurre cuando el intercambio entre módulos se realiza con los únicos datos que se necesitan. Cualquier modificación en un módulo afecta muy poco o nada al resto.'},
-  {cat:'UML — clases',q:'En UML, el símbolo ◆── indica:',opts:['Asociación simple','Agregación (vidas independientes)','Composición (mismo ciclo de vida)','Herencia'],ans:2,exp:'El rombo relleno negro (◆) indica composición: la parte no puede existir sin el todo. Si el todo se destruye, la parte también. Rombo vacío (◇) = agregación, donde la parte puede existir independientemente.'},
-  {cat:'UML — clases',q:'¿Cuándo se usa herencia en un diagrama de clases UML?',opts:['Cuando A contiene varios B','Cuando B es un tipo de A','Cuando A y B comparten los mismos datos','Cuando A usa B puntualmente'],ans:1,exp:'La herencia (──▷ flecha hueca hacia el padre) se usa cuando B es un tipo de A. Ejemplo: Coche hereda de Vehículo. Los hijos heredan estructura y operaciones del padre.'},
-  {cat:'UML — clases',q:'¿Qué multiplicidad indica "al menos uno"?',opts:['0..*','0..1','1..*','N..M'],ans:2,exp:'1..* significa "uno o varios": al menos uno, sin límite superior. 0..* = cero o más. 0..1 = opcional (cero o uno). 1 = exactamente uno.'},
-  {cat:'UML — clases',q:'En el diagrama de clases del Monopoly, ¿por qué Casilla→Propiedad es herencia?',opts:['Porque la propiedad contiene casillas','Porque "Propiedad es un tipo de Casilla"','Porque el tablero tiene propiedades','Porque el jugador compra casillas'],ans:1,exp:'El enunciado dice que las casillas pueden ser propiedades. Propiedad ES UN TIPO DE Casilla, lo cual es la definición exacta de herencia en UML. Además puede haber otros tipos de casilla (cárcel, salida...).'},
-  {cat:'UML — estados',q:'En un diagrama de estados UML, ¿cómo se representa el estado inicial?',opts:['Un rectángulo con bordes redondeados','Un círculo relleno negro','Un rombo','Una elipse'],ans:1,exp:'El estado inicial en UML es un círculo relleno negro (●). Los estados intermedios son rectángulos con bordes redondeados. La terminación es un círculo con otro círculo relleno dentro (◉).'},
-  {cat:'UML — estados',q:'En el diagrama de estados de la puerta de garaje, ¿qué ocurre si se pulsa el botón cuando la puerta está en movimiento?',opts:['No ocurre nada','La puerta continúa hasta terminar','La puerta se para','La puerta invierte el movimiento inmediatamente'],ans:2,exp:'Según el enunciado, si se pulsa el botón cuando la puerta está en movimiento (Abriendo o Cerrando), la puerta se para. Desde el estado Parada, el siguiente botón la mueve en sentido contrario.'},
-  {cat:'UML — casos de uso',q:'En UML, la relación <<include>> entre casos de uso significa:',opts:['Un caso de uso extiende opcionalmente a otro en ciertas condiciones','Un caso de uso siempre incluye la ejecución de otro (obligatorio)','Un actor hereda de otro actor','Dos casos de uso son equivalentes'],ans:1,exp:'<<include>> es una dependencia obligatoria: el caso de uso base siempre ejecuta el caso incluido. <<extends>> es opcional: solo ocurre bajo ciertas condiciones específicas.'},
-  {cat:'Modelo E-R',q:'En un modelo E-R, ¿cómo se traduce a tablas una relación con cardinalidad N:M?',opts:['Se añade una clave foránea en la tabla del lado N','Se fusionan las dos tablas en una','Se crea una tabla intermedia con las claves primarias de ambas entidades','No se puede representar en tablas relacionales'],ans:2,exp:'Las relaciones N:M requieren una tabla intermedia (tabla de unión/asociación) que contiene como clave primaria compuesta las claves primarias de ambas entidades relacionadas, más los atributos propios de la relación.'},
-  {cat:'Modelo E-R',q:'Una tabla está en 3ª Forma Normal (3FN) si:',opts:['Cada columna tiene un valor único (no colecciones)','Está en 2FN y cada atributo no clave depende directamente de la clave primaria','Tiene clave primaria única','No tiene ninguna clave foránea'],ans:1,exp:'3FN: en 2FN + ningún atributo no clave depende de otro atributo no clave (elimina dependencias transitivas). Solo los atributos no clave dependen directamente de la clave primaria, no de otra no-clave.'},
-  {cat:'Modelo E-R',q:'En el diccionario de datos, la notación {A}N significa:',opts:['A es opcional','A se repite N veces','A o bien N','Secuencia de A seguido de N'],ans:1,exp:'En la notación del diccionario de datos: {A}N = repetición del elemento A exactamente N veces. (A) = opcional. [A|B] = selección entre A o B. A+B = secuencia.'},
-  {cat:'Modelo E-R',q:'Si la cardinalidad entre dos entidades es 1:1, la forma más eficiente de representarlo en tablas es:',opts:['Crear una tabla intermedia','Añadir una clave foránea en cualquiera de las dos tablas','Fusionar las dos entidades en una sola tabla','No se puede representar'],ans:2,exp:'Con cardinalidad 1:1 se pueden fusionar las dos entidades en una sola tabla, incluyendo todos los atributos de ambas. También es válido añadir una clave foránea en uno de los lados, pero la fusión es más eficiente.'},
-  {cat:'DFD',q:'¿Cuál es la regla de balanceo en los DFD?',opts:['Que cada proceso tenga el mismo número de flujos','Que los flujos al explotar un proceso coincidan exactamente con los del proceso original','Que no haya almacenes de datos en el nivel 0','Que todas las burbujas tengan al menos 2 flujos de salida'],ans:1,exp:'Balanceo: al explotar (detallar) un proceso en un DFD de nivel inferior, los flujos de entrada y salida de ese nuevo diagrama deben ser EXACTAMENTE los mismos que tenía el proceso en el nivel superior.'},
-  {cat:'DFD',q:'En un DFD de contexto (nivel 0), ¿cuántos procesos aparecen?',opts:['Uno por función del sistema','Tantos como entidades externas haya','Exactamente uno: el sistema completo','Depende de la complejidad del sistema'],ans:2,exp:'El diagrama de contexto (nivel 0) representa todo el sistema como UNA SOLA BURBUJA (proceso), mostrando las entidades externas y los flujos de datos entre ellas y el sistema. Es el nivel más abstracto.'},
-  {cat:'DFD',q:'¿Qué símbolo representa un almacén de datos en un DFD?',opts:['Un círculo o elipse','Un rectángulo con esquinas redondeadas','Dos líneas horizontales paralelas','Un rombo'],ans:2,exp:'El almacén de datos en un DFD se representa con dos líneas horizontales paralelas (═════) con el nombre entre ellas. Representa datos almacenados que pueden ser consultados o modificados por los procesos.'},
-  {cat:'Pruebas',q:'¿Qué tipo de prueba puede aplicar el cliente sin conocer la estructura interna del programa?',opts:['Caja transparente','Caja blanca','Caja negra','Prueba de integración ascendente'],ans:2,exp:'Las pruebas de caja negra ignoran la estructura interna. Solo verifican la especificación entrada-salida. El cliente puede aplicarlas sin conocer el código. Métodos: clases de equivalencia y análisis de valores límite.'},
-  {cat:'Pruebas',q:'En la integración descendente, ¿qué son los módulos sustitutos?',opts:['Versiones definitivas de los módulos','Módulos temporales que simulan módulos no desarrollados aún','Módulos que gestionan la ejecución de niveles inferiores','Copias de seguridad del código'],ans:1,exp:'En integración descendente se parte del módulo principal y se usan módulos sustitutos (stubs) que simulan los módulos de nivel inferior aún no desarrollados. Se van reemplazando por los módulos reales progresivamente.'},
-  {cat:'Pruebas',q:'Una prueba tiene éxito cuando:',opts:['El programa no produce ningún error','Descubre un error en el software','Se ejecutan todos los caminos del código','El cliente valida el resultado'],ans:1,exp:'Una prueba tiene éxito si DESCUBRE un error, porque su objetivo es encontrar defectos. Si no aparecen errores no se garantiza la calidad: pueden existir errores que las pruebas no han cubierto.'},
-  {cat:'Calidad y documentos',q:'¿Qué nivel del modelo CMMI indica que los procesos están definidos y documentados formalmente?',opts:['Nivel 1: Inicial','Nivel 2: Repetible','Nivel 3: Definido','Nivel 4: Gestionado'],ans:2,exp:'CMMI niveles: 0=Inexistente, 1=Inicial (caótico), 2=Repetible (básico controlado), 3=Definido (procesos documentados y estándar), 4=Gestionado (medido), 5=Optimizado (mejora continua).'},
-  {cat:'Calidad y documentos',q:'¿Qué documento recoge los resultados del análisis especificando QUÉ debe hacer el sistema?',opts:['SDD — Documento de Diseño','SRD — Documento de Requisitos','SQAP — Plan de Garantía de Calidad','DDD — Diseño Detallado'],ans:1,exp:'SRD (Software Requirements Document): producto de la fase de análisis. Especifica QUÉ debe hacer el sistema sin entrar en CÓMO lo hace. Es el punto de partida del diseñador y fija las condiciones de validación.'},
-  {cat:'Calidad y documentos',q:'¿Cuál de estos NO es un factor de calidad del modelo de McCall?',opts:['Corrección','Fiabilidad','Velocidad de desarrollo','Reusabilidad'],ans:2,exp:'Los factores de McCall incluyen: Corrección, Fiabilidad, Seguridad, Facilidad de uso, Mantenibilidad, Flexibilidad, Facilidad de prueba, Transportabilidad, Reusabilidad, Interoperabilidad, Eficiencia. Velocidad de desarrollo no es uno de ellos.'},
-  {cat:'Calidad y documentos',q:'¿Qué tipo de mantenimiento corrige errores no detectados durante el desarrollo inicial?',opts:['Mantenimiento adaptativo','Mantenimiento perfectivo','Mantenimiento correctivo','Reingeniería'],ans:2,exp:'Mantenimiento correctivo: corrige errores que no fueron detectados ni eliminados durante el desarrollo inicial. Adaptativo: adapta a cambios de entorno. Perfectivo: mejora funcionalidades para mantenerse competitivo.'},
-  {cat:'Conceptos generales',q:'¿Cuál de estos es un MITO del software (afirmación falsa)?',opts:['El análisis y diseño son etapas fundamentales','El software incluye documentación y bases de datos','Es natural que el software contenga errores','Las pruebas no garantizan ausencia de errores'],ans:2,exp:'"Es natural que el software contenga errores" es un mito del software. No es admisible que los productos software siempre contengan errores, aunque desgraciadamente ocurre con frecuencia en la práctica.'},
-  {cat:'Conceptos generales',q:'¿Qué característica especial tiene el software frente a cualquier producto físico?',opts:['Es más caro de producir que cualquier producto físico','Una vez diseñado se puede replicar fácilmente sin proceso de fabricación','Siempre requiere hardware específico para funcionar','Su desarrollo no requiere trabajo en equipo'],ans:1,exp:'El software tiene una particularidad única: una vez diseñado, se puede replicar con tremenda facilidad sin necesidad de un proceso de fabricación propiamente dicho. Esto lo diferencia radicalmente de cualquier producto físico.'},
-  {cat:'Conceptos generales',q:'¿Qué es la reingeniería del software?',opts:['Desarrollar el software desde cero con nuevas tecnologías','Obtener documentación de diseño a partir del código existente para reorganizarlo','Probar el software con datos reales de producción','Migrar el software a un nuevo sistema operativo'],ans:1,exp:'La reingeniería consiste en tomar el código fuente existente y, a partir de él, construir documentación de diseño (estructura modular, dependencias entre módulos). El objetivo es obtener un sistema bien organizado y documentado a partir de uno deficiente.'},
-  {cat:'Diseño modular',q:'¿Cuál de estas opciones describe mejor la abstracción funcional?',opts:['Crear nuevos tipos de datos que encapsulan estructura y operaciones','Crear funciones o procedimientos parametrizados que ocultan su implementación','Definir una máquina virtual con comportamiento formal','Heredar operaciones de una clase padre'],ans:1,exp:'La abstracción funcional crea expresiones o acciones parametrizadas mediante funciones o procedimientos. El usuario llama a la función sin conocer cómo está implementada internamente.'},
-  {cat:'Diseño modular',q:'¿Qué ventaja principal ofrece la ocultación de información en el diseño modular?',opts:['Hace el código más corto','Facilita la depuración y el mantenimiento al aislar los módulos','Permite reutilizar módulos sin modificarlos','Reduce el número total de módulos del sistema'],ans:1,exp:'La ocultación facilita: depuración (más fácil detectar qué módulo falla) y mantenimiento (modificar un módulo no afecta a los demás, porque sus detalles internos están ocultos). Se ocultaTodo lo que puede cambiar en el futuro.'},
-  {cat:'UML — clases',q:'En el diagrama de clases de las partículas elementales, ¿por qué el atributo "spin" se coloca en la clase Partícula y no en sus subclases?',opts:['Porque solo los leptones tienen spin','Porque es más corto escribirlo una vez','Porque todas las partículas tienen spin, aunque cada subclase restringe su valor permitido','Porque el spin es un método, no un atributo'],ans:2,exp:'El atributo spin va en Partícula porque todas las partículas lo tienen (principio de herencia: atributo común al padre). Cada subclase restringe el valor: Leptón=1/2·h, Mesón=entero, Barión=semientero. El atributo no se duplica.'},
-  {cat:'Modelo E-R',q:'En el modelo E-R de la clínica dental, ¿qué tipo de relación hay entre Tratamiento y Proveedor?',opts:['1:1 — se fusionan en una tabla','1:N — clave foránea en Tratamiento','N:M — tabla intermedia Suministro','No hay relación entre ellos'],ans:2,exp:'Un tratamiento puede usar materiales de varios proveedores, y un proveedor puede suministrar para varios tratamientos. Eso es N:M y requiere una tabla intermedia: Suministro(idTratamiento FK, idProveedor FK, material, cantidad).'},
+{cat:'Ciclos de vida',g:'teoria',q:'¿Qué modelo incorpora el análisis de riesgo como cuadrante propio?',opts:['Cascada','Ciclo en V','Modelo en espiral','XP'],ans:2,exp:'El espiral tiene 4 cuadrantes: Planificación, Análisis de riesgo, Ingeniería, Evaluación. Refinamiento del modelo evolutivo guiado por el riesgo.'},
+{cat:'Ciclos de vida',g:'teoria',q:'En el ciclo en V, ¿qué diferencia la verificación de la validación?',opts:['Son sinónimos','Verificación=¿cumple especificación? Validación=¿cumple al usuario?','La verificación la hace el cliente','Verificación al final, validación al principio'],ans:1,exp:'Verificación: ¿construimos el producto correctamente? (cumple especificación técnica). Validación: ¿construimos el producto correcto? (cumple necesidades reales del usuario).'},
+{cat:'Ciclos de vida',g:'teoria',q:'¿Cuál es la diferencia entre prototipo rápido y evolutivo?',opts:['El rápido usa hardware más potente','El rápido se desecha; el evolutivo crece hasta ser el sistema final','El evolutivo es más barato','No hay diferencia'],ans:1,exp:'Prototipo rápido (maqueta): se desecha tras ganar experiencia en análisis/diseño. Evolutivo: se desarrolla sobre el mismo soporte que el sistema final y crece iterativamente.'},
+{cat:'Ciclos de vida',g:'teoria',q:'¿Cuáles son los 4 valores de XP?',opts:['Análisis, Diseño, Codificación, Pruebas','Sencillez, Comunicación, Retroalimentación, Valentía','Rapidez, Calidad, Costo, Tiempo','Planificación, Riesgo, Ingeniería, Evaluación'],ans:1,exp:'XP: Sencillez (solo lo pedido), Comunicación (equipo+cliente), Retroalimentación (ciclos cortos), Valentía (afrontar recodificación).'},
+{cat:'Ciclos de vida',g:'teoria',q:'En cascada, ¿cuándo puede empezar la siguiente fase?',opts:['Cuando el equipo esté listo','Al terminar completamente la fase anterior','Cuando el cliente lo apruebe','En cualquier momento'],ans:1,exp:'El modelo en cascada obliga a terminar cada fase completamente antes de comenzar la siguiente. Si se detectan errores hay que corregirlos en esa fase y en todos los puntos anteriores.'},
+{cat:'Ciclos de vida',g:'teoria',q:'¿Qué tipo de mantenimiento adapta el software a cambios en el entorno hardware/software?',opts:['Correctivo','Adaptativo','Perfectivo','Reingeniería'],ans:1,exp:'Mantenimiento adaptativo: adapta el software a cambios en el entorno. Correctivo=corrige errores. Perfectivo=añade mejoras. Reingeniería=reconstruye documentación desde el código.'},
+{cat:'Ciclos de vida',g:'teoria',q:'¿Cuántos cuadrantes tiene el modelo en espiral?',opts:['3: Análisis, Diseño, Pruebas','4: Planificación, Análisis de riesgo, Ingeniería, Evaluación','2: Desarrollo y Pruebas','5: los del ciclo en cascada más Riesgo'],ans:1,exp:'El modelo en espiral tiene 4 cuadrantes en ejes cartesianos: Planificación (arriba izq), Análisis de riesgo (arriba der), Ingeniería (abajo der), Evaluación (abajo izq).'},
+{cat:'Diseño modular',g:'disenho',q:'¿Qué tipo de acoplamiento ocurre cuando un módulo puede modificar el código de otro?',opts:['Acoplamiento de datos','Acoplamiento por etiqueta','Acoplamiento por contenido','Acoplamiento externo'],ans:2,exp:'El acoplamiento por contenido es el peor: un módulo puede modificar datos internos e incluso el código de otro módulo. Solo posible con ensamblador. Siempre debe evitarse.'},
+{cat:'Diseño modular',g:'disenho',q:'¿Qué nivel de cohesión tiene un módulo cuyos elementos no tienen ninguna relación?',opts:['Abstraccional','Funcional','Coincidental','Temporal'],ans:2,exp:'La cohesión coincidental es la peor: los elementos del módulo no tienen ninguna relación entre sí. Se agruparon por casualidad.'},
+{cat:'Diseño modular',g:'disenho',q:'¿Cuál es el nivel más alto (mejor) de cohesión?',opts:['Funcional','Abstraccional','Secuencial','Comunicación'],ans:1,exp:'Escala de mayor a menor: Abstraccional > Funcional > Secuencial > Comunicación > Temporal > Lógica > Coincidental. La abstraccional encapsula datos + operaciones como unidad semántica completa.'},
+{cat:'Diseño modular',g:'disenho',q:'¿Qué significa acoplamiento débil?',opts:['Los módulos nunca se llaman','Solo se intercambian los datos estrictamente necesarios','Comparten una zona común','Un módulo modifica el código del otro'],ans:1,exp:'Acoplamiento débil: el intercambio entre módulos se hace solo con los datos que se necesitan. Cualquier modificación en un módulo afecta muy poco o nada al resto.'},
+{cat:'Diseño modular',g:'disenho',q:'Un módulo que agrupa elementos que se ejecutan en el mismo instante tiene cohesión:',opts:['Funcional','Secuencial','Temporal','Coincidental'],ans:2,exp:'Cohesión temporal: agrupa elementos que se ejecutan en el mismo momento. No es funcional porque hace varias cosas diferentes aunque relacionadas por el tiempo.'},
+{cat:'Diseño modular',g:'disenho',q:'La genericidad en C++ se implementa mediante:',opts:['Herencia múltiple','Interfaces abstractas','Plantillas (templates)','Sobrecarga de operadores'],ans:2,exp:'La genericidad en C++ usa templates. Ejemplo: template<typename T> class Lista crea una lista que funciona para cualquier tipo T.'},
+{cat:'Diseño modular',g:'disenho',q:'¿Qué es la reingeniería del software?',opts:['Desarrollar desde cero','Obtener documentación de diseño a partir del código existente','Probar con datos reales','Migrar a nuevo sistema operativo'],ans:1,exp:'La reingeniería toma el código existente y construye documentación de diseño (estructura modular, dependencias). Objetivo: obtener un sistema bien organizado a partir de uno deficiente.'},
+{cat:'Diseño modular',g:'disenho',q:'¿Qué ventaja principal tiene la ocultación de información?',opts:['Hace el código más corto','Facilita depuración y mantenimiento al aislar los módulos','Reduce el número total de módulos','Aumenta la velocidad de ejecución'],ans:1,exp:'La ocultación facilita: depuración (más fácil detectar qué módulo falla) y mantenimiento (modificar un módulo no afecta a los demás porque sus detalles internos están ocultos).'},
+{cat:'UML — Clases',g:'uml',q:'En UML, ¿cuándo se usa el símbolo ◆── (rombo relleno)?',opts:['Asociación simple','Agregación','Composición: parte no existe sin el todo','Herencia'],ans:2,exp:'Rombo relleno (◆) = composición: la parte tiene el mismo ciclo de vida que el todo. Si el todo se destruye, la parte también. Rombo vacío (◇) = agregación: la parte puede existir independientemente.'},
+{cat:'UML — Clases',g:'uml',q:'¿Cuándo se usa herencia en UML?',opts:['Cuando A contiene varios B','Cuando B ES UN TIPO DE A','Cuando A y B comparten datos','Cuando A usa B puntualmente'],ans:1,exp:'Herencia (──▷ flecha hueca) se usa cuando B ES UN TIPO DE A. Los hijos heredan estructura y operaciones del padre.'},
+{cat:'UML — Clases',g:'uml',q:'¿Qué multiplicidad indica "al menos uno"?',opts:['0..*','0..1','1..*','*'],ans:2,exp:'1..* = uno o varios: obligatoriamente al menos uno, sin límite superior. 0..* = cero o más. 0..1 = opcional. * equivale a 0..*.'},
+{cat:'UML — Clases',g:'uml',q:'¿Por qué Casilla→Propiedad es herencia en el Monopoly?',opts:['Porque la propiedad contiene casillas','Porque Propiedad ES UN TIPO DE Casilla','Porque el tablero tiene propiedades','Porque hay 28 propiedades y 40 casillas'],ans:1,exp:'Propiedad ES UN TIPO DE Casilla (herencia). Además existen otros tipos de casilla: cárcel, salida, impuestos... La herencia permite que todos sean Casilla y se traten igual en el tablero.'},
+{cat:'UML — Clases',g:'uml',q:'¿Por qué "spin" va en la clase Partícula y no en sus subclases?',opts:['Para que el diagrama quede limpio','Porque todas las partículas tienen spin; cada subclase restringe su valor','Solo los leptones tienen spin','Es un método, no un atributo'],ans:1,exp:'spin va en Partícula porque TODAS las partículas lo tienen. Lo que varía es el valor permitido en cada subclase: Leptón=1/2·h, Mesón=entero, Barión=semientero.'},
+{cat:'UML — Clases',g:'uml',q:'¿Qué diferencia composición ◆ de agregación ◇?',opts:['Solo el color del rombo','En composición la parte no puede existir sin el todo; en agregación sí puede','En agregación la cardinalidad es 1:1','No hay diferencia real'],ans:1,exp:'Composición ◆: parte no existe sin el todo. Ej: Edificio no existe sin Propiedad. Agregación ◇: parte puede existir independientemente. Ej: Propiedad puede existir aunque no pertenezca a ningún Grupo.'},
+{cat:'UML — Clases',g:'uml',q:'¿Dónde se coloca la multiplicidad en una relación UML?',opts:['Solo en el extremo del muchos','Solo en el extremo del uno','En los DOS extremos','Solo si es N:M'],ans:2,exp:'Las multiplicidades van SIEMPRE en los DOS extremos. Olvidarlas es uno de los errores más frecuentes en el examen.'},
+{cat:'UML — Clases',g:'uml',q:'¿Qué significa «abstract» sobre una clase UML?',opts:['Tiene pocos atributos','No puede instanciarse directamente; solo sus subclases','No tiene operaciones','Es de solo lectura'],ans:1,exp:'Una clase abstracta no puede instanciarse directamente. Solo sirve de base para subclases. Ejemplo: Partícula es abstracta porque nunca creamos "una partícula genérica".'},
+{cat:'UML — Clases',g:'uml',q:'¿Por qué en Ajedrez Tablero→Casilla es composición?',opts:['Porque hay 64 casillas','Porque las casillas no tienen sentido ni existen fuera del tablero','Porque es más fácil de dibujar','Porque el tablero es cuadrado'],ans:1,exp:'Tablero◆──64──▶Casilla es composición porque las casillas no tienen sentido ni existen fuera del tablero. Al borrar el tablero desaparecen sus casillas y fichas.'},
+{cat:'UML — Estados',g:'uml',q:'¿Cómo se representa el estado inicial en UML?',opts:['Rectángulo redondeado','Círculo relleno negro','Rombo','Elipse vacía'],ans:1,exp:'Estado inicial = círculo relleno negro (●). Estados intermedios = rectángulos con bordes redondeados. Estado final = círculo con círculo relleno dentro (◉).'},
+{cat:'UML — Estados',g:'uml',q:'¿Qué ocurre al pulsar el botón de la puerta de garaje mientras está en movimiento?',opts:['No ocurre nada','Sigue hasta completar el movimiento','La puerta se para','Invierte el movimiento inmediatamente'],ans:2,exp:'Al pulsar el botón con la puerta en movimiento (Abriendo o Cerrando), pasa al estado Parada. Desde Parada, el siguiente botón la moverá en sentido contrario.'},
+{cat:'UML — Casos de uso',g:'uml',q:'En UML, <<include>> entre casos de uso significa:',opts:['El caso incluido es opcional','El caso base SIEMPRE ejecuta el caso incluido (obligatorio)','Un actor hereda de otro','Los dos casos son intercambiables'],ans:1,exp:'<<include>> = dependencia obligatoria: el caso base siempre ejecuta el incluido. <<extends>> = opcional: solo ocurre bajo ciertas condiciones.'},
+{cat:'UML — Secuencia',g:'uml',q:'En un diagrama de secuencia, ¿qué representa la dimensión vertical?',opts:['Los diferentes objetos','El tiempo: mensajes superiores ocurren antes','La importancia del mensaje','El número de llamadas'],ans:1,exp:'Vertical = tiempo (fluye hacia abajo). Horizontal = instancias de objetos con líneas de vida discontinuas.'},
+{cat:'Modelo E-R',g:'er',q:'¿Cómo se traduce una relación N:M a tablas?',opts:['Clave foránea en el lado N','Fusión de las dos entidades','Tabla intermedia con las PKs de ambas','No se puede representar'],ans:2,exp:'Relaciones N:M → tabla intermedia (de unión) con las PKs de ambas entidades como PK compuesta, más atributos propios de la relación.'},
+{cat:'Modelo E-R',g:'er',q:'¿En qué consiste la 3ª Forma Normal?',opts:['Valor único por columna','En 2FN + atributos no clave dependen directamente de la PK, sin dependencias transitivas','Tiene clave primaria única','No tiene claves foráneas'],ans:1,exp:'3FN: en 2FN + ningún atributo no clave depende de otro atributo no clave (elimina dependencias transitivas). Todo atributo no clave depende directamente y solo de la clave primaria.'},
+{cat:'Modelo E-R',g:'er',q:'¿Qué significa (A) en el diccionario de datos?',opts:['A es obligatorio','A se repite indefinidamente','A es opcional','A o B'],ans:2,exp:'(A) = A es opcional, puede aparecer o no. {A} = repetición indefinida. {A}N = repetición N veces. [A|B] = selección.'},
+{cat:'Modelo E-R',g:'er',q:'¿Qué relación hay entre Tratamiento y Proveedor en la clínica dental?',opts:['1:1 — se fusionan','1:N — clave foránea en Tratamiento','N:M — tabla intermedia Suministro','No hay relación'],ans:2,exp:'N:M: un tratamiento usa materiales de varios proveedores y un proveedor suministra para varios tratamientos → tabla Suministro(idTratamiento FK, idProveedor FK, material, cantidad).'},
+{cat:'Modelo E-R',g:'er',q:'Si la cardinalidad es 1:N entre Cliente y Pedido, ¿cómo se traduce a tablas?',opts:['Tabla intermedia','PK de Cliente va como FK en tabla Pedido','Fusión de ambas tablas','PK de Pedido va en tabla Cliente'],ans:1,exp:'1:N: la clave primaria del "1" (Cliente) va como clave foránea en la tabla del "N" (Pedido). Pedido(idPedido, idCliente FK, fecha, ...).'},
+{cat:'Modelo E-R',g:'er',q:'¿Qué elemento E-R se representa con una elipse?',opts:['Entidad','Relación','Atributo','Clave foránea'],ans:2,exp:'E-R: entidades = rectángulos, relaciones = rombos, atributos = elipses. Los atributos clave primaria llevan el nombre subrayado.'},
+{cat:'Modelo E-R',g:'er',q:'¿Cuál es la diferencia entre 1FN y 2FN?',opts:['Son equivalentes','1FN=valor único por columna; 2FN=dependencia de TODA la clave primaria','2FN solo aplica con clave compuesta','1FN exige clave primaria; 2FN no'],ans:1,exp:'1FN: cada columna tiene un valor único (no colecciones). 2FN: en 1FN + todo atributo no clave depende de TODA la clave primaria (elimina dependencias parciales).'},
+{cat:'DFD',g:'er',q:'¿Cuál es la regla de balanceo en los DFD?',opts:['Cada proceso tiene el mismo número de flujos','Los flujos al explotar un proceso coinciden exactamente con los flujos originales de ese proceso','No hay almacenes en nivel 0','Todas las burbujas tienen al menos 2 entradas'],ans:1,exp:'Balanceo: al explotar un proceso en un DFD de nivel inferior, los flujos de entrada y salida deben ser exactamente los mismos que tenía el proceso en el nivel superior.'},
+{cat:'DFD',g:'er',q:'¿Cuántos procesos aparecen en el diagrama de contexto (nivel 0)?',opts:['Uno por función','Tantos como entidades externas','Exactamente uno: el sistema completo','Depende de la complejidad'],ans:2,exp:'El diagrama de contexto (nivel 0) representa todo el sistema como UNA SOLA BURBUJA, mostrando las entidades externas y flujos. Es el nivel de abstracción más alto.'},
+{cat:'DFD',g:'er',q:'¿Pueden las entidades externas conectarse directamente con almacenes en un DFD?',opts:['Sí, siempre','No: solo interactúan con procesos, nunca directamente con almacenes','Solo en nivel 0','Solo si la cardinalidad lo permite'],ans:1,exp:'En un DFD, las entidades externas solo pueden conectarse con procesos (burbujas), nunca directamente con almacenes. Los almacenes son internos al sistema.'},
+{cat:'DFD',g:'er',q:'¿Qué debe indicarse en cada flecha de un DFD?',opts:['Solo la dirección','El nombre del dato que fluye','La velocidad de transferencia','El proceso que lo genera'],ans:1,exp:'Cada flujo (flecha) debe llevar el nombre que identifica los datos que fluyen. Sin nombre el diagrama es ambiguo.'},
+{cat:'Pruebas',g:'pruebas',q:'¿Qué tipo de prueba puede usar el cliente sin conocer la estructura interna?',opts:['Caja transparente','Caja blanca','Caja negra','Integración ascendente'],ans:2,exp:'Caja negra: ignora la estructura interna. Solo verifica especificación entrada-salida. Métodos: clases de equivalencia y análisis de valores límite.'},
+{cat:'Pruebas',g:'pruebas',q:'¿Qué son los módulos sustitutos (stubs)?',opts:['Versiones definitivas','Módulos temporales que simulan módulos de nivel inferior aún no desarrollados','Copias de seguridad','Módulos de prueba automatizados'],ans:1,exp:'En integración descendente se usan stubs (sustitutos) que simulan módulos de nivel inferior aún no implementados. Se van reemplazando progresivamente por los módulos reales.'},
+{cat:'Pruebas',g:'pruebas',q:'¿Cuándo tiene éxito una prueba?',opts:['El programa no produce errores','Descubre un error en el software','Todos los caminos del código se ejecutan','El cliente valida el resultado'],ans:1,exp:'Una prueba tiene éxito cuando DESCUBRE un error. Su objetivo es encontrar defectos. Si no aparecen errores no se garantiza la calidad.'},
+{cat:'Pruebas',g:'pruebas',q:'¿Qué ventaja tiene la integración ascendente frente a la descendente?',opts:['Se ven posibilidades globales desde el principio','Facilita trabajo en paralelo y ensayo de situaciones especiales','Requiere menos sustitutos','Es más rápida siempre'],ans:1,exp:'Ascendente facilita: trabajo en paralelo (todos los módulos hoja se codifican a la vez) y ensayo de situaciones especiales. Su inconveniente: difícil ver el sistema global hasta el final.'},
+{cat:'Pruebas',g:'pruebas',q:'¿Qué es la programación defensiva?',opts:['Programar con muchos comentarios','Cada módulo desconfía de sus datos de entrada y devuelve resultado correcto o indicación de fallo','Usar siempre tipos de datos seguros','Probar el código antes de entregarlo'],ans:1,exp:'Programación defensiva: cada módulo desconfía de los datos que recibe y comprueba su validez. Si son válidos devuelve el resultado correcto. Si no, devuelve indicación precisa del fallo.'},
+{cat:'Pruebas',g:'pruebas',q:'¿Qué prueba del sistema comprueba la capacidad de recuperarse ante fallos?',opts:['Prueba de seguridad','Prueba de resistencia','Prueba de recuperación','Prueba de rendimiento'],ans:2,exp:'Prueba de recuperación: comprueba la capacidad del sistema para recuperarse ante fallos. Seguridad=acceso no autorizado. Resistencia=situaciones extremas. Rendimiento=tiempos críticos.'},
+{cat:'Pruebas',g:'pruebas',q:'¿Qué diferencia hay entre defecto, fallo y error en software?',opts:['Son sinónimos','Defecto=errata en código; Fallo=comportamiento incorrecto; Error=estado inadmisible resultante','Error=errata; Defecto=comportamiento incorrecto','Solo se usan dos de estos términos'],ans:1,exp:'Defecto (bug): errata en el código, puede estar latente. Fallo: el defecto se activa y produce comportamiento incorrecto. Error: estado inadmisible del programa resultante de un fallo.'},
+{cat:'Calidad',g:'teoria',q:'¿Qué nivel CMMI indica procesos formalmente definidos y documentados?',opts:['Nivel 1: Inicial','Nivel 2: Repetible','Nivel 3: Definido','Nivel 4: Gestionado'],ans:2,exp:'CMMI: 1=Inicial (caótico), 2=Repetible (procesos básicos), 3=Definido (procesos formalmente documentados y estandarizados), 4=Gestionado (medido), 5=Optimizado (mejora continua).'},
+{cat:'Calidad',g:'teoria',q:'¿Cuál NO es un factor de calidad de McCall?',opts:['Corrección','Fiabilidad','Velocidad de desarrollo','Reusabilidad'],ans:2,exp:'Factores McCall: Corrección, Fiabilidad, Seguridad, Facilidad de uso, Mantenibilidad, Flexibilidad, Facilidad de prueba, Transportabilidad, Reusabilidad, Interoperabilidad, Eficiencia. Velocidad de desarrollo no es factor de calidad del producto.'},
+{cat:'Calidad',g:'teoria',q:'¿Cuál es un MITO del software?',opts:['El análisis y diseño son fundamentales','El software incluye documentación','Es natural que el software contenga errores','Las pruebas no garantizan ausencia de errores'],ans:2,exp:'"Es natural que el software contenga errores" es un mito. No es admisible, aunque ocurra frecuentemente. El software erróneo no puede simplemente sustituirse: todas las copias son iguales.'},
+{cat:'Calidad',g:'teoria',q:'¿Qué recoge el documento SQAP?',opts:['Los requisitos funcionales','El plan de garantía de calidad con organización, ciclo de vida, revisiones y pruebas','El diseño arquitectónico','Los casos de prueba'],ans:1,exp:'SQAP: organización de equipos, modelo de ciclo de vida, documentación requerida, revisiones y auditorías, organización de pruebas, y organización del mantenimiento.'},
+{cat:'Calidad',g:'teoria',q:'¿Quién debe realizar la revisión del producto software?',opts:['El autor del producto','El responsable del proyecto únicamente','Personas diferentes a los autores','El cliente del proyecto'],ans:2,exp:'Las revisiones deben hacerlas personas DIFERENTES a los autores. El grupo debe ser reducido, se revisa el producto (no el productor), y debe levantarse acta. Los autores tienen "ceguera de autor".'},
+{cat:'Calidad',g:'teoria',q:'¿Cuál es la particularidad única del software frente a productos físicos?',opts:['Es más caro de producir','Una vez diseñado se puede replicar sin proceso de fabricación propio','Siempre requiere hardware específico','Su desarrollo no requiere trabajo en equipo'],ans:1,exp:'El software tiene una particularidad única: una vez diseñado, se puede replicar con tremenda facilidad sin necesidad de un proceso de fabricación propiamente dicho.'},
+{cat:'Diseño modular',g:'disenho',q:'En el método de Abbott, ¿cómo se identifican las operaciones?',opts:['A partir de las clases ya identificadas','Subrayando los verbos del texto de especificación','Analizando los flujos de datos','Revisando los requisitos no funcionales'],ans:1,exp:'Abbott: sustantivos genéricos → tipos de datos; sustantivos → atributos; verbos o nombres de acciones → operaciones. Se crean listas de nombres y verbos, luego se organizan en abstracciones.'},
+{cat:'UML — Clases',g:'uml',q:'¿Por qué en la app de divisas UsuarioGratis y UsuarioPago heredan de Usuario?',opts:['Porque son exactamente iguales','Porque comparten atributos base pero tienen comportamiento diferente (publicidad)','Porque la herencia es la única relación posible','Porque tienen el mismo precio'],ans:1,exp:'Herencia correcta porque comparten atributos comunes (nombre, email, login) pero tienen comportamiento diferente: UsuarioGratis ve publicidad, UsuarioPago no. Eso se modela con herencia añadiendo lo específico en cada subclase.'},
+{cat:'UML — Clases',g:'uml',q:'¿Qué relación corresponde a <<include>> vs <<extends>> en casos de uso?',opts:['<<include>>=opcional; <<extends>>=obligatorio','<<include>>=obligatorio siempre; <<extends>>=opcional bajo condición','Son equivalentes','<<include>> es para actores; <<extends>> para casos de uso'],ans:1,exp:'<<include>>: el caso incluido SIEMPRE se ejecuta (obligatorio). <<extends>>: solo añade comportamiento al base bajo ciertas condiciones específicas (opcional).'},
+{cat:'Calidad',g:'teoria',q:'¿Qué documento especifica el QUÉ debe hacer el sistema?',opts:['SDD — Documento de Diseño','SRD — Documento de Requisitos','SQAP — Plan de Calidad','DDD — Diseño Detallado'],ans:1,exp:'SRD (Software Requirements Document): producto de la fase de análisis. Especifica QUÉ debe hacer el sistema sin entrar en CÓMO lo hace. Es el punto de partida del diseñador.'},
+{cat:'Ciclos de vida',g:'teoria',q:'¿Qué es la configuración de software?',opts:['La instalación del sistema en el cliente','La manera en que los elementos se combinan para construir el producto software organizado','El conjunto de casos de prueba','Los requisitos no funcionales'],ans:1,exp:'La configuración de software se refiere a cómo los elementos (documentos, código, pruebas, manuales) se combinan para construir el producto software organizado. La gestión de configuración incluye: control de versiones y control de cambios.'},
+{cat:'Diseño modular',g:'disenho',q:'¿Cuál es el objetivo fundamental del diseño modular?',opts:['Conseguir el mayor número posible de módulos','Conseguir un sistema mantenible con acoplamiento débil y cohesión alta','Minimizar el número de líneas de código','Maximizar la velocidad de ejecución'],ans:1,exp:'El objetivo fundamental es conseguir un sistema mantenible. Solo en casos excepcionales se sacrifica este objetivo para lograr mayor velocidad o menor tamaño. Acoplamiento débil + cohesión alta es la forma de lograrlo.'},
 ];
 
-let pool=[],qi=0,score=0,quizStarted=false;
+let pool=[],qi=0,score=0,quizStarted=false,currentMode='all';
 const TOTAL=15;
-
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
+function setMode(m,btn){currentMode=m;document.querySelectorAll('.qmbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');startQuiz();}
 function startQuiz(){
   quizStarted=true;
-  pool=shuffle([...BANK]).slice(0,TOTAL);
+  let src=currentMode==='all'?BANK:BANK.filter(q=>q.g===currentMode);
+  if(src.length<TOTAL)src=[...shuffle([...BANK])].slice(0,TOTAL*2);
+  pool=shuffle([...src]).slice(0,TOTAL);
   qi=0;score=0;
   document.getElementById('qres').style.display='none';
   document.getElementById('qcard').style.display='block';
   showQ();
 }
-
 function showQ(){
   document.getElementById('qpf').style.width=(qi/TOTAL*100)+'%';
   document.getElementById('qcnt').textContent='Pregunta '+(qi+1)+' de '+TOTAL;
@@ -925,34 +983,19 @@ function showQ(){
   document.getElementById('qq').textContent=q.q;
   const os=document.getElementById('qos');
   os.innerHTML='';
-  q.opts.forEach((o,i)=>{
-    const b=document.createElement('button');
-    b.className='qo';b.textContent=o;
-    b.onclick=()=>answer(i);
-    os.appendChild(b);
-  });
-  const fb=document.getElementById('qfb');
-  fb.className='qfb';fb.textContent='';
+  q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='qo';b.textContent=o;b.onclick=()=>answer(i);os.appendChild(b);});
+  document.getElementById('qfb').className='qfb';
   document.getElementById('qnx').className='qnx';
 }
-
 function answer(i){
   const q=pool[qi];
   document.querySelectorAll('.qo').forEach(b=>b.disabled=true);
   document.querySelectorAll('.qo')[q.ans].classList.add('correct');
   const fb=document.getElementById('qfb');
-  if(i===q.ans){
-    score++;
-    fb.textContent='✓ Correcto. '+q.exp;
-    fb.className='qfb show ok';
-  } else {
-    document.querySelectorAll('.qo')[i].classList.add('wrong');
-    fb.textContent='✗ Incorrecto. '+q.exp;
-    fb.className='qfb show ko';
-  }
+  if(i===q.ans){score++;fb.textContent='✓ Correcto. '+q.exp;fb.className='qfb show ok';}
+  else{document.querySelectorAll('.qo')[i].classList.add('wrong');fb.textContent='✗ Incorrecto. '+q.exp;fb.className='qfb show ko';}
   document.getElementById('qnx').className='qnx show';
 }
-
 function nextQ(){
   qi++;
   if(qi>=TOTAL){
@@ -960,13 +1003,9 @@ function nextQ(){
     document.getElementById('qres').style.display='block';
     document.getElementById('rscore').textContent=score+'/'+TOTAL;
     const p=score/TOTAL;
-    document.getElementById('rmsg').textContent=
-      p>=0.9?'¡Excelente! Estás listo para el examen.':
-      p>=0.73?'Muy bien, repasa los temas en los que fallaste.':
-      p>=0.5?'Bien, pero necesitas repasar algunos conceptos más.':
-      'Dedica tiempo a la teoría y vuelve a intentarlo. ¡Tú puedes!';
+    document.getElementById('rmsg').textContent=p>=0.93?'¡Perfecto! Más que listo para el examen.':p>=0.8?'Muy bien. Repasa los temas en los que fallaste.':p>=0.6?'Bien, necesitas repasar más. ¡Casi!':'¡Ánimo! Dedica tiempo a la teoría y vuelve a intentarlo.';
     document.getElementById('qpf').style.width='100%';
-  } else showQ();
+  }else showQ();
 }
 </script>
 </body>
